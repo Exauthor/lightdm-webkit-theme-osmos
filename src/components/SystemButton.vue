@@ -5,7 +5,7 @@
 
 <script>
   import { mapState, mapGetters, mapMutations } from 'vuex'
-  import SystemIcons from '@/components/SystemIcons.vue';
+  import SystemIcons from '@/components/SystemIcons';
 
   export default {
     name: 'system-button',

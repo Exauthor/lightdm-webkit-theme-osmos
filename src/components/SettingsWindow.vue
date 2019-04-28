@@ -1,7 +1,10 @@
 <template lang='pug'>
   .settings-body
     .settings-child
-      h3 Themes 
+      .settings-title
+        h3 Themes 
+        .exit-button(@click='closeSettings')
+          system-icons(type='close' @click='closeSettings')
       .settings-themes
         .settings-themes-item(
           v-for='(theme, i) in themes' 
@@ -12,16 +15,26 @@
 </template>
 
 <script>
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations, mapGetters } from 'vuex'
+  import SystemIcons from '@/components/SystemIcons';
 
   export default {
     name: 'SettingsWindow',
     computed: {
       ...mapState(['themes']),
     },
+    components: {
+      SystemIcons,
+    },
     methods: {
       ...mapMutations(['SET']),
       ...mapMutations('system', ['CHANGE_SETTINGS']),
+      ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
+      closeSettings() {
+        console.log("CLICK")
+        this.SET({type: 'openSettings', items: false});
+        this.SET({type: 'openLogin', items: true});
+      },
       setImage(name) {
         try {
           var index = require(`@/assets/images/themes/${name}/index.png`);
@@ -32,6 +45,14 @@
       },
       changeTheme(theme) {
         this.SET({type: 'theme', items: theme});
+
+        this.CHANGE_SETTINGS({key: 'theme', value: theme})
+
+        document.documentElement.style
+          .setProperty('--color-active', theme.color.active);
+        
+        document.documentElement.style
+          .setProperty('--color-bg', theme.color.background);
       }
     }
   }
@@ -77,4 +98,17 @@
     padding 5px
     font-size 1.5rem
 
+.settings-title
+  display flex
+  justify-content space-between
+  align-items center
+  padding-bottom 10px
+
+.exit-button
+  width 5vmin
+  height 5vmin
+  max-width 25px
+  max-height 25px
+  margin-right 10px
+  cursor pointer
 </style>

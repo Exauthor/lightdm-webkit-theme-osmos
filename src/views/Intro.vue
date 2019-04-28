@@ -1,13 +1,19 @@
 <template lang='pug'>
   #intro
     #content
-      img(src='../assets/images/ArchLinux.svg')
+      system-icons(type='Arch Linux')
       h1 Welcome
 </template>
 
 <script>
+  import SystemIcons from '@/components/SystemIcons';
+  import { mapGetters } from 'vuex';
+
   export default {
     name: 'intro',
+    components: {
+      SystemIcons,
+    },
     mounted() {
       setTimeout(() => {
         this.$router.push({name: 'login'});

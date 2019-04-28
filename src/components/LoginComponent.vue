@@ -52,7 +52,10 @@
       }
     },
     computed: {
-      ...mapState(['openSettings', 'openLogin', 'theme']),
+      ...mapState(['openSettings', 'openLogin']),
+      ...mapState('system', {
+        theme: state => state.settings.theme
+      }),
       ...mapState('system', ['settings']),
       ...mapGetters(['CURRENT_THEME'])
     },
@@ -63,29 +66,27 @@
       ...mapMutations(['SET']),
       keyPress(event) {
         if (event.which === 13) {
-          if (!this.password) {
+          if (!this.openLogin) {
             this.SET({type: 'openLogin', items: true})
-            setTimeout(() => {
-              this.$nextTick(() => {
-                if (this.$refs.password) {
-                  this.$refs.password.focus();
-                }
-              })
-            }, 300)
+          } else if (this.openLogin) {
+            this.$nextTick(() => {
+              this.$refs.password.focus()
+            })
           } else {
             this.submit()
           }
         }
   
         if (event.key === "Escape") {
+          console.log("Escape")
           if (this.openSettings) {
-            this.SET({type: 'openSettings', items: false})
+            console.log("Close settings, open login")
             this.SET({type: 'openLogin', items: true})
+            this.SET({type: 'openSettings', items: false})
           } else if (this.openLogin) {
-            this.$nextTick(() => {
-              this.$refs.password.blur();
-            })
-          } 
+            console.log("Close login")
+            this.SET({type: 'openLogin', items: false})
+          }       
         }
       },
       submit() {

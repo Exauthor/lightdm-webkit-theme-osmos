@@ -63,6 +63,7 @@
     transform translateY(calc(100% - var(--height-sea))) scaleY(.7)
     opacity .5
     filter blur(4px)
+    clip rect(calc(var(--height-sea) * .5), calc(var(--height-sea) * 1.5), calc(var(--height-sea) * 1.5), 0)
     clip-path: polygon(0% calc(var(--height-sea) * .5), 100% calc(var(--height-sea) * .5), 100% 100%, 0% 100%)
 
 

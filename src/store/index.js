@@ -1,28 +1,20 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import System from './system'
+import Color from './color'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
     system: System,
+    color: Color,
   },
   state: {
     openSettings: false,
     openUsers: false,
     openDesktop: false,
     openLogin: true,
-    theme: {
-      name: 'Osmos',
-      component: 'osmos',
-      backgroundTheme: '',
-      fullscreen: true,
-      color: {
-        active: '#d35682',
-        background: '#1a0532'
-      },
-    },
     themes: [
       {
         name: 'Fire',
@@ -37,7 +29,7 @@ export default new Vuex.Store({
         component: 'osmos',
         fullscreen: true,
         color: {
-          active: '#d35682',
+          active: '#e13571',
           background: '#1a0532'
         },
       },
@@ -46,8 +38,8 @@ export default new Vuex.Store({
         component: 'space',
         fullscreen: true,
         color: {
-          active: '#f83649',
-          background: '#301f48'
+          active: '#04ded4',
+          background: '#19102e'
         },
       },
       {
@@ -55,8 +47,8 @@ export default new Vuex.Store({
         component: 'mars',
         fullscreen: true,
         color: {
-          active: '#f83649',
-          background: '#301f48'
+          active: '#FF3333',
+          background: '#301F48'
         },
       },
     ]
@@ -71,12 +63,17 @@ export default new Vuex.Store({
         }
       })[0] || state.themes[0]
 
-      //console.log(state.system.settings.theme)
+    },
+    GET: (state) => key => {
+      return state[key]
     }
   },
   mutations: {
     SET(state, {type, items}) {
       state[type] = items;
     },
+    CHANCHE_THEME(state, payload) {
+       
+    }
   },
 })

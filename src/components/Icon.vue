@@ -4,7 +4,7 @@
 </template>
 
 <script>
-  import SystemIcons from '@/components/SystemIcons.vue';
+  import SystemIcons from '@/components/SystemIcons';
   import { mapGetters } from 'vuex';
   
   export default {
@@ -63,6 +63,7 @@
 .icon-container
   width 10vmin
   height 10vmin
+  fill var(--color-active)
 
 .user-icon
   border-radius 50%
@@ -70,4 +71,6 @@
 svg
   width 100%
   height 100%
+
+
 </style>

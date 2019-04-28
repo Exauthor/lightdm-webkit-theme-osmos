@@ -2,7 +2,16 @@ export default {
   namespaced: true,
   state: {
     settings: {
-      theme: 'osmos',
+      theme: {
+        name: 'Osmos',
+        component: 'osmos',
+        backgroundTheme: '',
+        fullscreen: true,
+        color: {
+          active: '#d95986',
+          background: '#1a0532'
+        },
+      },
       user: lightdm.users[0],
       users: lightdm.users,
       desktop: lightdm.sessions[0],
@@ -42,7 +51,13 @@ export default {
         local.desktops = lightdm.sessions;
         local.users = lightdm.users;
 
-          state.settings = local
+
+        document.documentElement.style
+          .setProperty('--color-active', local.theme.color.active);
+        document.documentElement.style
+          .setProperty('--color-bg', local.theme.color.background);
+
+        state.settings = local
       } else {
         localStorage.setItem('settings', JSON.stringify(state.settings));
       }

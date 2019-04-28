@@ -20,7 +20,10 @@
       space
     },
     computed: {
-      ...mapState(['themes', 'theme', 'openLogin']),
+      ...mapState(['themes', 'openLogin']),
+      ...mapState('system', {
+        theme: state => state.settings.theme
+      }),
     },
   }
 </script>
