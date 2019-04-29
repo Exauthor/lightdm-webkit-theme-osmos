@@ -50,6 +50,9 @@ export default {
 
         local.desktops = lightdm.sessions;
         local.users = lightdm.users;
+        if (typeof local.theme !== 'object') {
+          local['theme'] = state.settings.theme
+        }
 
 
         document.documentElement.style

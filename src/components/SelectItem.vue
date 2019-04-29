@@ -1,6 +1,6 @@
 <template lang='pug'>
  .item(
-   :class='[(mode === "user") ? "user" : "desktop", (openUsers && mode === "user") ? "selected" : (openDesktop && mode === "desktop") ? "selected" : ""]' 
+   :class='[(mode === "user") ? "user" : "desktop", (openUsers && mode === "user") ? "selected" : (openDesktops && mode === "desktop") ? "selected" : ""]' 
    @click='openList')
    span.username(v-if="mode === 'user'") {{ item.username }}
    span.decktop(v-else) {{ item.name }}
@@ -10,7 +10,7 @@
        ul
          li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.username}}
    transition(name='menu-popover')
-     .item-list(v-if='openDesktop && mode === "desktop"')
+     .item-list(v-if='openDesktops && mode === "desktop"')
        ul
          li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.name}}
 </template>
@@ -22,7 +22,7 @@
     name: 'select-item',
     props: ['mode'],
     computed: {
-      ...mapState(['openUsers', 'openDesktop']),
+      ...mapState(['openUsers', 'openDesktops']),
       ...mapState('system', ['settings']),
       item:  {
         get() {
@@ -47,7 +47,7 @@
         if (this.mode === 'user') {
           this.SET({type: 'openUsers', items: !this.openUsers})
         } else {
-          this.SET({type: 'openDesktop', items: !this.openDesktop})
+          this.SET({type: 'openDesktops', items: !this.openDesktops})
         }
       },
     }

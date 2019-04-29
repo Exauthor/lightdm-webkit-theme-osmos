@@ -3,7 +3,7 @@
     .login-menu(v-if='openLogin' :class='[(theme.fullscreen) ? "fullscreen" : "", (!openLogin) ? "hide" : ""]')
       .login-form
         .login-form_user
-          Icon(mode='user' :item='settings.user')
+          icon(mode='user' :item='settings.user')
           form(@submit.prevent='submit')
             SelectItem(
               mode='user'
@@ -11,17 +11,17 @@
               :icon='false')
             input(type='password' ref='password' v-model='password' placeholder='password' :readonly='logging', :class="{'error': error}")
         .login-form_desktop
-          Icon(mode='desktop' :item='settings.desktop')
+          icon(mode='desktop' :item='settings.desktop')
           form
-            SelectItem(
+            select-item(
               mode='desktop'
               :item='settings.desktop'
               :icon='false')
         .login-bottom
-          SystemButton(type='shutdown')
-          SystemButton(type='restart')
-          SystemButton(type='suspend')
-          SystemButton(type='settings')
+          system-button(type='shutdown')
+          system-button(type='restart')
+          system-button(type='suspend')
+          system-button(type='settings')
 </template>
 
 <script>
@@ -52,7 +52,7 @@
       }
     },
     computed: {
-      ...mapState(['openSettings', 'openLogin']),
+      ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
       ...mapState('system', {
         theme: state => state.settings.theme
       }),
@@ -70,22 +70,21 @@
             this.SET({type: 'openLogin', items: true})
           } else if (this.openLogin) {
             this.$nextTick(() => {
-              this.$refs.password.focus()
+              this.$refs.password.focus();
             })
           } else {
-            this.submit()
+            this.submit();
           }
         }
   
         if (event.key === "Escape") {
-          console.log("Escape")
           if (this.openSettings) {
-            console.log("Close settings, open login")
-            this.SET({type: 'openLogin', items: true})
-            this.SET({type: 'openSettings', items: false})
+            this.SET({type: 'openLogin', items: true});
+            this.SET({type: 'openSettings', items: false});
           } else if (this.openLogin) {
-            console.log("Close login")
-            this.SET({type: 'openLogin', items: false})
+            this.SET({type: 'openLogin', items: false});
+            this.SET({type: 'openUsers', items: false});
+            this.SET({type: 'openDesktops', items: false});
           }       
         }
       },
@@ -134,7 +133,7 @@
 
 .login-form_user, .login-form_desktop
   display flex
-  justify-content space-between
+  justify-content space-around
 
 form
   width calc(100% - 12vmin)

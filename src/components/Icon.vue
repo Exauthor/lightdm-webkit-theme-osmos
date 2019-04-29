@@ -63,6 +63,8 @@
 .icon-container
   width 10vmin
   height 10vmin
+  max-width 9ch
+  max-height 9ch
   fill var(--color-active)
 
 .user-icon
@@ -71,6 +73,4 @@
 svg
   width 100%
   height 100%
-
-
 </style>

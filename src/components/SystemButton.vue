@@ -34,6 +34,8 @@
 .system-button
   width 4vmin
   height 4vmin
+  max-width 35px
+  max-height 35px
   overflow hidden
   svg
     width 100%

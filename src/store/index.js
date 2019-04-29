@@ -13,7 +13,7 @@ export default new Vuex.Store({
   state: {
     openSettings: false,
     openUsers: false,
-    openDesktop: false,
+    openDesktops: false,
     openLogin: true,
     themes: [
       {
@@ -72,8 +72,5 @@ export default new Vuex.Store({
     SET(state, {type, items}) {
       state[type] = items;
     },
-    CHANCHE_THEME(state, payload) {
-       
-    }
   },
 })
