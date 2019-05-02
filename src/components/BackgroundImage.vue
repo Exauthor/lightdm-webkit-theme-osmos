@@ -5,27 +5,29 @@
 </template> 
 
 <script>
-  import fire from '@/components/themes/fire';
-  import osmos from '@/components/themes/osmos';
-  import mars from '@/components/themes/mars';
-  import space from '@/components/themes/space';
-  import { mapState, mapGetters } from 'vuex'
+import fire from '@/components/themes/fire';
+import mars from '@/components/themes/mars';
+import { mapState, mapGetters } from 'vuex';
+import osmos from '@/components/themes/osmos';
+import space from '@/components/themes/space';
+import timeComponent from '@/components/themes/time';
 
-  export default {
-    name: 'background-image',
-    components: {
-      fire,
-      osmos,
-      mars,
-      space
-    },
-    computed: {
-      ...mapState(['themes', 'openLogin']),
-      ...mapState('system', {
-        theme: state => state.settings.theme
-      }),
-    },
-  }
+export default {
+  name: 'background-image',
+  components: {
+    timeComponent,
+    fire,
+    osmos,
+    mars,
+    space
+  },
+  computed: {
+    ...mapState(['themes', 'openLogin']),
+    ...mapState('system', {
+      theme: state => state.settings.theme
+    }),
+  },
+}
 </script>
 
 <style lang='stylus'>

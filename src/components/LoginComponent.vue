@@ -67,7 +67,7 @@
       keyPress(event) {
         if (event.which === 13) {
           if (!this.openLogin) {
-            this.SET({type: 'openLogin', items: true})
+            this.SET({type: 'openLogin', items: true});
           } else if (this.openLogin) {
             this.$nextTick(() => {
               this.$refs.password.focus();
@@ -91,7 +91,7 @@
       submit() {
   
         if (!this.password) {
-          return
+          return;
         }
   
         this.logging = true;

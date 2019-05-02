@@ -14,7 +14,7 @@ export default new Vuex.Store({
     openSettings: false,
     openUsers: false,
     openDesktops: false,
-    openLogin: true,
+    openLogin: false,
     themes: [
       {
         name: 'Fire',
@@ -48,7 +48,16 @@ export default new Vuex.Store({
         fullscreen: true,
         color: {
           active: '#FF3333',
-          background: '#301F48'
+          background: '#100e18'
+        },
+      },
+      {
+        name: 'Time',
+        component: 'timeComponent',
+        fullscreen: false,
+        color: {
+          active: '#04ded4',
+          background: '#13111c'
         },
       },
     ]

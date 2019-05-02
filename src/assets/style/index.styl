@@ -147,7 +147,7 @@ a
 .menu-popover-enter,
 .menu-popover-leave-to 
   opacity 0
-  transform: perspective(900px) rotate3d(70, 0, 0, -60deg);
+  transform: perspective(900px) rotate3d(70, 0, 0, -50deg);
 
 .menu-popover-enter-to,
 .menu-popover-leave 
@@ -156,7 +156,10 @@ a
 
 .menu-popover-enter-active,
 .menu-popover-leave-active 
-  transition opacity, transform .3s ease-out
+  transition .4s ease-out
+
+.menu-popover-leave-active 
+  transition .15s ease-out
 
 @keyframes slideOut {
   to {

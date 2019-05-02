@@ -9,7 +9,7 @@
         .settings-themes-item(
           v-for='(theme, i) in themes' 
           :key='i' 
-          :style='`background: url(${setImage(theme.component)}) no-repeat center/cover`'
+          :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
           @click='changeTheme(theme)')
           h4 {{theme.name}}
 </template>
@@ -31,7 +31,6 @@
       ...mapMutations('system', ['CHANGE_SETTINGS']),
       ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
       closeSettings() {
-        console.log("CLICK")
         this.SET({type: 'openSettings', items: false});
         this.SET({type: 'openLogin', items: true});
       },
