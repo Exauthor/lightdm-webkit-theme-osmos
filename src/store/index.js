@@ -56,7 +56,7 @@ export default new Vuex.Store({
         component: 'timeComponent',
         fullscreen: false,
         color: {
-          active: '#04ded4',
+          active: '#91e60a',
           background: '#13111c'
         },
       },
