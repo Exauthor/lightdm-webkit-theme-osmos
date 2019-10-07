@@ -4,7 +4,7 @@
       .settings-title
         h3 Themes 
         .exit-button(@click='closeSettings')
-          system-icons(type='close' @click='closeSettings')
+          SystemIcons(type='close' @click='closeSettings')
       .settings-themes
         .settings-themes-item(
           v-for='(theme, i) in themes' 

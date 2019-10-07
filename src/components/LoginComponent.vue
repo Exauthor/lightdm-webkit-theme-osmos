@@ -13,101 +13,101 @@
         .login-form_desktop
           icon(mode='desktop' :item='settings.desktop')
           form
-            select-item(
+            SelectItem(
               mode='desktop'
               :item='settings.desktop'
               :icon='false')
         .login-bottom
-          system-button(type='shutdown')
-          system-button(type='restart')
-          system-button(type='suspend')
-          system-button(type='settings')
+          SystemButton(type='shutdown')
+          SystemButton(type='restart')
+          SystemButton(type='suspend')
+          SystemButton(type='settings')
 </template>
 
 <script>
-  import SettingsWindow from '@/components/SettingsWindow';
-  import LoginComponent from '@/components/LoginComponent';
-  import SystemButton from '@/components/SystemButton';
-  import BackgroundImage from '@/components/BackgroundImage';
-  import SelectItem from '../components/SelectItem';
-  import Icon from '../components/Icon';
-  import { mapState, mapGetters, mapMutations } from 'vuex'
-  
-  export default {
-    name: 'LoginComponent',
-    components: {
-      BackgroundImage,
-      LoginComponent,
-      SettingsWindow,
-      SystemButton,
-      SelectItem,
-      Icon
-    },
-    data() {
-      return {
-        canSuspend: lightdm.can_suspend,
-        logging: false,
-        error: false,
-        password: ''
-      }
-    },
-    computed: {
-      ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
-      ...mapState('system', {
-        theme: state => state.settings.theme
-      }),
-      ...mapState('system', ['settings']),
-      ...mapGetters(['CURRENT_THEME'])
-    },
-    mounted() {
-      window.addEventListener('keyup', this.keyPress);
-    },
-    methods: {
-      ...mapMutations(['SET']),
-      keyPress(event) {
-        if (event.which === 13) {
-          if (!this.openLogin) {
-            this.SET({type: 'openLogin', items: true});
-          } else if (this.openLogin) {
-            this.$nextTick(() => {
-              this.$refs.password.focus();
-            })
-          } else {
-            this.submit();
-          }
-        }
-  
-        if (event.key === "Escape") {
-          if (this.openSettings) {
-            this.SET({type: 'openLogin', items: true});
-            this.SET({type: 'openSettings', items: false});
-          } else if (this.openLogin) {
-            this.SET({type: 'openLogin', items: false});
-            this.SET({type: 'openUsers', items: false});
-            this.SET({type: 'openDesktops', items: false});
-          }       
-        }
-      },
-      submit() {
-  
-        if (!this.password) {
-          return;
-        }
-  
-        this.logging = true;
-  
-        setTimeout(() => {
-          lightdm_login(this.settings.user.username, this.password, () => {
-            setTimeout(() => lightdm_start(this.settings.desktop.key), 400);
-          }, () => {
-            this.error = true;
-            this.password = '';
-            this.logging = false;
+import SettingsWindow from '@/components/SettingsWindow';
+import LoginComponent from '@/components/LoginComponent';
+import SystemButton from '@/components/SystemButton';
+import BackgroundImage from '@/components/BackgroundImage';
+import SelectItem from '../components/SelectItem';
+import Icon from '../components/Icon';
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
+export default {
+  name: 'LoginComponent',
+  components: {
+    BackgroundImage,
+    LoginComponent,
+    SettingsWindow,
+    SystemButton,
+    SelectItem,
+    Icon
+  },
+  data() {
+    return {
+      canSuspend: lightdm.can_suspend,
+      logging: false,
+      error: false,
+      password: ''
+    }
+  },
+  computed: {
+    ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
+    ...mapState('system', {
+      theme: state => state.settings.theme
+    }),
+    ...mapState('system', ['settings']),
+    ...mapGetters(['CURRENT_THEME'])
+  },
+  mounted() {
+    window.addEventListener('keyup', this.keyPress);
+  },
+  methods: {
+    ...mapMutations(['SET']),
+    keyPress(event) {
+      if (event.which === 13) {
+        if (!this.openLogin) {
+          this.SET({type: 'openLogin', items: true});
+        } else if (this.openLogin) {
+          this.$nextTick(() => {
+            this.$refs.password.focus();
           })
-        }, 150);
+        } else {
+          this.submit();
+        }
+      }
+
+      if (event.key === "Escape") {
+        if (this.openSettings) {
+          this.SET({type: 'openLogin', items: true});
+          this.SET({type: 'openSettings', items: false});
+        } else if (this.openLogin) {
+          this.SET({type: 'openLogin', items: false});
+          this.SET({type: 'openUsers', items: false});
+          this.SET({type: 'openDesktops', items: false});
+        }       
       }
     },
-  }
+    submit() {
+
+      if (!this.password) {
+        return;
+      }
+
+      this.logging = true;
+
+      setTimeout(() => {
+        lightdm_login(this.settings.user.username, this.password, () => {
+          setTimeout(() => lightdm_start(this.settings.desktop.key), 400);
+        }, () => {
+          this.error = true;
+          this.password = '';
+          this.logging = false;
+        })
+      }, 150);
+    }
+  },
+}
 </script>
 
 <style lang="stylus" scoped>

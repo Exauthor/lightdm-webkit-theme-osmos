@@ -4,13 +4,13 @@
    @click='openList')
    span.username(v-if="mode === 'user'") {{ item.username }}
    span.decktop(v-else) {{ item.name }}
-   .item_icon
+   .item__icon
    transition(name='menu-popover')
-     .item-list(v-if='openUsers && mode === "user"')
+     .item__list(v-if='openUsers && mode === "user"')
        ul
          li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.username}}
    transition(name='menu-popover')
-     .item-list(v-if='openDesktops && mode === "desktop"')
+     .item__list(v-if='openDesktops && mode === "desktop"')
        ul
          li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.name}}
 </template>
@@ -19,7 +19,7 @@
 import { mapState, mapMutations } from 'vuex'
 
 export default {
-  name: 'select-item',
+  name: 'SelectItem',
   props: ['mode'],
   computed: {
     ...mapState(['openUsers', 'openDesktops']),
@@ -58,31 +58,32 @@ export default {
 .item
   position relative
   text-align left
-  .item_icon
-    width 20px
-    height 20px
-    border-radius 15%
-    background var(--color-active)
-    float right
+  &.selected .item_icon
     &::before
-      content ""
-      display block
-      width 60%
-      height 0
-      border-left: 7px solid transparent;
-      border-right: 7px solid transparent;
-      border-bottom: 7px solid var(--color-bg);
-      transition .4s
-      transform translate(3px, 5px)
-  &.selected
-    .item_icon
-      &::before
-        transform translate(3px, 7px) rotate(180deg)
+      transform translate(3px, 7px) rotate(180deg)
+
+.item__icon
+  width 20px
+  height 20px
+  border-radius 15%
+  background var(--color-active)
+  float right
+  &::before
+    content ""
+    display block
+    width 60%
+    height 0
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--color-bg);
+    transition .4s
+    transform translate(3px, 5px)
 
 .username 
   text-align left
   font-size 1.2rem
-.item-list
+
+.item__list
   ul 
     position absolute
     width 100%

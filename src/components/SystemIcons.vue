@@ -78,17 +78,18 @@
 </template>
 
 <script>
-  import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
-  export default {
-    props: ['type'],
-    computed: {
-      ...mapState('system', {
-        theme: state => state.settings.theme
-      }),
-    },
-    methods: {
-      ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
-    },
+export default {
+  name: 'SystemIcons',
+  props: ['type'],
+  computed: {
+    ...mapState('system', {
+      theme: state => state.settings.theme
+    }),
+  },
+  methods: {
+    ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL'])
   }
+}
 </script>

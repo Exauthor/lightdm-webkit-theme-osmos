@@ -13,7 +13,7 @@ import space from '@/components/themes/space';
 import timeComponent from '@/components/themes/time';
 
 export default {
-  name: 'background-image',
+  name: 'BackgroundTheme',
   components: {
     timeComponent,
     fire,

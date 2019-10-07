@@ -1,6 +1,6 @@
 <template lang='pug'>
-  .system-button(@click='clickSystemButton')
-    system-icons(:type='type')
+  .SystemButton(@click='clickSystemButton')
+    SystemIcons(:type='type')
 </template>
 
 <script>
@@ -8,7 +8,7 @@
   import SystemIcons from '@/components/SystemIcons';
 
   export default {
-    name: 'system-button',
+    name: 'SystemButton',
     props: ['type', 'disabled'],
     components: {
       SystemIcons
@@ -31,7 +31,7 @@
 </script>
 
 <style lang='stylus'>
-.system-button
+.SystemButton
   width 4vmin
   height 4vmin
   max-width 35px
