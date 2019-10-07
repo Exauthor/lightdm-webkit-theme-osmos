@@ -40,36 +40,36 @@
     .blick
       background linear-gradient(to top, rgba(201, 41, 57, .8) 0%, transparent 70%)
       border-radius 50%
-      animation resize 8s infinite alternate
+      animation resize 20s infinite alternate
       &:nth-child(1)
         width 150%
         height 150%
       &:nth-child(2)
         width 230%
         height 230%
-        animation-delay .2s
+        animation-delay .5s
       &:nth-child(3)
         width 330%
         height 330%
-        animation-delay .4s
+        animation-delay 1s
       &:nth-child(4)
         width 470%
         height 470%
-        animation-delay .6s
+        animation-delay 1.5s
       &:nth-child(5)
         width 670%
         height 670%
-        animation-delay .8s
+        animation-delay 2s
       &:nth-child(6)
         width 900%
         height 900%
-        animation-delay 1s
+        animation-delay 2.5s
 
 @keyframes resize
   from 
     transform translate(-50%, -50%) scale(1)
   to 
-    transform translate(-50%, -50%) scale(.8)
+    transform translate(-50%, -50%) scale(.9)
 
 .mountain-back
   width 100vw
