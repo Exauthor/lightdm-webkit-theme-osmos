@@ -77,6 +77,10 @@ a
   text-decoration none
   color inherit
 
+svg
+  width 100%
+  height 100%
+
 .center-position
   position absolute
   top 50%
@@ -183,12 +187,16 @@ a
   flex-direction column
   justify-content space-around
 
+
 input
   background none
   border none
   border-bottom 2px var(--color-active) solid
   width 100%
   color var(--colort-active)
+  &.error
+    border-color red
+    color red
   &:focus
     outline none
 

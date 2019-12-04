@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import System from './system'
-import Color from './color'
+import system from './system'
+import color from './color'
+import user from './user'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    system: System,
-    color: Color,
+    system,
+    color,
+    user
   },
   state: {
     openSettings: false,

@@ -2,7 +2,7 @@
   transition(name='slide-right')
     .login-menu(v-if='openLogin' :class='[(theme.fullscreen) ? "fullscreen" : "", (!openLogin) ? "hide" : ""]')
       .login-form
-        UserChoice
+        UserChoice.mb-3
         DEChoice
         SystemButtons
 </template>
@@ -28,14 +28,6 @@ export default {
     UserChoice,
     DEChoice
   },
-  data() {
-    return {
-      canSuspend: lightdm.can_suspend,
-      logging: false,
-      error: false,
-      password: ''
-    }
-  },
   computed: {
     ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
     ...mapState('system', {
@@ -54,9 +46,10 @@ export default {
         if (!this.openLogin) {
           this.SET({type: 'openLogin', items: true});
         } else if (this.openLogin) {
-          this.$nextTick(() => {
-            this.$refs.password.focus();
-          })
+          // think how u can focus on element from another input component
+          // this.$nextTick(() => {
+          //   this.$refs.password.focus();
+          // })
         } else {
           this.submit();
         }
@@ -72,23 +65,6 @@ export default {
           this.SET({type: 'openDesktops', items: false});
         }       
       }
-    },
-    submit() {
-      if (!this.password) {
-        return;
-      }
-
-      this.logging = true;
-
-      setTimeout(() => {
-        lightdm_login(this.settings.user.username, this.password, () => {
-          setTimeout(() => lightdm_start(this.settings.desktop.key), 400);
-        }, () => {
-          this.error = true;
-          this.password = '';
-          this.logging = false;
-        })
-      }, 150);
     }
   },
 }
@@ -112,8 +88,7 @@ export default {
 
 .login-form
   padding 10px 
-  & > *
-    margin-bottom 10px
 
-
+.mb-3
+  margin-bottom 12px
 </style>

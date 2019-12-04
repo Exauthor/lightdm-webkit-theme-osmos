@@ -80,5 +80,5 @@ export default {
 
 #svg-time
   position relative
-
+  width 50vmin
 </style>
