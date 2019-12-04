@@ -24,7 +24,6 @@ html
   -moz-osx-font-smoothing grayscale
   box-sizing border-box
 
-
 *,
 *:before,
 *:after
@@ -177,3 +176,22 @@ a
     transform: translateX(0)
   }
 }
+
+.wizard-block
+  width calc(100% - 12vmin)
+  display flex 
+  flex-direction column
+  justify-content space-around
+
+input
+  background none
+  border none
+  border-bottom 2px var(--color-active) solid
+  width 100%
+  color var(--colort-active)
+  &:focus
+    outline none
+
+.login-form-user, .login-form_desktop
+  display flex
+  justify-content space-around

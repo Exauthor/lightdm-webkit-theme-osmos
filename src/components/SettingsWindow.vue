@@ -15,46 +15,46 @@
 </template>
 
 <script>
-  import { mapState, mapMutations, mapGetters } from 'vuex'
-  import SystemIcons from '@/components/SystemIcons';
+import { mapState, mapMutations, mapGetters } from 'vuex'
+import SystemIcons from '@/components/common/SystemIcons';
 
-  export default {
-    name: 'SettingsWindow',
-    computed: {
-      ...mapState(['themes']),
+export default {
+  name: 'SettingsWindow',
+  computed: {
+    ...mapState(['themes']),
+  },
+  components: {
+    SystemIcons,
+  },
+  methods: {
+    ...mapMutations(['SET']),
+    ...mapMutations('system', ['CHANGE_SETTINGS']),
+    ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
+    closeSettings() {
+      this.SET({type: 'openSettings', items: false});
+      this.SET({type: 'openLogin', items: true});
     },
-    components: {
-      SystemIcons,
-    },
-    methods: {
-      ...mapMutations(['SET']),
-      ...mapMutations('system', ['CHANGE_SETTINGS']),
-      ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
-      closeSettings() {
-        this.SET({type: 'openSettings', items: false});
-        this.SET({type: 'openLogin', items: true});
-      },
-      setImage(name) {
-        try {
-          var index = require(`@/assets/images/themes/${name}/index.png`);
-        } catch {
-          var index = 'notFound'
-        }
-        return index
-      },
-      changeTheme(theme) {
-        this.SET({type: 'theme', items: theme});
-
-        this.CHANGE_SETTINGS({key: 'theme', value: theme})
-
-        document.documentElement.style
-          .setProperty('--color-active', theme.color.active);
-        
-        document.documentElement.style
-          .setProperty('--color-bg', theme.color.background);
+    setImage(name) {
+      try {
+        var index = require(`@/assets/images/themes/${name}/index.png`);
+      } catch {
+        var index = 'notFound'
       }
+      return index
+    },
+    changeTheme(theme) {
+      this.SET({type: 'theme', items: theme});
+
+      this.CHANGE_SETTINGS({key: 'theme', value: theme})
+
+      document.documentElement.style
+        .setProperty('--color-active', theme.color.active);
+      
+      document.documentElement.style
+        .setProperty('--color-bg', theme.color.background);
     }
   }
+}
 </script>
 
 <style lang="stylus">

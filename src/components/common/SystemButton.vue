@@ -1,11 +1,11 @@
 <template lang='pug'>
-  .SystemButton(@click='clickSystemButton')
+  .system-button(@click='handleClick')
     SystemIcons(:type='type')
 </template>
 
 <script>
   import { mapState, mapGetters, mapMutations } from 'vuex'
-  import SystemIcons from '@/components/SystemIcons';
+  import SystemIcons from '@/components/common/SystemIcons';
 
   export default {
     name: 'SystemButton',
@@ -18,7 +18,7 @@
     },
     methods: {
       ...mapMutations(['SET']),
-      clickSystemButton() {
+      handleClick() {
         if (this.type === 'settings') {
           this.SET({type: 'openLogin', items: false})
           this.SET({type: 'openSettings', items: true})
@@ -31,7 +31,7 @@
 </script>
 
 <style lang='stylus'>
-.SystemButton
+.system-button
   width 4vmin
   height 4vmin
   max-width 35px

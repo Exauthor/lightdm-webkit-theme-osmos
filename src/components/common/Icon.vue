@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import SystemIcons from '@/components/SystemIcons';
+import SystemIcons from '@/components/common/SystemIcons';
 import { mapGetters } from 'vuex';
 
 export default {

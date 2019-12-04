@@ -7,6 +7,13 @@ import store from './store/index';
 
 Vue.config.productionTip = false;
 
+import Icon from '@/components/common/Icon';
+import SelectItem from '@/components/common/SelectItem';
+
+Vue.component('AppIcon', Icon)
+Vue.component('SelectItem', SelectItem)
+
+
 new Vue({
   router,
   store,

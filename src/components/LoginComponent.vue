@@ -2,36 +2,21 @@
   transition(name='slide-right')
     .login-menu(v-if='openLogin' :class='[(theme.fullscreen) ? "fullscreen" : "", (!openLogin) ? "hide" : ""]')
       .login-form
-        .login-form_user
-          icon(mode='user' :item='settings.user')
-          form(@submit.prevent='submit')
-            SelectItem(
-              mode='user'
-              :item='settings.user'
-              :icon='false')
-            input(type='password' ref='password' v-model='password' placeholder='password' :readonly='logging', :class="{'error': error}")
-        .login-form_desktop
-          icon(mode='desktop' :item='settings.desktop')
-          form
-            SelectItem(
-              mode='desktop'
-              :item='settings.desktop'
-              :icon='false')
-        .login-bottom
-          SystemButton(type='shutdown')
-          SystemButton(type='restart')
-          SystemButton(type='suspend')
-          SystemButton(type='settings')
+        UserChoice
+        DEChoice
+        SystemButtons
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations } from 'vuex'
+
+import UserChoice from '@/components/widgets/UserChoice';
+import DEChoice from '@/components/widgets/DEChoice';
+
+import SystemButtons from '@/components/SystemButtons';
 import SettingsWindow from '@/components/SettingsWindow';
 import LoginComponent from '@/components/LoginComponent';
-import SystemButton from '@/components/SystemButton';
 import BackgroundImage from '@/components/BackgroundImage';
-import SelectItem from '../components/SelectItem';
-import Icon from '../components/Icon';
-import { mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'LoginComponent',
@@ -39,9 +24,9 @@ export default {
     BackgroundImage,
     LoginComponent,
     SettingsWindow,
-    SystemButton,
-    SelectItem,
-    Icon
+    SystemButtons,
+    UserChoice,
+    DEChoice
   },
   data() {
     return {
@@ -89,7 +74,6 @@ export default {
       }
     },
     submit() {
-
       if (!this.password) {
         return;
       }
@@ -131,33 +115,5 @@ export default {
   & > *
     margin-bottom 10px
 
-.login-form_user, .login-form_desktop
-  display flex
-  justify-content space-around
 
-form
-  width calc(100% - 12vmin)
-  display flex 
-  flex-direction column
-  justify-content space-around
-
-input
-  background none
-  border none
-  border-bottom 2px var(--color-active) solid
-  width 100%
-  color var(--colort-active)
-  &:focus
-    outline none
-
-.login-bottom
-  width 100%
-  position absolute
-  bottom 0
-  left 0
-  display flex
-  justify-content space-between
-  background var(--color-active)
-  margin 0
-  padding 5px 10px
 </style>
