@@ -3,7 +3,8 @@
     .login-menu(v-if='openLogin' :class='[(theme.fullscreen) ? "fullscreen" : "", (!openLogin) ? "hide" : ""]')
       .login-form
         UserChoice.mb-3
-        DEChoice
+        DEChoice.mb-3
+        Clock
         SystemButtons
 </template>
 
@@ -11,30 +12,27 @@
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
 import UserChoice from '@/components/widgets/UserChoice';
+import Clock from '@/components/widgets/Clock';
 import DEChoice from '@/components/widgets/DEChoice';
 
 import SystemButtons from '@/components/SystemButtons';
-import SettingsWindow from '@/components/SettingsWindow';
-import LoginComponent from '@/components/LoginComponent';
 import BackgroundImage from '@/components/BackgroundImage';
 
 export default {
   name: 'LoginComponent',
   components: {
     BackgroundImage,
-    LoginComponent,
-    SettingsWindow,
     SystemButtons,
     UserChoice,
-    DEChoice
+    DEChoice,
+    Clock
   },
   computed: {
     ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
     ...mapState('system', {
       theme: state => state.settings.theme
     }),
-    ...mapState('system', ['settings']),
-    ...mapGetters(['CURRENT_THEME'])
+    ...mapState('system', ['settings'])
   },
   mounted() {
     window.addEventListener('keyup', this.keyPress);
@@ -63,14 +61,14 @@ export default {
           this.SET({type: 'openLogin', items: false});
           this.SET({type: 'openUsers', items: false});
           this.SET({type: 'openDesktops', items: false});
-        }       
+        }
       }
     }
   },
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 .login-menu
   width 15vw
   min-width 30ch

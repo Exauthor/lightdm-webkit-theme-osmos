@@ -5,19 +5,23 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
-  export default {
-    methods: {
-      ...mapMutations('system', ['SET_SETTINGS'])
-    },
-    mounted() {
-      this.SET_SETTINGS();
-      this.$router.push({name: 'intro'});
-    },
-  }
+export default {
+  methods: {
+    ...mapMutations('system', ['SET_SETTINGS']),
+    ...mapActions('page', ['setTime'])
+  },
+  mounted() {
+    this.SET_SETTINGS();
+    this.setTime();
+    this.$router.push({name: 'intro'});
+  },
+}
 </script>
 
 <style lang="stylus">
+
 @import './assets/style/index.styl';
+
 </style>

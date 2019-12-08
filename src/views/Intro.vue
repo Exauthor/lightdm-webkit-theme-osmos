@@ -1,7 +1,7 @@
 <template lang='pug'>
   #intro
     #content
-      system-icons(type='Arch Linux')
+      SystemIcons(type='Arch Linux')
       h1 Welcome
 </template>
 
@@ -48,6 +48,4 @@
       left 50%
       transform translateX(-50%)
       box-shadow 0 0 1rem var(--color-active)
-
-
 </style>

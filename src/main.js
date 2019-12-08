@@ -7,6 +7,8 @@ import store from './store/index';
 
 Vue.config.productionTip = false;
 
+Vue.filter('formatTime', (number) => ('00' + number).slice(-2))
+
 import Icon from '@/components/common/Icon';
 import SelectItem from '@/components/common/SelectItem';
 

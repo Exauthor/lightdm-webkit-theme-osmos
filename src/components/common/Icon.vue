@@ -65,6 +65,7 @@ export default {
   height 10vmin
   max-width 9ch
   max-height 9ch
+  flex-shrink 0
   fill var(--color-active)
 
 .user-icon

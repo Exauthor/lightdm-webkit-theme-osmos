@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .login-form-user
+  .wizard-dual
     AppIcon(mode='user' :item='settings.user')
     .wizard-block
       SelectItem(
@@ -48,13 +48,6 @@ export default {
 </script>
 
 <style lang='stylus'>
-.icon-container
-  width 10vmin
-  height 10vmin
-  max-width 9ch
-  max-height 9ch
-  fill var(--color-active)
-
 .user-icon
   border-radius 50%
   border 2px solid var(--color-active)

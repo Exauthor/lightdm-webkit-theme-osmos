@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import system from './system'
 import color from './color'
 import user from './user'
+import page from './page'
 
 Vue.use(Vuex)
 
@@ -10,6 +11,7 @@ export default new Vuex.Store({
   modules: {
     system,
     color,
+    page,
     user
   },
   state: {
