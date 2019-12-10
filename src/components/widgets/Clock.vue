@@ -7,7 +7,6 @@
         .clock-item.clock-hours(ref='hours')
     .wizard-block
       .fs-7.fw-600 {{ time.hours | formatTime}}:{{ time.minutes | formatTime}}
-      //- .clock-info-time {{ time.minutes }}
 </template>
 
 <script>
@@ -31,7 +30,7 @@ export default {
       this.$refs[hand].style.animation = 'none'
       setTimeout(() => {
         this.$refs[hand].style.animation = `rotate ${handTime[hand]}s infinite linear`
-      }, 10)
+      }, 100)
     }
   },
   mounted() {

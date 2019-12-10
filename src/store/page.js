@@ -11,8 +11,10 @@ export default {
     currentTheme: ''
   },
   mutations: {
-    UPDATE_TIME(state, { time, value }) {
-      state.time[time] = value
+    UPDATE_TIME(state, objectTime) {
+      Object.entries(objectTime).forEach(([time, value]) => {
+        state.time[time] = value
+      })
     }
   },
   getters: {
@@ -26,10 +28,21 @@ export default {
   },
   actions: {
     setTime({ commit }) {
-      const date = new Date
-      commit('UPDATE_TIME', { time: 'seconds', value: date.getSeconds() })
-      commit('UPDATE_TIME', { time: 'minutes', value: date.getMinutes() })
-      commit('UPDATE_TIME', { time: 'hours', value: date.getHours() })
+      const getTimeObject = () => {
+        const date = new Date
+        return {
+          seconds: date.getSeconds(),
+          minutes: date.getMinutes(),
+          hours: date.getHours()
+        }
+      }
+      const updateTimeStage = () => commit('UPDATE_TIME', getTimeObject())
+      updateTimeStage()
+
+      setTimeout( () => {
+        updateTimeStage()
+        setInterval(updateTimeStage, 60000)
+      }, (60 - getTimeObject().seconds) * 1000)
     }
   }
 }
