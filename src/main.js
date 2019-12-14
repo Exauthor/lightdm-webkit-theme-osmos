@@ -9,12 +9,11 @@ Vue.config.productionTip = false;
 
 Vue.filter('formatTime', (number) => ('00' + number).slice(-2))
 
-import Icon from '@/components/common/Icon';
+import AppIcon from '@/components/common/AppIcon';
 import SelectItem from '@/components/common/SelectItem';
 
-Vue.component('AppIcon', Icon)
+Vue.component('AppIcon', AppIcon)
 Vue.component('SelectItem', SelectItem)
-
 
 new Vue({
   router,
