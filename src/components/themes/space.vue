@@ -5,8 +5,19 @@
     .meteor
     .another-planet
     .hole
-    h2.welcome.center-position Добро Пожаловать
+    h2.welcome.center-position Welcome <br> {{ getUserName }}
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  name: 'UserChoiceWidget',
+  computed: {
+    ...mapGetters('user', ['getUserName'])
+  },
+}
+</script>
 
 <style lang="stylus">
 .space

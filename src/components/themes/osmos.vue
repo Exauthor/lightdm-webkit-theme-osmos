@@ -38,15 +38,7 @@
   height 100vh
   overflow hidden
   position relative
-  background radial-gradient(ellipse 250% 105% at bottom, #1a0533 50%, #1a0533 80%, rgba(247,36,148,0.4) 86.5%, transparent 86.5%, transparent 87%, rgba(247,36,148,0.8) 87%, transparent 93%)
-  &:before
-    content ""
-    display block
-    bottom 0
-    left 0
-    width 100%
-    height 100%
-    background linear-gradient(to top, #e10850 calc(var(--height-sea) + 5vh), #521350 calc(var(--height-sea) + 10vh), transparent 55%)
+  background radial-gradient(ellipse 249% 104% at bottom, #521350 calc(var(--height-sea) * 4), #1A0534 55%, #1a0533 80%, rgba(247,36,148,0.4) 86.5%, transparent 86.5%, transparent 87%, rgba(247,36,148,0.8) 87%, transparent 93%)
   .sun
     bottom calc(var(--height-sea) - var(--height-sea) * 1.5 / 3)
     left calc(45vw - var(--height-sea) * .75)
@@ -65,13 +57,6 @@
     filter blur(4px)
     clip rect(calc(var(--height-sea) * .5), calc(var(--height-sea) * 1.5), calc(var(--height-sea) * 1.5), 0)
     clip-path: polygon(0% calc(var(--height-sea) * .5), 100% calc(var(--height-sea) * .5), 100% 100%, 0% 100%)
-
-
-@keyframes opacity {
-  to {
-    opacity 0
-  }
-}
 
 .clouds-reflex
   bottom calc(var(--height-sea) /2 - 10vh)
@@ -147,7 +132,6 @@
   position absolute
   bottom 0
   background linear-gradient(to bottom, #890F50 ,#320567 30%,#240366 99%)
-
 
 .rocks
   position absolute
