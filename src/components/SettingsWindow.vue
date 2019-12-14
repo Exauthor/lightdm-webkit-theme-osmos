@@ -1,11 +1,18 @@
 <template lang='pug'>
-  .settings-body
-    .settings-child
-      .settings-title
-        h3 Themes 
-        .exit-button(@click='closeSettings')
-          SystemIcons(type='close' @click='closeSettings')
-      .settings-themes
+  .settings
+    .settings-header
+      .settings-titles
+        h3.settings-title(
+          v-for='(title, index) in tabs' :key='index' 
+          :class='{"active": title === currentTabSettings}'
+          @click='changeTab(title)'
+        ) {{ formatTitle(title) }}
+      .exit-button(@click='closeSettings')
+        SystemIcons(type='close' @click='closeSettings')
+    transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
+      .settings-body(v-if='currentTabSettings === "setting"' key='settings')
+        h3 Settings system
+      .settings-themes(v-else-if='currentTabSettings === "theme"' key='theme')
         .settings-themes-item(
           v-for='(theme, i) in themes' 
           :key='i' 
@@ -20,6 +27,12 @@ import SystemIcons from '@/components/common/SystemIcons';
 
 export default {
   name: 'SettingsWindow',
+  data() {
+    return {
+      currentTabSettings: 'theme',
+      tabs: ['theme', 'setting']
+    }
+  },
   computed: {
     ...mapState(['themes']),
   },
@@ -30,6 +43,12 @@ export default {
     ...mapMutations(['SET']),
     ...mapMutations('system', ['CHANGE_SETTINGS']),
     ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
+    formatTitle(title) {
+      return title[0].toUpperCase() + title.slice(1, title.length) + 's'
+    },
+    changeTab(title) {
+      this.currentTabSettings = title
+    },
     closeSettings() {
       this.SET({type: 'openSettings', items: false});
       this.SET({type: 'openLogin', items: true});
@@ -58,7 +77,8 @@ export default {
 </script>
 
 <style lang="stylus">
-.settings-body
+// .settings-body
+.settings
   position absolute
   left 50%
   top 50%
@@ -70,11 +90,15 @@ export default {
   width 90vmin
   height 70vmin
 
-.settings-child
-  height 100%
-  h3
-    font-size 1.7rem
-    text-align center
+// .settings-child
+//   height 100%
+//   h3
+//     font-size 1.7rem
+//     text-align center
+
+.settings-body
+  width 100%
+  overflow hidden
 
 .settings-themes
   display flex
@@ -83,6 +107,9 @@ export default {
   height calc(100% - 20px)
   overflow-y scroll
   overflow-x hidden
+  position absolute
+  left 0
+  top 0
 
 .settings-themes-item
   display block
@@ -97,11 +124,24 @@ export default {
     padding 5px
     font-size 1.5rem
 
-.settings-title
+.settings-header
   display flex
-  justify-content space-between
   align-items center
-  padding-bottom 10px
+  justify-content space-between
+  margin-bottom 12px
+
+.settings-titles
+  display flex
+  align-items center
+
+.settings-title
+  margin-right 12px
+  transition .3s border-color
+  cursor pointer
+  border-bottom 2px solid transparent
+  &.active
+    border-color var(--color-active)
+
 
 .exit-button
   width 5vmin
