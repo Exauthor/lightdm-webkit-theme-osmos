@@ -1,23 +1,49 @@
 <template lang='pug'>
   .login-bottom
-    SystemButton(type='shutdown')
-    SystemButton(type='restart')
-    SystemButton(type='suspend')
-    SystemButton(type='settings')
+    .system-button(v-for='(button, index) in buttons' :key='index' @click='handleClick(button)')
+      SystemIcons(:type='button')
 </template>
 
 <script>
-import SystemButton from '@/components/common/SystemButton';
+import { mapMutations } from 'vuex'
+import SystemIcons from '@/components/common/SystemIcons';
 
 export default {
   name: 'SystemButtons',
+  props: ['type'],
+  data() {
+    return {
+      buttons: ['shutdown', 'restart', 'suspend', 'settings']
+    }
+  },
   components: {
-    SystemButton
+    SystemIcons
+  },
+  methods: {
+    ...mapMutations(['SET']),
+    handleClick(type) {
+      if (type === 'settings') {
+        this.SET({type: 'openLogin', items: false})
+        this.SET({type: 'openSettings', items: true})
+      } else {
+        setTimeout(lightdm[type], 500);
+      }
+    }
   }
 }
 </script>
 
 <style lang='stylus'>
+.system-button
+  width 4vmin
+  height 4vmin
+  max-width 35px
+  max-height 35px
+  overflow hidden
+  svg
+    width 100%
+    height 100%
+
 .login-bottom
   width 100%
   position absolute
