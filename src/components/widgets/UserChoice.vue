@@ -1,6 +1,6 @@
 <template lang='pug'>
   .wizard-dual
-    AppIcon.icon-circle.icon(:type='GET_AVATAR(settings.user.image)')
+    AppIcon.icon-circle.icon(:name='GET_AVATAR(settings.user.image)')
     .wizard-block
       SelectItem(
         mode='user'

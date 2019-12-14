@@ -1,7 +1,7 @@
 <template lang='pug'>
   .login-bottom
     .system-button(v-for='(button, index) in buttons' :key='index' @click='handleClick(button)')
-      AppIcon(:type='button')
+      AppIcon(:name='button')
 </template>
 
 <script>

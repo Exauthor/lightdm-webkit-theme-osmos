@@ -1,6 +1,6 @@
 <template lang='pug'>
   .wizard-dual
-    AppIcon(:type='icon').icon
+    AppIcon(:name='icon').icon
     .wizard-block
       SelectItem(
         mode='desktop'

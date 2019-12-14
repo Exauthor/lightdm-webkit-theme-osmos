@@ -8,7 +8,7 @@
           @click='changeTab(title)'
         ) {{ formatTitle(title) }}
       .exit-button(@click='closeSettings')
-        AppIcon(type='close' @click='closeSettings')
+        AppIcon(name='close' @click='closeSettings')
     transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
       .settings-body(v-if='currentTabSettings === "setting"' key='settings')
         h3 Settings system

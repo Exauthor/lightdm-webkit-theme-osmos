@@ -1,7 +1,7 @@
 <template lang='pug'>
   #intro
     #content
-      AppIcon(type='Arch Linux')
+      AppIcon(name='Arch Linux')
       h1 Welcome
 </template>
 
