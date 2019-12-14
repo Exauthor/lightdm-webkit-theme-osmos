@@ -1,7 +1,6 @@
 <template lang='pug'>
   .background-image(:class='[(theme.fullscreen || !openLogin) ? "fullscreen" : ""]')
-    transition(name="switch")
-      component(:is='theme.component' class='background-item center-position')
+    component(:is='theme.component' class='background-item center-position')
 </template> 
 
 <script>
