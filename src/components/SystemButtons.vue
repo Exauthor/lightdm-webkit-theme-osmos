@@ -1,12 +1,11 @@
 <template lang='pug'>
   .login-bottom
     .system-button(v-for='(button, index) in buttons' :key='index' @click='handleClick(button)')
-      SystemIcons(:type='button')
+      AppIcon(:type='button')
 </template>
 
 <script>
 import { mapMutations } from 'vuex'
-import SystemIcons from '@/components/common/SystemIcons';
 
 export default {
   name: 'SystemButtons',
@@ -15,9 +14,6 @@ export default {
     return {
       buttons: ['shutdown', 'restart', 'suspend', 'settings']
     }
-  },
-  components: {
-    SystemIcons
   },
   methods: {
     ...mapMutations(['SET']),

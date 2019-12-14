@@ -7,6 +7,11 @@ export default {
     logging: false,
     error: false
   },
+  getters: {
+    getUserName: (state, getters, rootState) => {
+      return rootState.system.settings.user.username
+    }
+  },
   mutations: {
     SET_USER_STATE(state, { key, value }) {
       state[key] = value

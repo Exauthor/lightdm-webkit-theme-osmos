@@ -8,7 +8,7 @@
           @click='changeTab(title)'
         ) {{ formatTitle(title) }}
       .exit-button(@click='closeSettings')
-        SystemIcons(type='close' @click='closeSettings')
+        AppIcon(type='close' @click='closeSettings')
     transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
       .settings-body(v-if='currentTabSettings === "setting"' key='settings')
         h3 Settings system
@@ -23,7 +23,6 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import SystemIcons from '@/components/common/SystemIcons';
 
 export default {
   name: 'SettingsWindow',
@@ -35,9 +34,6 @@ export default {
   },
   computed: {
     ...mapState(['themes']),
-  },
-  components: {
-    SystemIcons,
   },
   methods: {
     ...mapMutations(['SET']),

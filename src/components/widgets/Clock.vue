@@ -1,6 +1,6 @@
 <template lang='pug'>
   .wizard-dual
-    .clock.icon-container
+    .clock.icon
       .position-center
         .clock-item.clock-seconds(ref='seconds')
         .clock-item.clock-minutes(ref='minutes')
@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import moment from 'moment'
-
 import { mapState } from 'vuex'
 
 export default {

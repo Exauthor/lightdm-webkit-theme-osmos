@@ -1,25 +1,21 @@
 <template lang='pug'>
   #intro
     #content
-      SystemIcons(type='Arch Linux')
+      AppIcon(type='Arch Linux')
       h1 Welcome
 </template>
 
 <script>
-  import SystemIcons from '@/components/common/SystemIcons';
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
-  export default {
-    name: 'intro',
-    components: {
-      SystemIcons,
-    },
-    mounted() {
-      setTimeout(() => {
-        this.$router.push({name: 'login'});
-      }, 2000);
-    },
-  };
+export default {
+  name: 'intro',
+  mounted() {
+    setTimeout(() => {
+      this.$router.push({name: 'login'})
+    }, 2000)
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

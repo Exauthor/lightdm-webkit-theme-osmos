@@ -1,6 +1,6 @@
 <template lang='pug'>
   .wizard-dual
-    AppIcon(mode='user' :item='settings.user')
+    AppIcon.icon-circle.icon(:type='GET_AVATAR(settings.user.image)')
     .wizard-block
       SelectItem(
         mode='user'
@@ -15,13 +15,14 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'UserChoiceWidget',
   computed: {
     ...mapState('system', ['settings']),
     ...mapState('user', ['password', 'logging', 'error']),
+    ...mapGetters('system', ['GET_AVATAR']),
     initPassword: {
       get() {
         return this.password
@@ -47,8 +48,4 @@ export default {
 };
 </script>
 
-<style lang='stylus'>
-.user-icon
-  border-radius 50%
-  border 2px solid var(--color-active)
-</style>
+<style lang='stylus'></style>
