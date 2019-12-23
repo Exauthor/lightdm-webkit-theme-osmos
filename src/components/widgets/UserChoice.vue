@@ -3,11 +3,12 @@
     AppIcon.icon-circle.icon(:name='GET_AVATAR(settings.user.image)')
     .wizard-block
       SelectItem(
-        mode='user'
-        :item='settings.user'
-        :icon='false'
+        name='user'
+        interactiveBlock='selectorUser'
+        :items='settings.users'
+        :value='settings.user.username'
       )
-      input(
+      input#password(
         @keyup='handleKeyup'
         type='password' ref='password' placeholder='password'
         v-model='initPassword' :readonly='logging' :class="{'error': error}"

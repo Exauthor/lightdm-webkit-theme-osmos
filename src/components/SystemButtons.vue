@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'SystemButtons',
@@ -16,11 +16,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['SET']),
+    ...mapActions('page', ['openActiveBlock']),
     handleClick(type) {
       if (type === 'settings') {
-        this.SET({type: 'openLogin', items: false})
-        this.SET({type: 'openSettings', items: true})
+        this.openActiveBlock({ id: 'settings' })
       } else {
         setTimeout(lightdm[type], 500);
       }

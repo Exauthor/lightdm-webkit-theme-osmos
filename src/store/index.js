@@ -15,10 +15,6 @@ export default new Vuex.Store({
     user
   },
   state: {
-    openSettings: false,
-    openUsers: false,
-    openDesktops: false,
-    openLogin: false,
     themes: [
       {
         name: 'Fire',
@@ -75,15 +71,11 @@ export default new Vuex.Store({
           return item
         }
       })[0] || state.themes[0]
-
-    },
-    GET: (state) => key => {
-      return state[key]
     }
   },
   mutations: {
     SET(state, {type, items}) {
-      state[type] = items;
-    },
-  },
+      state[type] = items
+    }
+  }
 })

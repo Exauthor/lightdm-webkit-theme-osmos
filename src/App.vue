@@ -10,11 +10,35 @@ import { mapMutations, mapActions } from 'vuex'
 export default {
   methods: {
     ...mapMutations('system', ['SET_SETTINGS']),
+    ...mapMutations('page', ['SET_PAGE']),
     ...mapActions('page', ['setTime'])
   },
   mounted() {
     this.SET_SETTINGS();
     this.setTime();
+    const interactiveBlocks = [
+      {
+        closeBeforeMoute: ['selectorDE'],
+        id: 'selectorUser',
+      },
+      {
+        closeBeforeMoute: ['selectorUser'],
+        id: 'selectorDE',
+      },
+      {
+        closeBeforeMoute: ['selectorUser', 'selectorDE'],
+        id: 'login',
+        order: 1,
+        delay: 500,
+        transition: 1500
+      },
+      {
+        closeBeforeMoute: ['login'],
+        id: 'settings',
+        openAfterDestroy: ['login']
+      }
+    ]
+    this.SET_PAGE({ key: 'interactiveBlocks', value: interactiveBlocks })
     this.$router.push({name: 'intro'});
   },
 }

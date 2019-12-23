@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'UserChoiceWidget',
@@ -19,6 +19,10 @@ export default {
   },
   methods: {
     updateHand(hand) {
+      if (!hand) {
+        return;
+      }
+
       const handTime = {
         seconds: 60,
         minutes: 3600,
@@ -28,7 +32,7 @@ export default {
       this.$refs[hand].style.animation = 'none'
       setTimeout(() => {
         this.$refs[hand].style.animation = `rotate ${handTime[hand]}s infinite linear`
-      }, 100)
+      }, 1000)
     }
   },
   mounted() {
@@ -56,6 +60,12 @@ export default {
       this.$refs[hand].style.animation = `rotate ${time}s infinite linear`
       setTimeout(this.updateHand, time * 1000, hand)
     })
+  },
+  destroyed() {
+    this.setTime()
+  },
+  methods: {
+    ...mapActions('page', ['setTime'])
   }
 };
 </script>

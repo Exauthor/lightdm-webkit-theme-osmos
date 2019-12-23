@@ -1,35 +1,22 @@
 <template lang='pug'>
   .login
-    transition(name='popover')
-      settingsWindow(v-if='openSettings')
+    SettingsWindow
     .login-body
       BackgroundImage
       LoginComponent
 </template>
 
 <script>
-import SettingsWindow from '@/components/SettingsWindow.vue';
-import LoginComponent from '@/components/LoginComponent.vue';
-import BackgroundImage from '@/components/BackgroundImage';
-import {mapState, mapMutations} from 'vuex'
+import SettingsWindow from '@/components/SettingsWindow.vue'
+import LoginComponent from '@/components/LoginComponent.vue'
+import BackgroundImage from '@/components/BackgroundImage'
 
 export default {
   name: 'login',
   components: {
     BackgroundImage,
     LoginComponent,
-    SettingsWindow,
-  },
-  mounted() {
-    setTimeout(() => {
-      this.SET({type: 'openLogin', items: true});
-    }, 400)
-  },
-  computed: {
-    ...mapState(['openSettings']),
-  },
-  methods: {
-    ...mapMutations(['SET']),
+    SettingsWindow
   }
 }
 </script>

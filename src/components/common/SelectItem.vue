@@ -1,68 +1,81 @@
 <template lang='pug'>
- .item(
-   :class='[(mode === "user") ? "user" : "desktop", (openUsers && mode === "user") ? "selected" : (openDesktops && mode === "desktop") ? "selected" : ""]' 
-   @click='openList')
-   span.username(v-if="mode === 'user'") {{ item.username }}
-   span.decktop(v-else) {{ item.name }}
-   .item__icon
-   transition(name='menu-popover')
-     .item__list(v-if='openUsers && mode === "user"')
-       ul
-         li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.username}}
-   transition(name='menu-popover')
-     .item__list(v-if='openDesktops && mode === "desktop"')
-       ul
-         li(v-for='(item, i) in items' :key='i' @click='changeItem(item)') {{item.name}}
+  .selection(@click.stop='openList')
+    span {{ checkedValue }}
+    .selection-icon
+    transition(name='menu-popover')
+      ul.selection-list(v-if='isOpen')
+        li.selection-list-item(
+          v-for='(item, i) in items'
+          :key='i' @click.stop='changeItem(item)'
+        ) {{item.name || item.username}}
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'SelectItem',
-  props: ['mode'],
-  computed: {
-    ...mapState(['openUsers', 'openDesktops']),
-    ...mapState('system', ['settings']),
-    item:  {
-      get() {
-        return this.settings[this.mode]
-      },
-      set(value) {
-        return value
-      }
+  props: {
+    value: {
+      type: [String, Object]
     },
-    items() {
-      return this.settings[this.mode + 's']
+    items: {
+      type: Array,
+      default: () => []
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    interactiveBlock: {
+      type: String,
+      required: true
     }
   },
+  data() {
+    return {
+      checkedValue: ''
+    }
+  },
+  computed: {
+    ...mapGetters('page', ['isOpenBlock']),
+    isOpen: {
+      get() {
+        return this.isOpenBlock(this.interactiveBlock)
+      },
+      set(open) {
+        if (open) {
+          this.openActiveBlock({ id: this.interactiveBlock })
+        } else {
+          this.closeActiveBlock({ id: this.interactiveBlock})
+        }
+      }
+    }
+  },
+  mounted() {
+    this.checkedValue = this.value
+  },
   methods: {
-    ...mapMutations(['SET']),
-    ...mapMutations('system', ['CHANGE_SETTINGS']),
+    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     changeItem(item) {
-      this.CHANGE_SETTINGS({key: this.mode, value: item})
-      this.item = item;
+      this.checkedValue = item.name || item.username
+      this.isOpen = !this.isOpen
     },
     openList() {
-      if (this.mode === 'user') {
-        this.SET({type: 'openUsers', items: !this.openUsers})
-      } else {
-        this.SET({type: 'openDesktops', items: !this.openDesktops})
-      }
-    },
+      this.isOpen = !this.isOpen
+    }
   }
-};
+}
 </script>
 
-<style lang="stylus" scoped>
-.item
+<style lang="stylus">
+.selection
   position relative
   text-align left
-  &.selected .item_icon
-    &::before
-      transform translate(3px, 7px) rotate(180deg)
+  &.active .item_icon::before
+    transform translate(3px, 7px) rotate(180deg)
 
-.item__icon
+.selection-icon
   width 20px
   height 20px
   border-radius 15%
@@ -79,23 +92,18 @@ export default {
     transition .4s
     transform translate(3px, 5px)
 
-.username 
-  text-align left
-  font-size 1.2rem
-
-.item__list
-  ul 
-    position absolute
-    width 100%
-    text-align center
-    left 0
-    z-index 1
-    border-radius 7px
-    overflow hidden
-    & li
-      padding 4px 5px
-      background rgba(0,0,0,.4)
-      &:hover
-        text-shadow 0 0 6px currentColor
-        background rgba(0,0,0,.7)
+.selection-list
+  position absolute
+  width 100%
+  text-align center
+  left 0
+  z-index 1
+  border-radius 7px
+  overflow hidden
+  & .selection-list-item
+    padding 4px 5px
+    background rgba(0,0,0,.7)
+    &:hover
+      text-shadow 0 0 7px currentColor
+      background rgba(0,0,0,.8)
 </style>

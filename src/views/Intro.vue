@@ -18,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="stylus">
 #intro 
   display: flex;
   align-items: center;

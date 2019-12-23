@@ -1,28 +1,29 @@
 <template lang='pug'>
-  .settings
-    .settings-header
-      .settings-titles
-        h3.settings-title(
-          v-for='(title, index) in tabs' :key='index' 
-          :class='{"active": title === currentTabSettings}'
-          @click='changeTab(title)'
-        ) {{ formatTitle(title) }}
-      .exit-button(@click='closeSettings')
-        AppIcon(name='close' @click='closeSettings')
-    transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
-      .settings-body(v-if='currentTabSettings === "setting"' key='settings')
-        h3 Settings system
-      .settings-themes(v-else-if='currentTabSettings === "theme"' key='theme')
-        .settings-themes-item(
-          v-for='(theme, i) in themes' 
-          :key='i' 
-          :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
-          @click='changeTheme(theme)')
-          h4 {{theme.name}}
+  transition(name='popover')
+    .settings(v-if='isOpen')
+      .settings-header
+        .settings-titles
+          h3.settings-title(
+            v-for='(title, index) in tabs' :key='index' 
+            :class='{"active": title === currentTabSettings}'
+            @click='changeTab(title)'
+          ) {{ formatTitle(title) }}
+        .exit-button(@click='closeSettings')
+          AppIcon(name='close')
+      transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
+        .settings-body(v-if='currentTabSettings === "setting"' key='settings')
+          h3 Settings system
+        .settings-themes(v-else-if='currentTabSettings === "theme"' key='theme')
+          .settings-themes-item(
+            v-for='(theme, i) in themes' 
+            :key='i' 
+            :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
+            @click='changeTheme(theme)')
+            h4 {{theme.name}}
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'SettingsWindow',
@@ -34,11 +35,19 @@ export default {
   },
   computed: {
     ...mapState(['themes']),
+    ...mapGetters('page', ['isOpenBlock']),
+    isOpen() {
+      return this.isOpenBlock('settings')
+    }
   },
+  // beforeDestroy() {
+  //   console.log('BEFORE DESTROY')
+  //   this.closeSettings()
+  // },
   methods: {
     ...mapMutations(['SET']),
     ...mapMutations('system', ['CHANGE_SETTINGS']),
-    ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
+    ...mapActions('page', ['closeActiveBlock']),
     formatTitle(title) {
       return title[0].toUpperCase() + title.slice(1, title.length) + 's'
     },
@@ -46,8 +55,7 @@ export default {
       this.currentTabSettings = title
     },
     closeSettings() {
-      this.SET({type: 'openSettings', items: false});
-      this.SET({type: 'openLogin', items: true});
+      this.closeActiveBlock({ id: 'settings'})
     },
     setImage(name) {
       try {
@@ -73,7 +81,6 @@ export default {
 </script>
 
 <style lang="stylus">
-// .settings-body
 .settings
   position absolute
   left 50%
@@ -85,12 +92,6 @@ export default {
   border-radius 3vmin
   width 90vmin
   height 70vmin
-
-// .settings-child
-//   height 100%
-//   h3
-//     font-size 1.7rem
-//     text-align center
 
 .settings-body
   width 100%
@@ -137,7 +138,6 @@ export default {
   border-bottom 2px solid transparent
   &.active
     border-color var(--color-active)
-
 
 .exit-button
   width 5vmin

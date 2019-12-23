@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(name='slide-right')
-    .login-menu(v-if='openLogin' :class='[(theme.fullscreen) ? "fullscreen" : "", (!openLogin) ? "hide" : ""]')
+    .login-menu(v-if='isOpen' :class='{ "fullscreen": theme.fullscreen }')
       .login-form
         UserChoice.mb-3
         DEChoice.mb-3
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 import UserChoice from '@/components/widgets/UserChoice';
 import Clock from '@/components/widgets/Clock';
@@ -28,40 +28,37 @@ export default {
     Clock
   },
   computed: {
-    ...mapState(['openSettings', 'openLogin', 'openUsers', 'openDesktops']),
-    ...mapState('system', {
-      theme: state => state.settings.theme
-    }),
-    ...mapState('system', ['settings'])
+    ...mapState('system', ['settings']),
+    ...mapGetters('page', ['isOpenBlock']),
+    theme() {
+      return this.settings.theme
+    },
+    isOpen() {
+      return this.isOpenBlock('login')
+    }
   },
   mounted() {
-    window.addEventListener('keyup', this.keyPress);
+    this.ADD_ACTIVE_BLOCK('login')
+    window.addEventListener('keyup', this.keyPress)
   },
   methods: {
     ...mapMutations(['SET']),
+    ...mapMutations('page', ['ADD_ACTIVE_BLOCK']),
+    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     keyPress(event) {
-      if (event.which === 13) {
-        if (!this.openLogin) {
-          this.SET({type: 'openLogin', items: true});
-        } else if (this.openLogin) {
-          // think how u can focus on element from another input component
-          // this.$nextTick(() => {
-          //   this.$refs.password.focus();
-          // })
+      const ENTER_CODE = 13
+      if (event.which === ENTER_CODE) {
+        if (!this.isOpen) {
+          this.openActiveBlock({ id: 'login' })
+        } else if (this.isOpen) {
+          document.querySelector('#password').focus()
         } else {
           this.submit();
         }
       }
 
       if (event.key === "Escape") {
-        if (this.openSettings) {
-          this.SET({type: 'openLogin', items: true});
-          this.SET({type: 'openSettings', items: false});
-        } else if (this.openLogin) {
-          this.SET({type: 'openLogin', items: false});
-          this.SET({type: 'openUsers', items: false});
-          this.SET({type: 'openDesktops', items: false});
-        }
+        this.closeActiveBlock()
       }
     }
   },
@@ -74,7 +71,6 @@ export default {
   min-width 30ch
   height 100vh
   border-left 2px var(--color-active) solid
-  position relative
   transition .5s
   position absolute
   right 0

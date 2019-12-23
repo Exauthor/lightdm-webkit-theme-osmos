@@ -3,9 +3,10 @@
     AppIcon(:name='icon').icon
     .wizard-block
       SelectItem(
-        mode='desktop'
-        :item='settings.desktop'
-        :icon='false'
+        name='desktop'
+        interactiveBlock='selectorDE'
+        :items='settings.desktops'
+        :value='settings.desktop.name'
       )
 </template>
 
