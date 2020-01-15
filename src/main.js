@@ -1,5 +1,16 @@
 import Vue from 'vue'
 import './lightdm';
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const i18n = new VueI18n({
+  locale: 'ru-RU',
+  messages: {
+    'en-US': require('./locales/en-US.json'),
+    'ru-RU': require('./locales/ru-RU.json'),
+  }
+})
 
 import App from './App.vue'
 import router from './router';
@@ -18,5 +29,6 @@ Vue.component('SelectItem', SelectItem)
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app');

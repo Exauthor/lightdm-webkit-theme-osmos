@@ -7,13 +7,13 @@
             v-for='(title, index) in tabs' :key='index' 
             :class='{"active": title === currentTabSettings}'
             @click='changeTab(title)'
-          ) {{ formatTitle(title) }}
+          ) {{ $t(`settingsModal.${title}.title`) }}
         .exit-button(@click='closeSettings')
           AppIcon(name='close')
       transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
-        .settings-body(v-if='currentTabSettings === "setting"' key='settings')
-          h3 Settings system
-        .settings-themes(v-else-if='currentTabSettings === "theme"' key='theme')
+        .settings-body(v-if='currentTabSettings === "settings"' key='settings')
+          h3 {{ $t('settingsModal.settings.about') }}
+        .settings-themes(v-else-if='currentTabSettings === "themes"' key='themes')
           .settings-themes-item(
             v-for='(theme, i) in themes' 
             :key='i' 
@@ -29,8 +29,8 @@ export default {
   name: 'SettingsWindow',
   data() {
     return {
-      currentTabSettings: 'theme',
-      tabs: ['theme', 'setting']
+      currentTabSettings: 'themes',
+      tabs: ['themes', 'settings']
     }
   },
   computed: {
@@ -40,17 +40,10 @@ export default {
       return this.getBlock('settings')
     }
   },
-  // beforeDestroy() {
-  //   console.log('BEFORE DESTROY')
-  //   this.closeSettings()
-  // },
   methods: {
     ...mapMutations(['SET']),
     ...mapMutations('system', ['CHANGE_SETTINGS']),
     ...mapActions('page', ['closeActiveBlock']),
-    formatTitle(title) {
-      return title[0].toUpperCase() + title.slice(1, title.length) + 's'
-    },
     changeTab(title) {
       this.currentTabSettings = title
     },

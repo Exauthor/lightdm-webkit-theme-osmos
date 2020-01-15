@@ -1,0 +1,12 @@
+{
+    "welcome": "Добро пожаловать",
+    "settingsModal": {
+      "themes":  {
+        "title": "Темы"
+      },
+      "settings": {
+        "title": "Настройки",
+        "about": "Настройки системы"
+      }
+    }
+}

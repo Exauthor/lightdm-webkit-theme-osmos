@@ -1,0 +1,12 @@
+{
+    "welcome": "welcome",
+    "settingsModal": {
+      "themes":  {
+        "title": "themes"
+      },
+      "settings": {
+        "title": "settings",
+        "about": "Settings system"
+      }
+    }
+}
