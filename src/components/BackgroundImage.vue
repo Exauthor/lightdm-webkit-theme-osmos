@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .background-image(:class='[(theme.fullscreen || !openLogin) ? "fullscreen" : ""]')
+  .background-image(:class='[(!theme.fullscreen && isOpenLogin) ? "not-fullscreen" : ""]')
     component(:is='theme.component' class='background-item center-position')
 </template> 
 
@@ -21,10 +21,14 @@ export default {
     space
   },
   computed: {
-    ...mapState(['themes', 'openLogin']),
+    ...mapState(['themes']),
     ...mapState('system', {
       theme: state => state.settings.theme
     }),
+    ...mapGetters('page', ['isOpenBlock']),
+    isOpenLogin() {
+      return this.isOpenBlock('login')
+    }
   },
 }
 </script>
@@ -33,9 +37,12 @@ export default {
 .background-image
   position absolute
   overflow hidden
-  width calc(100% - 30ch)
+  width 100%
   height 100vh
   transition width .5s
+
+.not-fullscreen
+  width calc(100% - 30ch)
 
 .background-item
   position absolute

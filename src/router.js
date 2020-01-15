@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Login from './views/Login.vue';
+import Index from './views/Index.vue';
 import Intro from './views/Intro.vue';
 
 Vue.use(Router);
@@ -13,9 +13,9 @@ export default new Router({
       component: Intro
     },
     {
-      path: 'login',
-      name: 'login',
-      component: Login
+      path: '/',
+      name: 'index',
+      component: Index
     },
   ]
 });

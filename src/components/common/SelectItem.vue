@@ -38,10 +38,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('page', ['isOpenBlock']),
+    ...mapGetters('page', ['getBlock']),
     isOpen: {
       get() {
-        return this.isOpenBlock(this.interactiveBlock)
+        return this.getBlock(this.interactiveBlock)
       },
       set(open) {
         if (open) {

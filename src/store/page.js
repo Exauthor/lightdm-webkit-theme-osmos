@@ -7,13 +7,19 @@ export default {
       minutes: 0,
       seconds: 0,
     },
+    settings: {
+      loginView: 'right'
+    },
     activeBlocks: [],
     interactiveBlocks: [],
     currentTheme: ''
   },
   getters: {
-    isOpenBlock: (state) => (id) => {
+    getBlock: (state) => (id) => {
       return state.activeBlocks.find((activeBlock) => id === activeBlock.id)
+    },
+    isOpenBlock: (state, getters) => (id) => {
+      return !!getters.getBlock(id)
     },
     timeArray: (state) => {
       const { hours, minutes, seconds } = state.time
@@ -43,9 +49,10 @@ export default {
       state.activeBlocks = []
     },
     UPDATE_TIME(state, objectTime) {
-      Object.entries(objectTime).forEach(([time, value]) => {
-        state.time[time] = value
-      })
+      state.time = Object.assign(state.time, objectTime)
+      // Object.entries(objectTime).forEach(([time, value]) => {
+      //   state.time[time] = value
+      // })
     },
     SET_PAGE(state, { key, value }) {
       state[key] = value
@@ -67,13 +74,15 @@ export default {
         const openBlocks = block['openAfterDestroy']
 
         if (openBlocks) {
+          console.log(openBlocks)
           await Promise.all(openBlocks.map((id)  => dispatch('openActiveBlock', { id })))
         }
       } else {
         const block = state.activeBlocks[state.activeBlocks.length - 1]
         id = block ? block.id : undefined
         if (id) {
-          dispatch('closeActiveBlock', { id })
+          console.log('CLOSE SOME', id)
+          await dispatch('closeActiveBlock', { id })
         }
       }
     },
@@ -82,11 +91,14 @@ export default {
       let { id } = settings
       if (!id) { return }
 
-      const block = state.interactiveBlocks.find((block) => block.id === id)
+      // Already active block
+      if (state.activeBlocks.find((block) => block.id === id)) { return }
 
+      let block = state.interactiveBlocks.find((block) => block.id === id)
       if (!block) { return }
 
       let closeBlocks = block['closeBeforeMoute']
+      console.log(closeBlocks)
       if (closeBlocks) {
         closeBlocks.forEach((id) => commit('CLOSE_ACTIVE_BLOCK', id))
       }

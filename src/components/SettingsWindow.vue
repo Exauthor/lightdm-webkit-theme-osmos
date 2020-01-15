@@ -35,9 +35,9 @@ export default {
   },
   computed: {
     ...mapState(['themes']),
-    ...mapGetters('page', ['isOpenBlock']),
+    ...mapGetters('page', ['getBlock']),
     isOpen() {
-      return this.isOpenBlock('settings')
+      return this.getBlock('settings')
     }
   },
   // beforeDestroy() {

@@ -60,12 +60,6 @@ export default {
       this.$refs[hand].style.animation = `rotate ${time}s infinite linear`
       setTimeout(this.updateHand, time * 1000, hand)
     })
-  },
-  destroyed() {
-    this.setTime()
-  },
-  methods: {
-    ...mapActions('page', ['setTime'])
   }
 };
 </script>

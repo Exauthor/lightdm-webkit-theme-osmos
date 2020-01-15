@@ -12,7 +12,7 @@ export default {
   name: 'intro',
   mounted() {
     setTimeout(() => {
-      this.$router.push({name: 'login'})
+      this.$router.push({ name: 'index' })
     }, 2000)
   }
 }

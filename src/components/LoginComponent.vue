@@ -1,15 +1,14 @@
 <template lang='pug'>
   transition(name='slide-right')
-    .login-menu(v-if='isOpen' :class='{ "fullscreen": theme.fullscreen }')
-      .login-form
-        UserChoice.mb-3
-        DEChoice.mb-3
-        Clock
-        SystemButtons
+    .login-menu(v-if='isOpen' :class='{ "login-fullscreen": theme.fullscreen, "login-center": loginView === "center" }')
+      UserChoice.mb-3
+      DEChoice.mb-3
+      Clock
+      SystemButtons
 </template>
 
 <script>
-import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import UserChoice from '@/components/widgets/UserChoice';
 import Clock from '@/components/widgets/Clock';
@@ -29,56 +28,50 @@ export default {
   },
   computed: {
     ...mapState('system', ['settings']),
-    ...mapGetters('page', ['isOpenBlock']),
+    ...mapState('page', {
+      'loginView': (state) => state.settings.loginView
+    }),
+    ...mapGetters('page', ['getBlock']),
     theme() {
       return this.settings.theme
     },
     isOpen() {
-      return this.isOpenBlock('login')
+      return this.getBlock('login')
     }
-  },
-  mounted() {
-    this.ADD_ACTIVE_BLOCK('login')
-    window.addEventListener('keyup', this.keyPress)
-  },
-  methods: {
-    ...mapMutations(['SET']),
-    ...mapMutations('page', ['ADD_ACTIVE_BLOCK']),
-    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
-    keyPress(event) {
-      const ENTER_CODE = 13
-      if (event.which === ENTER_CODE) {
-        if (!this.isOpen) {
-          this.openActiveBlock({ id: 'login' })
-        } else if (this.isOpen) {
-          document.querySelector('#password').focus()
-        } else {
-          this.submit();
-        }
-      }
-
-      if (event.key === "Escape") {
-        this.closeActiveBlock()
-      }
-    }
-  },
+  }
 }
 </script>
 
 <style lang="stylus">
-.login-menu
-  width 15vw
-  min-width 30ch
-  height 100vh
-  border-left 2px var(--color-active) solid
-  transition .5s
+.login
   position absolute
   right 0
-  &.fullscreen
-    border none
-    background rgba(0,0,0,.8)
-  &.hide
-    transform translateX(100%)
+
+.login-menu
+  padding 10px
+  position absolute
+  right 0
+  width 30ch
+  overflow hidden
+  height 100%
+  border-left 2px var(--color-active) solid
+
+.login-fullscreen
+  border none
+  background rgba(0,0,0,.8)
+
+.login-center
+  position absolute
+  left 50%
+  top 50%
+  transform translate(-50%, -50%)
+  background rgba(0, 0, 0, .8)
+  border-radius 5px
+  border 2px var(--color-active) solid
+  padding-bottom 60px
+  max-width 50vmin
+  width inherit
+  height inherit
 
 .login-form
   padding 10px 

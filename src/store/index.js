@@ -19,6 +19,7 @@ export default new Vuex.Store({
       {
         name: 'Fire',
         component: 'fire',
+        fullscreen: false,
         color: {
           active: '#fa076c',
           background: '#13111c'

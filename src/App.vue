@@ -8,12 +8,8 @@
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
-  methods: {
-    ...mapMutations('system', ['SET_SETTINGS']),
-    ...mapMutations('page', ['SET_PAGE']),
-    ...mapActions('page', ['setTime'])
-  },
   mounted() {
+    this.setTime()
     this.SET_SETTINGS();
     this.setTime();
     const interactiveBlocks = [
@@ -41,6 +37,12 @@ export default {
     this.SET_PAGE({ key: 'interactiveBlocks', value: interactiveBlocks })
     this.$router.push({name: 'intro'});
   },
+  methods: {
+    ...mapMutations('system', ['SET_SETTINGS']),
+    ...mapMutations('page', ['SET_PAGE']),
+    ...mapActions('page', ['setTime']),
+    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock', 'setTime'])
+  }
 }
 </script>
 
