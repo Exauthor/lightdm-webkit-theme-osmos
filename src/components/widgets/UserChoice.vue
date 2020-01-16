@@ -7,6 +7,14 @@
         interactiveBlock='selectorUser'
         :items='settings.users'
         :value='settings.user.username'
+        :actions=`[
+          {
+            type: 'commit',
+            on: 'change',
+            key: 'username',
+            path: 'user/SET_USER_STATE'
+          }
+        ]`
       )
       input#password(
         @keyup='handleKeyup'

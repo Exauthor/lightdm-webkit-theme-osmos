@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .selection(@click.stop='openList')
+  .selection(@click.stop='openList' :class='{"selection-open": isOpen}')
     span {{ checkedValue }}
     .selection-icon
     transition(name='menu-popover')
@@ -30,6 +30,10 @@ export default {
     interactiveBlock: {
       type: String,
       required: true
+    },
+    actions: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -47,7 +51,7 @@ export default {
         if (open) {
           this.openActiveBlock({ id: this.interactiveBlock })
         } else {
-          this.closeActiveBlock({ id: this.interactiveBlock})
+          this.closeActiveBlock({ id: this.interactiveBlock })
         }
       }
     }
@@ -56,9 +60,13 @@ export default {
     this.checkedValue = this.value
   },
   methods: {
+    ...mapActions(['globalDistributor']),
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     changeItem(item) {
       this.checkedValue = item.name || item.username
+      this.globalDistributor(this.actions
+        .filter((action) => action.on === 'change')
+        .map((action) => Object.assign(action, {value: this.checkedValue})))
       this.isOpen = !this.isOpen
     },
     openList() {
@@ -70,10 +78,15 @@ export default {
 
 <style lang="stylus">
 .selection
+  cursor pointer
   position relative
   text-align left
   &.active .item_icon::before
     transform translate(3px, 7px) rotate(180deg)
+
+.selection-open
+  .selection-icon::before
+    transform translate(3px, 8px) rotate(-180deg)
 
 .selection-icon
   width 20px
