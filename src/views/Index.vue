@@ -25,7 +25,6 @@ export default {
     }
   },
   mounted() {
-    this.setTime()
     window.addEventListener('keyup', this.keyPress)
     setTimeout(this.openActiveBlock, 3000, { id: 'login' })
   },
@@ -33,9 +32,8 @@ export default {
     window.removeEventListener('keyup', this.keyPress)
   },
   methods: {
-    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock', 'setTime']),
+    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     keyPress(event) {
-      console.log('START KEy')
       const ENTER_CODE = 13
       const isFocusPassword = document.querySelector('#password:focus')
       if (event.which === ENTER_CODE) {
@@ -49,7 +47,6 @@ export default {
       }
 
       if (event.key === 'Escape') {
-        console.log('Escape close')
         this.closeActiveBlock()
       }
     }

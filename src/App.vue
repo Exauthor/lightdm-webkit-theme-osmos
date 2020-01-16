@@ -11,7 +11,6 @@ export default {
   mounted() {
     this.setTime()
     this.SET_SETTINGS();
-    this.setTime();
     const interactiveBlocks = [
       {
         closeBeforeMoute: ['selectorDE'],
