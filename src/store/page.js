@@ -24,9 +24,6 @@ export default {
     timeArray: (state) => {
       const { hours, minutes, seconds } = state.time
       return [hours, minutes, seconds]
-    },
-    getCurrentTheme: (state) => {
-      return state.currentTheme
     }
   },
   mutations: {
@@ -50,9 +47,6 @@ export default {
     },
     UPDATE_TIME(state, objectTime) {
       state.time = Object.assign(state.time, objectTime)
-      // Object.entries(objectTime).forEach(([time, value]) => {
-      //   state.time[time] = value
-      // })
     },
     SET_PAGE(state, { key, value }) {
       state[key] = value
@@ -74,14 +68,12 @@ export default {
         const openBlocks = block['openAfterDestroy']
 
         if (openBlocks) {
-          console.log(openBlocks)
           await Promise.all(openBlocks.map((id)  => dispatch('openActiveBlock', { id })))
         }
       } else {
         const block = state.activeBlocks[state.activeBlocks.length - 1]
         id = block ? block.id : undefined
         if (id) {
-          console.log('CLOSE SOME', id)
           await dispatch('closeActiveBlock', { id })
         }
       }
@@ -98,7 +90,6 @@ export default {
       if (!block) { return }
 
       let closeBlocks = block['closeBeforeMoute']
-      console.log(closeBlocks)
       if (closeBlocks) {
         closeBlocks.forEach((id) => commit('CLOSE_ACTIVE_BLOCK', id))
       }

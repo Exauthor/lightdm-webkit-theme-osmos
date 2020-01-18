@@ -1,12 +1,12 @@
 <template lang='pug'>
   .wizard-dual
-    AppIcon.icon-circle.icon(:name='GET_AVATAR(settings.user.image)')
+    AppIcon.icon-circle.icon(:name='getAvatar(user.image)')
     .wizard-block
       SelectItem(
         name='user'
         interactiveBlock='selectorUser'
-        :items='settings.users'
-        :value='settings.user.username'
+        :items='users'
+        :value='user.username'
         :actions=`[
           {
             type: 'commit',
@@ -29,9 +29,9 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'UserChoiceWidget',
   computed: {
-    ...mapState('system', ['settings']),
+    ...mapState('settings', ['users', 'user']),
     ...mapState('user', ['password', 'logging', 'error']),
-    ...mapGetters('system', ['GET_AVATAR']),
+    ...mapGetters('settings', ['getAvatar']),
     initPassword: {
       get() {
         return this.password

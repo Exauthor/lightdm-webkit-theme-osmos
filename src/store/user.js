@@ -9,7 +9,7 @@ export default {
   },
   getters: {
     getUserName: (state, getters, rootState) => {
-      return rootState.system.settings.user.username
+      return state.username || rootState.settings.user.username
     }
   },
   mutations: {
@@ -18,7 +18,7 @@ export default {
     }
   },
   actions: {
-    login({ state, commit, rootState }) {
+    login({ state, getters, commit, rootState, gettersState }) {
       if (!state.password) {
         alert('password in empty')
         return;
@@ -26,10 +26,10 @@ export default {
       commit('SET_USER_STATE', { key: 'logging', value: true})
 
       setTimeout(() => {
-        // TODO replace on another way
-        const username = rootState.system.settings.user.username
+        const username = getters.getUserName
+        const desktop = gettersState.getCurrentDesktop
         lightdm_login(username, state.password, () => {
-          setTimeout(() => lightdm_start(rootState.system.settings.desktop.key), 400);
+          setTimeout(() => lightdm_start(desktop.key), 400);
         }, () => {
           commit('SET_USER_STATE', { key: 'error', value: true})
           commit('SET_USER_STATE', { key: 'password', value: ''})

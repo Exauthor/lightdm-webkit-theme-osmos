@@ -10,7 +10,7 @@ import { mapMutations, mapActions } from 'vuex'
 export default {
   mounted() {
     this.setTime()
-    this.SET_SETTINGS();
+    this.setUpSettings();
     const interactiveBlocks = [
       {
         closeBeforeMoute: ['selectorDE'],
@@ -37,8 +37,9 @@ export default {
     this.$router.push({name: 'intro'});
   },
   methods: {
-    ...mapMutations('system', ['SET_SETTINGS']),
+    ...mapMutations('settings', ['SET_SETTINGS']),
     ...mapMutations('page', ['SET_PAGE']),
+    ...mapActions('settings', ['setUpSettings']),
     ...mapActions('page', ['setTime']),
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock', 'setTime'])
   }

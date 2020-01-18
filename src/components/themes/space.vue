@@ -12,7 +12,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'UserChoiceWidget',
+  name: 'Space',
   computed: {
     ...mapGetters('user', ['getUserName'])
   },

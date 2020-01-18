@@ -21,10 +21,7 @@ export default {
     space
   },
   computed: {
-    ...mapState(['themes']),
-    ...mapState('system', {
-      theme: state => state.settings.theme
-    }),
+    ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters('page', ['isOpenBlock']),
     isOpenLogin() {
       return this.isOpenBlock('login')

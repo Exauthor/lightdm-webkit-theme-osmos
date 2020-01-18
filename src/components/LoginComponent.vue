@@ -27,14 +27,11 @@ export default {
     Clock
   },
   computed: {
-    ...mapState('system', ['settings']),
     ...mapState('page', {
       'loginView': (state) => state.settings.loginView
     }),
+    ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters('page', ['getBlock']),
-    theme() {
-      return this.settings.theme
-    },
     isOpen() {
       return this.getBlock('login')
     }

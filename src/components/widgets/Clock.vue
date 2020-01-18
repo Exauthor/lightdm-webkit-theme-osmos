@@ -13,7 +13,7 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
-  name: 'UserChoiceWidget',
+  name: 'Clock',
   computed: {
     ...mapState('page', ['time'])
   },

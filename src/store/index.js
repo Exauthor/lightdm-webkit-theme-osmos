@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import system from './system'
 import settings from './settings'
 import color from './color'
 import user from './user'
@@ -11,7 +10,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     settings,
-    system,
     color,
     page,
     user
@@ -32,11 +30,6 @@ export default new Vuex.Store({
   
         return objectProperty
       }
-    }
-  },
-  mutations: {
-    SET(state, {type, items}) {
-      state[type] = items
     }
   },
   actions: {

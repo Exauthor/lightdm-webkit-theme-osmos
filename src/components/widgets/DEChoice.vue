@@ -1,24 +1,33 @@
 <template lang='pug'>
   .wizard-dual
-    AppIcon(:name='icon').icon
+    AppIcon.icon(:name='icon')
     .wizard-block
       SelectItem(
         name='desktop'
         interactiveBlock='selectorDE'
-        :items='settings.desktops'
-        :value='settings.desktop.name'
+        :items='desktops'
+        :value='desktop'
+        :actions=`[
+          {
+            type: 'commit',
+            on: 'change',
+            key: 'desktop',
+            path: 'settings/CHANGE_SETTINGS'
+          }
+        ]`
       )
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
-  name: 'UserChoiceWidget',  
+  name: 'DEChoiceWidget',  
   computed: {
-    ...mapState('system', ['settings']),
+    ...mapState('settings', ['desktop', 'desktops']),
+    ...mapGetters('settings', ['getCurrentDesktop']),
     icon() {
-      let key = this.settings.desktop.key.toLowerCase();
+      let key = this.getCurrentDesktop.key.toLowerCase();
 
       if (key.indexOf('plasma') > -1 || key.indexOf('kde') > -1) {
         return 'kde';

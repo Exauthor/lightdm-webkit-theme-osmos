@@ -34,15 +34,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['themes']),
+    ...mapState('settings', ['themes']),
     ...mapGetters('page', ['getBlock']),
     isOpen() {
       return this.getBlock('settings')
     }
   },
   methods: {
-    ...mapMutations(['SET']),
-    ...mapMutations('system', ['CHANGE_SETTINGS']),
+    ...mapMutations('settings', ['CHANGE_SETTINGS']),
     ...mapActions('page', ['closeActiveBlock']),
     changeTab(title) {
       this.currentTabSettings = title
@@ -59,9 +58,7 @@ export default {
       return index
     },
     changeTheme(theme) {
-      this.SET({type: 'theme', items: theme});
-
-      this.CHANGE_SETTINGS({key: 'theme', value: theme})
+      this.CHANGE_SETTINGS({ key: 'currentTheme', value: theme.name })
 
       document.documentElement.style
         .setProperty('--color-active', theme.color.active);

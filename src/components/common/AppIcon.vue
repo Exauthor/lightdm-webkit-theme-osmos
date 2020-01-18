@@ -75,15 +75,13 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'AppIcon',
   props: ['name'],
   computed: {
-    ...mapState('system', {
-      theme: state => state.settings.theme
-    }),
+    ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL'])
   }
 }
