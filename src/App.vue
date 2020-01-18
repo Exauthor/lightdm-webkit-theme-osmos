@@ -21,6 +21,14 @@ export default {
         id: 'selectorDE',
       },
       {
+        closeBeforeMoute: ['loginPosition'],
+        id: 'language',
+      },
+      {
+        closeBeforeMoute: ['language'],
+        id: 'loginPosition',
+      },
+      {
         closeBeforeMoute: ['selectorUser', 'selectorDE'],
         id: 'login',
         order: 1,
@@ -47,7 +55,5 @@ export default {
 </script>
 
 <style lang="stylus">
-
 @import './assets/style/index.styl';
-
 </style>

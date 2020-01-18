@@ -12,7 +12,33 @@
           AppIcon(name='close')
       transition-group(tag='div' name='slide-right' style='height: calc(100% - 20px); overflow: hidden; position: relative;')
         .settings-body(v-if='currentTabSettings === "settings"' key='settings')
-          h3 {{ $t('settingsModal.settings.about') }}
+          .d-flex.ai-center
+            h3 {{ $t('settingsModal.settings.choiceLanguage') }}:
+            SelectItem(
+              style='min-width: 100px; margin-bottom: 6px; margin-left: 10px;'
+              name='language'
+              interactiveBlock='language'
+              :items='languages'
+              :value='language'
+              :actions='actions'
+            )
+          .d-flex.ai-center
+            h3 {{ $t('settingsModal.settings.choiceLoginPosition.title') }}:
+            SelectItem(
+              style='min-width: 100px; margin-bottom: 6px; margin-left: 10px;'
+              name='loginPosition'
+              interactiveBlock='loginPosition'
+              :items='positionArrayValues'
+              :value='$t(`settingsModal.settings.choiceLoginPosition.${loginPosition}`)'
+              :actions=`[
+                {
+                  type: 'commit',
+                  on: 'change',
+                  key: 'loginPosition',
+                  path: 'settings/CHANGE_SETTINGS'
+                }
+              ]`
+            )   
         .settings-themes(v-else-if='currentTabSettings === "themes"' key='themes')
           .settings-themes-item(
             v-for='(theme, i) in themes' 
@@ -30,15 +56,29 @@ export default {
   data() {
     return {
       currentTabSettings: 'themes',
-      tabs: ['themes', 'settings']
+      tabs: ['themes', 'settings'],
+      actions: []
     }
   },
   computed: {
-    ...mapState('settings', ['themes']),
+    ...mapState('settings', ['themes', 'language', 'languages', 'loginPosition']),
     ...mapGetters('page', ['getBlock']),
+    positionArrayValues() {
+      const position = ['left', 'bottom', 'top', 'right', 'center']
+      const pre = 'settingsModal.settings.choiceLoginPosition.'
+      return position.map(position => ({ text: this.$t(pre+position), value: position }))
+    },
     isOpen() {
       return this.getBlock('settings')
     }
+  },
+  mounted() {
+    this.actions.push({
+      type: 'commit',
+      on: 'change',
+      key: this, 
+      path: 'settings/CHANGE_LANGUAGE'
+    })
   },
   methods: {
     ...mapMutations('settings', ['CHANGE_SETTINGS']),
@@ -84,6 +124,7 @@ export default {
   height 70vmin
 
 .settings-body
+  height 100%
   width 100%
   overflow hidden
 

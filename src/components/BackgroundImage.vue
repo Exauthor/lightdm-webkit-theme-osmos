@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .background-image(:class='[(!theme.fullscreen && isOpenLogin) ? "not-fullscreen" : ""]')
+  .background-image(:class='classObject')
     component(:is='theme.component' class='background-item center-position')
 </template> 
 
@@ -21,8 +21,15 @@ export default {
     space
   },
   computed: {
+    ...mapState('settings', ['loginPosition']),
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters('page', ['isOpenBlock']),
+    classObject() {
+      return {
+        [`background-${this.loginPosition}`]: true && this.isOpenLogin,
+        ['background-fullscreen']: this.theme.fullscreen || !this.isOpenLogin
+      }
+    },
     isOpenLogin() {
       return this.isOpenBlock('login')
     }
@@ -31,19 +38,27 @@ export default {
 </script>
 
 <style lang='stylus'>
+:root
+   --margin-login: 30ch;
+
+.background-left
+  margin-left var(--margin-login)
+
 .background-image
   position absolute
   overflow hidden
   width 100%
   height 100vh
+  width calc(100% - var(--margin-login))
   transition width .5s
+ 
+.background-center
+  width 100%
 
-.not-fullscreen
-  width calc(100% - 30ch)
+.background-fullscreen
+  width 100%
+  margin 0
 
 .background-item
   position absolute
-
-.fullscreen
-  width 100vw
 </style>

@@ -1,10 +1,11 @@
 <template lang='pug'>
-  transition(name='slide-right')
-    .login-menu(v-if='isOpen' :class='{ "login-fullscreen": theme.fullscreen, "login-center": loginView === "center" }')
-      UserChoice.mb-3
-      DEChoice.mb-3
-      Clock
-      SystemButtons
+  transition(:name='`slide-${loginPosition}`')
+    .login-menu(v-if='isOpen' :class='classObject')
+      div(:class='{"wizard-blocks": ["bottom", "top"].includes(loginPosition)}')
+        UserChoice.mb-3
+        DEChoice.mb-3
+        Clock
+      SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
 </template>
 
 <script>
@@ -27,11 +28,15 @@ export default {
     Clock
   },
   computed: {
-    ...mapState('page', {
-      'loginView': (state) => state.settings.loginView
-    }),
+    ...mapState('settings', ['loginPosition']),
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters('page', ['getBlock']),
+    classObject({ loginPosition, theme }) {
+      return {
+        [`login-${loginPosition}`]: true,
+        ['login-fullscreen']: theme.fullscreen
+      }
+    },
     isOpen() {
       return this.getBlock('login')
     }
@@ -68,10 +73,31 @@ export default {
   padding-bottom 60px
   max-width 50vmin
   width inherit
-  height inherit
+  height auto
+
+.login-left
+  left 0%
+  border-left none
+  border-right 2px var(--color-active) solid
+
+.login-top
+  width 100%
+  left 0
+  height auto
+
+.login-bottom
+  width 100%
+  height auto
+  bottom 0
+  overflow visible
 
 .login-form
   padding 10px 
+
+.wizard-blocks
+  display flex
+  .wizard-dual
+    min-width 20vw
 
 .mb-3
   margin-bottom 12px

@@ -1,20 +1,27 @@
 import Vue from 'vue'
-import './lightdm';
+import './lightdm'
+
+import App from './App.vue'
+import router from './router';
+import store from './store/index';
+
 import VueI18n from 'vue-i18n'
 
 Vue.use(VueI18n)
 
+const settings = JSON.parse(localStorage.getItem('settings'))
 const i18n = new VueI18n({
-  locale: 'ru-RU',
+  locale: (settings && settings.language) || 'en-US',
+  fallbackLocale: 'en-US',
+  silentTranslationWarn: true,
   messages: {
     'en-US': require('./locales/en-US.json'),
     'ru-RU': require('./locales/ru-RU.json'),
   }
 })
 
-import App from './App.vue'
-import router from './router';
-import store from './store/index';
+store.state.settings.languages = i18n.availableLocales
+store.state.settings.language = i18n.locale
 
 Vue.config.productionTip = false;
 

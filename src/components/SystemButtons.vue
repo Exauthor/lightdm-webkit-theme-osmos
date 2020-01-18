@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .login-bottom
+  .system-buttons
     .system-button(v-for='(button, index) in buttons' :key='index' @click='handleClick(button)')
       AppIcon(:name='button')
 </template>
@@ -39,14 +39,27 @@ export default {
     width 100%
     height 100%
 
-.login-bottom
+.system-buttons
+  background var(--color-active)
+
+.system-buttons-right
+  height 100%
+  position absolute
+  right 0
+  bottom 0
+  display flex
+  justify-content space-between
+  flex-direction column
+  margin 0
+  padding 5px 5px
+
+.system-buttons-bottom
   width 100%
   position absolute
   bottom 0
   left 0
   display flex
   justify-content space-between
-  background var(--color-active)
   margin 0
   padding 5px 10px
 </style>

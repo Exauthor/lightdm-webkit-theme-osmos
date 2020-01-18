@@ -1,11 +1,11 @@
 <template lang='pug'>
-  .wizard-dual
+  .wizard-dual.wizard-block
     .clock.icon
       .position-center
         .clock-item.clock-seconds(ref='seconds')
         .clock-item.clock-minutes(ref='minutes')
         .clock-item.clock-hours(ref='hours')
-    .wizard-block
+    .wizard-interactive
       .fs-7.fw-600 {{ time.hours | formatTime}}:{{ time.minutes | formatTime}}
 </template>
 
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateHand(hand) {
-      if (!hand) {
+      if (!hand || this.$refs[hand]) {
         return;
       }
 

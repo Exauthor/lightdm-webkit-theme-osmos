@@ -6,6 +6,15 @@
       },
       "settings": {
         "title": "settings",
+        "choiceLanguage": "Choice language",
+        "choiceLoginPosition": {
+          "title": "Choice login position",
+          "center": "center",
+          "top": "top",
+          "left": "left",
+          "right": "right",
+          "bottom": "bottom"
+        },
         "about": "Settings system"
       }
     }

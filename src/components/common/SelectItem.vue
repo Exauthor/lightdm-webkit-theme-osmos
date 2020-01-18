@@ -1,13 +1,13 @@
 <template lang='pug'>
-  .selection(@click.stop='openList' :class='{"selection-open": isOpen}')
-    span {{ checkedValue }}
+  .selection(@click.stop='openList' :class='{"selection-open": isOpen}' ref='selector')
+    span {{  checkedValue.text || checkedValue }}
     .selection-icon
     transition(name='menu-popover')
-      ul.selection-list(v-if='isOpen')
+      ul.selection-list(v-if='isOpen' :class='selectorListClass')
         li.selection-list-item(
           v-for='(item, i) in items'
           :key='i' @click.stop='changeItem(item)'
-        ) {{item.name || item.username}}
+        ) {{ item.name || item.username || item.text || item }}
 </template>
 
 <script>
@@ -38,11 +38,17 @@ export default {
   },
   data() {
     return {
-      checkedValue: ''
+      checkedValue: '',
+      positionSelector: ''
     }
   },
   computed: {
     ...mapGetters('page', ['getBlock']),
+    selectorListClass({ positionSelector }) {
+      return {
+        [`selection-list-${positionSelector}`]: true
+      }
+    },
     isOpen: {
       get() {
         return this.getBlock(this.interactiveBlock)
@@ -56,6 +62,11 @@ export default {
       }
     }
   },
+  watch: {
+    value() {
+      this.checkedValue = this.value
+    }
+  },
   mounted() {
     this.checkedValue = this.value
   },
@@ -63,13 +74,16 @@ export default {
     ...mapActions(['globalDistributor']),
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     changeItem(item) {
-      this.checkedValue = item.name || item.username
+      this.checkedValue = item.name || item.username || item
       this.globalDistributor(this.actions
         .filter((action) => action.on === 'change')
-        .map((action) => Object.assign(action, {value: this.checkedValue})))
+        .map((action) => Object.assign(action, {value: item.value || this.checkedValue})))
       this.isOpen = !this.isOpen
     },
     openList() {
+      const { bottom } = this.$refs.selector.getBoundingClientRect()
+      const height = window.innerHeight
+      this.positionSelector = (height - bottom > 100) ? 'bottom' : 'top'
       this.isOpen = !this.isOpen
     }
   }
@@ -119,4 +133,9 @@ export default {
     &:hover
       text-shadow 0 0 7px currentColor
       background rgba(0,0,0,.8)
+// .selection-list-bottom
+
+.selection-list-top
+  top 0
+  transform translateY(-100%)
 </style>

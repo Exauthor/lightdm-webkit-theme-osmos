@@ -109,6 +109,12 @@ svg
   margin 0 auto
   min-height 100vh
 
+.d-flex
+  display flex
+
+.ai-center
+  align-items center
+
 @keyframes going {
   to {
     opacity: 0;
@@ -149,11 +155,24 @@ svg
   transform translate(-100%, -50%)
   opacity 0
 
+
 .slide-right-enter-active, .slide-right-leave-active 
   transition all .5s
 
 .slide-right-enter, .slide-right-leave-to
   transform translate(100%)
+
+.slide-left-enter-active, .slide-left-leave-active 
+  transition all .5s
+
+.slide-left-enter, .slide-left-leave-to
+  transform translateX(-100%)
+
+.slide-top-enter-active, .slide-top-leave-active 
+  transition all .5s
+
+.slide-top-enter, .slide-top-leave-to
+  transform translateY(-100%)
 
 .menu-popover-enter,
 .menu-popover-leave-to 
@@ -187,7 +206,7 @@ svg
   }
 }
 
-.wizard-block
+.wizard-interactive
   width calc(100% - 12vmin)
   display flex 
   flex-direction column

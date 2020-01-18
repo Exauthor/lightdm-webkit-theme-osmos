@@ -7,12 +7,8 @@ export default {
       minutes: 0,
       seconds: 0,
     },
-    settings: {
-      loginView: 'right'
-    },
     activeBlocks: [],
-    interactiveBlocks: [],
-    currentTheme: ''
+    interactiveBlocks: []
   },
   getters: {
     getBlock: (state) => (id) => {

@@ -1,7 +1,7 @@
 <template lang='pug'>
-  .wizard-dual
+  .wizard-dual.wizard-block
     AppIcon.icon(:name='icon')
-    .wizard-block
+    .wizard-interactive
       SelectItem(
         name='desktop'
         interactiveBlock='selectorDE'

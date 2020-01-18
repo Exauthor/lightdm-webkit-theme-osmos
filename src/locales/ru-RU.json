@@ -6,6 +6,15 @@
       },
       "settings": {
         "title": "Настройки",
+        "choiceLanguage": "Выбор языка",
+        "choiceLoginPosition": {
+          "title": "Выбрать положение логина",
+          "center": "центр",
+          "top": "вверх",
+          "left": "влево",
+          "right": "вправо",
+          "bottom": "снизу"
+        },
         "about": "Настройки системы"
       }
     }

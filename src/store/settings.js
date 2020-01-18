@@ -48,6 +48,9 @@ export default {
         },
       },
     ],
+    language: '',
+    languages: [],
+    loginPosition: '',
     currentTheme: 'Fire',
     user: lightdm.users[0],
     users: lightdm.users,
@@ -72,21 +75,27 @@ export default {
   mutations: {
     CHANGE_SETTINGS(state, { key, value }) {
       state[key] = value
-      localStorage.setItem('settings', JSON.stringify(state));
+      localStorage.setItem('settings', JSON.stringify(state))
     },
     SAVE_SETTINGS(state, payload) {
-      localStorage.setItem('settings', JSON.stringify(payload ? state = payload : state.settings));
+      localStorage.setItem('settings', JSON.stringify(payload ? state = payload : state.settings))
     },
     SET_MODULE_VALUE(state, update) {
       state = update
+    },
+    CHANGE_LANGUAGE(state, { key, value }) {
+      key.$i18n.locale = value
+      state.language = value
+      localStorage.setItem('settings', JSON.stringify(state))
     }
   },
   actions: {
     setUpSettings({ state, getters, commit }) {
-      let local = JSON.parse(localStorage.getItem('settings'));
+      let local = JSON.parse(localStorage.getItem('settings'))
 
       if (local) {
-        commit('CHANGE_SETTINGS', { value: 'currentTheme', key: local.currentTheme })
+        commit('CHANGE_SETTINGS', { key: 'currentTheme', value: local.currentTheme })
+        commit('CHANGE_SETTINGS', { key: 'loginPosition', value: local.loginPosition })
         const theme = getters.getCurrentTheme
         let existDesk = !!lightdm.sessions.filter((item, i) => {
           return item.key === local.desktop.key
