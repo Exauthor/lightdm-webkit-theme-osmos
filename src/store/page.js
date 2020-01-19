@@ -85,7 +85,7 @@ export default {
       let block = state.interactiveBlocks.find((block) => block.id === id)
       if (!block) { return }
 
-      let closeBlocks = block['closeBeforeMoute']
+      let closeBlocks = block['closeBeforeMount']
       if (closeBlocks) {
         closeBlocks.forEach((id) => commit('CLOSE_ACTIVE_BLOCK', id))
       }

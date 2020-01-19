@@ -1,11 +1,11 @@
 <template lang='pug'>
-  .wizard-dual.wizard-block
+  .widget-dual.widget-block
     .clock.icon
       .position-center
         .clock-item.clock-seconds(ref='seconds')
         .clock-item.clock-minutes(ref='minutes')
         .clock-item.clock-hours(ref='hours')
-    .wizard-interactive
+    .widget-interactive
       .fs-7.fw-600 {{ time.hours | formatTime}}:{{ time.minutes | formatTime}}
 </template>
 

@@ -1,7 +1,7 @@
 <template lang='pug'>
-  .wizard-dual.wizard-block
+  .widget-dual.widget-block
     AppIcon.icon-circle.icon(:name='getAvatar(user.image)')
-    .wizard-interactive
+    .widget-interactive
       SelectItem(
         name='user'
         interactiveBlock='selectorUser'

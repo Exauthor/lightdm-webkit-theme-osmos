@@ -1,21 +1,22 @@
 {
     "welcome": "Добро пожаловать",
-    "settingsModal": {
-      "themes":  {
-        "title": "Темы"
+    "back": "Вернуться",
+    "themes":  {
+      "title": "Темы"
+    },
+    "settings": {
+      "title": "Настройки",
+      "choiceLanguage": "Выбор языка",
+      "language": "Язык",
+      "choiceLoginPosition": {
+        "title": "Положение",
+        "about": "Выбрать положение логина",
+        "center": "центр",
+        "top": "вверх",
+        "left": "влево",
+        "right": "вправо",
+        "bottom": "снизу"
       },
-      "settings": {
-        "title": "Настройки",
-        "choiceLanguage": "Выбор языка",
-        "choiceLoginPosition": {
-          "title": "Выбрать положение логина",
-          "center": "центр",
-          "top": "вверх",
-          "left": "влево",
-          "right": "вправо",
-          "bottom": "снизу"
-        },
-        "about": "Настройки системы"
-      }
+      "about": "Настройки системы"
     }
 }

@@ -9,6 +9,8 @@
       .blick.center-position
       .blick.center-position
       .kore
+    .meteor
+    .planet
     .mountain-back
     .mountain-second
     .mountain-front
@@ -21,6 +23,16 @@
   overflow hidden
   position relative
   background linear-gradient(to top, #FF3E45 0%, #C83545 15vw, #642345 25vw, #2F1F49)
+  .meteor
+    left 20px
+    transform scale(-0.8, 0.8) rotate(-22.5deg)
+  .planet
+    position absolute 
+    right 15vw
+    top 10vh
+    width 20vmin
+    height 20vmin
+    background  url(../../assets/images/themes/mars/Planet.svg) 50% bottom/ contain no-repeat
   .stars
     &:before
       display: none

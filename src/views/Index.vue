@@ -1,13 +1,11 @@
 <template lang='pug'>
   .index
-    SettingsWindow
     BackgroundImage
     LoginComponent
 </template>
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
-import SettingsWindow from '@/components/SettingsWindow.vue'
 import LoginComponent from '@/components/LoginComponent.vue'
 import BackgroundImage from '@/components/BackgroundImage'
 
@@ -16,7 +14,6 @@ export default {
   components: {
     BackgroundImage,
     LoginComponent,
-    SettingsWindow
   },
   computed: {
     ...mapGetters('page', ['getBlock']),

@@ -1,17 +1,30 @@
 <template lang='pug'>
   transition(:name='`slide-${loginPosition}`')
     .login-menu(v-if='isOpen' :class='classObject')
-      div(:class='{"wizard-blocks": ["bottom", "top"].includes(loginPosition)}')
-        UserChoice.mb-3
-        DEChoice.mb-3
-        Clock
-      SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
+      transition(:name='`slide-${loginPosition}`')
+        .login-content(v-if='!isOpenSettings' key='content')
+          div(:class='{"widget-blocks": ["bottom", "top"].includes(loginPosition)}')
+            UserChoice.mb-3
+            DEChoice.mb-3
+            Clock.mb-3
+            CommonSettings
+          SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
+        .login-settings(v-else-if='isOpenSettings' key='settings')
+          h1 {{ $t('settings.title') }}:
+          .settings-themes-item(
+            v-for='(theme, i) in themes' 
+            :key='i' 
+            :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
+            @click='changeTheme(theme)'
+          )
+            h4 {{theme.name}}
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex'
 
 import UserChoice from '@/components/widgets/UserChoice';
+import CommonSettings from '@/components/widgets/CommonSettings';
 import Clock from '@/components/widgets/Clock';
 import DEChoice from '@/components/widgets/DEChoice';
 
@@ -22,15 +35,19 @@ export default {
   name: 'LoginComponent',
   components: {
     BackgroundImage,
+    CommonSettings,
     SystemButtons,
     UserChoice,
     DEChoice,
     Clock
   },
   computed: {
-    ...mapState('settings', ['loginPosition']),
+    ...mapState('settings', ['themes', 'loginPosition']),
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
     ...mapGetters('page', ['getBlock']),
+    isOpenSettings() {
+      return this.getBlock('settings')
+    },
     classObject({ loginPosition, theme }) {
       return {
         [`login-${loginPosition}`]: true,
@@ -39,6 +56,26 @@ export default {
     },
     isOpen() {
       return this.getBlock('login')
+    }
+  },
+  methods: {
+    ...mapMutations('settings', ['CHANGE_SETTINGS']),
+    setImage(name) {
+      try {
+        var index = require(`@/assets/images/themes/${name}/index.png`);
+      } catch {
+        var index = 'notFound'
+      }
+      return index
+    },
+    changeTheme(theme) {
+      this.CHANGE_SETTINGS({ key: 'currentTheme', value: theme.name })
+
+      document.documentElement.style
+        .setProperty('--color-active', theme.color.active);
+      
+      document.documentElement.style
+        .setProperty('--color-bg', theme.color.background);
     }
   }
 }
@@ -50,7 +87,6 @@ export default {
   right 0
 
 .login-menu
-  padding 10px
   position absolute
   right 0
   width 30ch
@@ -75,30 +111,73 @@ export default {
   width inherit
   height auto
 
+
+.login-content
+  display flex
+
+.login-content, .login-settings
+  height 100%
+  padding 10px
+  overflow visible
+
 .login-left
   left 0%
-  border-left none
+  border none
   border-right 2px var(--color-active) solid
+
+.login-bottom, .login-top
+  border none
+  height 14vmin
+  width 100%
+  overflow visible
+  .widget-block
+    margin-bottom 0
+    margin-right 10px
+  .login-settings
+    display flex
+    overflow scroll
+    .settings-themes-item
+      width 20vmin
+      min-width 20vmin
+      height auto
+      margin 0
+      margin-right 15px
+
+.login-bottom
+  bottom 0
+  border-top 2px var(--color-active) solid
 
 .login-top
   width 100%
   left 0
   height auto
-
-.login-bottom
-  width 100%
-  height auto
-  bottom 0
+  border none
   overflow visible
+  border-bottom 2px var(--color-active) solid
 
 .login-form
   padding 10px 
 
-.wizard-blocks
+.widget-blocks
   display flex
-  .wizard-dual
-    min-width 20vw
+  align-items center
+  .widget-block
+    min-width 200px
+
 
 .mb-3
   margin-bottom 12px
+
+.settings-themes-item
+  display block
+  width calc(30ch - 25px)
+  height calc(30ch - 25px)
+  margin 0 auto 15px
+  border-radius 10px
+  overflow hidden
+  h4
+    background rgba(0,0,0, .5)
+    text-align center
+    padding 5px
+    font-size 1.5rem
 </style>

@@ -9,6 +9,17 @@ section
   & h2
     margin 0px
 
+::-webkit-scrollbar
+  width 4px
+
+/* Track */
+::-webkit-scrollbar-track
+  background transparent
+
+/* Handle */
+::-webkit-scrollbar-thumb
+  background var(--color-active)
+
 :root
   font-size 16px
 
@@ -155,24 +166,33 @@ svg
   transform translate(-100%, -50%)
   opacity 0
 
-
 .slide-right-enter-active, .slide-right-leave-active 
   transition all .5s
 
 .slide-right-enter, .slide-right-leave-to
+  position absolute
   transform translate(100%)
 
 .slide-left-enter-active, .slide-left-leave-active 
   transition all .5s
 
 .slide-left-enter, .slide-left-leave-to
+  position absolute
   transform translateX(-100%)
 
 .slide-top-enter-active, .slide-top-leave-active 
   transition all .5s
 
 .slide-top-enter, .slide-top-leave-to
+  position absolute
   transform translateY(-100%)
+
+.slide-bottom-enter-active, .slide-bottom-leave-active 
+  transition all .5s
+
+.slide-bottom-enter, .slide-bottom-leave-to
+  position absolute
+  transform translateY(100%)
 
 .menu-popover-enter,
 .menu-popover-leave-to 
@@ -206,8 +226,8 @@ svg
   }
 }
 
-.wizard-interactive
-  width calc(100% - 12vmin)
+.widget-interactive
+  width calc(100% - 10vmin)
   display flex 
   flex-direction column
   justify-content space-around
@@ -224,9 +244,9 @@ input
   &:focus
     outline none
 
-.wizard-dual
+.widget-dual
   display flex
-  justify-content space-around
+  justify-content space-between
 
 .fs-1
   font-size .75rem

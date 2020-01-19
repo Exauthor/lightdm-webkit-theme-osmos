@@ -27,7 +27,8 @@ export default {
 
       setTimeout(() => {
         const username = getters.getUserName
-        const desktop = gettersState.getCurrentDesktop
+        console.log(gettersState)
+        const desktop = gettersState.settings.getCurrentDesktop
         lightdm_login(username, state.password, () => {
           setTimeout(() => lightdm_start(desktop.key), 400);
         }, () => {

@@ -1,21 +1,21 @@
 {
     "welcome": "welcome",
-    "settingsModal": {
-      "themes":  {
-        "title": "themes"
+    "themes":  {
+      "title": "themes"
+    },
+    "settings": {
+      "title": "settings",
+      "choiceLanguage": "Choice language",
+      "language": "Language",
+      "choiceLoginPosition": {
+        "title": "Position",
+        "about": "Choice login position",
+        "center": "center",
+        "top": "top",
+        "left": "left",
+        "right": "right",
+        "bottom": "bottom"
       },
-      "settings": {
-        "title": "settings",
-        "choiceLanguage": "Choice language",
-        "choiceLoginPosition": {
-          "title": "Choice login position",
-          "center": "center",
-          "top": "top",
-          "left": "left",
-          "right": "right",
-          "bottom": "bottom"
-        },
-        "about": "Settings system"
-      }
+      "about": "Settings system"
     }
 }
