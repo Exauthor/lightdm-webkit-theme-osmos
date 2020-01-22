@@ -10,7 +10,7 @@ import { mapMutations, mapActions } from 'vuex'
 export default {
   mounted() {
     this.setTime()
-    this.setUpSettings();
+    this.setUpSettings()
     const interactiveBlocks = [
       {
         closeBeforeMount: [''],

@@ -9,15 +9,7 @@
             Clock.mb-3
             CommonSettings
           SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
-        .login-settings(v-else-if='isOpenSettings' key='settings')
-          h1 {{ $t('settings.title') }}:
-          .settings-themes-item(
-            v-for='(theme, i) in themes' 
-            :key='i' 
-            :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
-            @click='changeTheme(theme)'
-          )
-            h4 {{theme.name}}
+        LoginSettings(v-else-if='isOpenSettings' key='settings')
 </template>
 
 <script>
@@ -28,6 +20,8 @@ import CommonSettings from '@/components/widgets/CommonSettings';
 import Clock from '@/components/widgets/Clock';
 import DEChoice from '@/components/widgets/DEChoice';
 
+import LoginSettings from '@/components/LoginSettings';
+
 import SystemButtons from '@/components/SystemButtons';
 import BackgroundImage from '@/components/BackgroundImage';
 
@@ -36,6 +30,7 @@ export default {
   components: {
     BackgroundImage,
     CommonSettings,
+    LoginSettings,
     SystemButtons,
     UserChoice,
     DEChoice,
@@ -130,16 +125,19 @@ export default {
   height 14vmin
   width 100%
   overflow visible
+  .login-content
+    width 100vw
   .widget-block
     margin-bottom 0
     margin-right 10px
   .login-settings
     display flex
-    overflow scroll
+    overflow auto
     .settings-themes-item
-      width 20vmin
-      min-width 20vmin
-      height auto
+      width 200px
+      min-width 200px
+      // min-width 20vmin
+      height calc(12vmin - 20px)
       margin 0
       margin-right 15px
 

@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     updateHand(hand) {
-      if (!hand || this.$refs[hand]) {
+      if (!hand || !this.$refs[hand]) {
         return;
       }
 
