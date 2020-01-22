@@ -55,7 +55,8 @@ export default {
     user: lightdm.users[0],
     users: lightdm.users,
     desktop: lightdm.sessions[0].name,
-    desktops: lightdm.sessions
+    desktops: lightdm.sessions,
+    version: '1.0.4'
   },
   getters: {
     getAvatar: (state, getters) => image => {
@@ -80,9 +81,6 @@ export default {
     SAVE_SETTINGS(state, payload) {
       localStorage.setItem('settings', JSON.stringify(payload ? state = payload : state.settings))
     },
-    SET_MODULE_VALUE(state, update) {
-      state = update
-    },
     CHANGE_LANGUAGE(state, { key, value }) {
       key.$i18n.locale = value
       state.language = value
@@ -94,6 +92,9 @@ export default {
       let local = JSON.parse(localStorage.getItem('settings'))
 
       if (local) {
+        if (local.version !== state.version) {
+          localStorage.setItem('settings', JSON.stringify(state));
+        }
         commit('CHANGE_SETTINGS', { key: 'currentTheme', value: local.currentTheme })
         commit('CHANGE_SETTINGS', { key: 'loginPosition', value: local.loginPosition })
         const theme = getters.getCurrentTheme
@@ -123,8 +124,6 @@ export default {
           .setProperty('--color-active', theme.color.active);
         document.documentElement.style
           .setProperty('--color-bg', theme.color.background);
-
-        commit('SET_MODULE_VALUE', local)
       } else {
         localStorage.setItem('settings', JSON.stringify(state));
       }

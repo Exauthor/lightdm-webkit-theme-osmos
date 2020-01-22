@@ -15,7 +15,7 @@
         name='loginPosition'
         interactiveBlock='loginPosition'
         :items='positionArrayValues'
-        :value='$t(`settings.choiceLoginPosition.${loginPosition}`)'
+        :value='$t(`settings.choiceLoginPosition.${loginPosition || "right"}`)'
         :actions=`[
           {
             type: 'commit',
