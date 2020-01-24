@@ -8,7 +8,10 @@
       @click='changeTheme(theme)'
     )
       h4 {{theme.name}}
-    .settings-themes-item(v-for='(background, index) in backgrounds' :key='backgrounds' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`')
+    .settings-themes-item(
+      v-for='(background, index) in backgrounds'
+      :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
+    )
 </template>
 
 <script>

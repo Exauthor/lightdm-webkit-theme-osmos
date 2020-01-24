@@ -123,6 +123,10 @@ export default {
   border none
   border-right 2px var(--color-active) solid
 
+.login-left, .login-right
+  .login-settings
+    overflow auto
+
 .login-bottom, .login-top
   border none
   height var(--login-height)
@@ -163,7 +167,6 @@ export default {
   align-items center
   .widget-block
     min-width 200px
-
 
 .mb-3
   margin-bottom 12px

@@ -1,10 +1,25 @@
 'use strict';
 
 const DEBUG_PASSWORD = 'password';
+const DEFAULT_BG = require('./assets/images/background/index.jpg');
+
 
 window.lightdm_debug = window.lightdm === undefined;
 
 if (window.lightdm_debug) {
+
+  window.theme_utils = {
+    dirlist(_) {
+      return [];
+    }
+  };
+
+  window.greeter_config = {
+    branding: {
+        background_images: 'no where this is live test'
+    }
+  };
+
   window.lightdm = {
     is_authenticated: false,
     authentication_user: undefined,
@@ -129,3 +144,26 @@ window.authentication_complete = () => {
 window.show_message = (text, type) => {
   errorCB(text);
 };
+
+export function backgrounds() {
+  let result = [];
+
+  const recDirlist = dir => {
+    let result = [];
+    for (const file of theme_utils.dirlist(dir)) {
+      if (!file.includes('.')) { // I didn't find any good ways to do it
+        result = [...result, ...recDirlist(file)];
+      } else {
+        result.push(file);
+      }
+    }
+
+    return result;
+  };
+
+  for (const bg of recDirlist(greeter_config.branding.background_images)) {
+    result.push('file://' + bg);
+  }
+
+  return [DEFAULT_BG, ...result];
+}
