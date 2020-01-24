@@ -50,8 +50,8 @@ export default {
   width 100%
   height 100vh
   width calc(100% - var(--margin-login))
-  transition width .5s, margin .5s
- 
+  transition .5s
+
 .background-center, .background-top, .background-bottom
   width 100%
 
@@ -61,4 +61,11 @@ export default {
 
 .background-item
   position absolute
+
+.background-bottom
+  height calc(100vh - var(--login-height))
+
+.background-top
+  top var(--login-height)
+  height calc(100vh - var(--login-height))
 </style>

@@ -88,6 +88,13 @@ export default {
     }
   },
   actions: {
+    updatePosition({ commit, dispatch }, value) {
+      dispatch('page/closeActiveBlock', { isAll: true }, { root: true })
+      setTimeout(() => {
+        commit('CHANGE_SETTINGS', { key: 'loginPosition', value })
+        dispatch('page/openActiveBlock', { id: 'login' }, { root: true })
+      }, 1000)
+    },
     setUpSettings({ state, getters, commit }) {
       let local = JSON.parse(localStorage.getItem('settings'))
 

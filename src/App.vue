@@ -13,23 +13,23 @@ export default {
     this.setUpSettings()
     const interactiveBlocks = [
       {
-        closeBeforeMount: [''],
+        closeBeforeMount: ['loginPosition', 'language', 'selectorDE'],
         id: 'selectorUser',
       },
       {
-        closeBeforeMount: ['selectorUser'],
+        closeBeforeMount: ['loginPosition', 'language', 'selectorUser'],
         id: 'selectorDE',
       },
       {
-        closeBeforeMount: ['loginPosition'],
+        closeBeforeMount: ['loginPosition', 'selectorDE', 'selectorUser'],
         id: 'language',
       },
       {
-        closeBeforeMount: ['language'],
+        closeBeforeMount: ['selectorDE', 'language', 'selectorUser'],
         id: 'loginPosition',
       },
       {
-        closeBeforeMount: ['selectorUser', 'selectorDE', 'selectorUser', 'selectorDE'],
+        closeBeforeMount: ['selectorUser', 'selectorDE', 'loginPosition', 'language'],
         id: 'login',
         order: 1,
         delay: 500,

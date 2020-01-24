@@ -18,10 +18,9 @@
         :value='$t(`settings.choiceLoginPosition.${loginPosition || "right"}`)'
         :actions=`[
           {
-            type: 'commit',
+            type: 'action',
             on: 'change',
-            key: 'loginPosition',
-            path: 'settings/CHANGE_SETTINGS'
+            path: 'settings/updatePosition'
           }
         ]`
       )  

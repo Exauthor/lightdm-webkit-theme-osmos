@@ -18,7 +18,7 @@ export default {
     }
   },
   actions: {
-    login({ state, getters, commit, rootState, gettersState }) {
+    login({ state, getters, commit, rootState, rootGetters }) {
       if (!state.password) {
         alert('password in empty')
         return;
@@ -27,8 +27,8 @@ export default {
 
       setTimeout(() => {
         const username = getters.getUserName
-        console.log(gettersState)
-        const desktop = gettersState.settings.getCurrentDesktop
+        console.log(rootGetters)
+        const desktop = rootGetters['settings/getCurrentDesktop']
         lightdm_login(username, state.password, () => {
           setTimeout(() => lightdm_start(desktop.key), 400);
         }, () => {

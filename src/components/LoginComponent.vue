@@ -77,6 +77,9 @@ export default {
 </script>
 
 <style lang="stylus">
+:root
+  --login-height: 14vmin
+
 .login
   position absolute
   right 0
@@ -122,7 +125,7 @@ export default {
 
 .login-bottom, .login-top
   border none
-  height 14vmin
+  height var(--login-height)
   width 100%
   overflow visible
   .login-content
@@ -136,7 +139,6 @@ export default {
     .settings-themes-item
       width 200px
       min-width 200px
-      // min-width 20vmin
       height calc(12vmin - 20px)
       margin 0
       margin-right 15px
