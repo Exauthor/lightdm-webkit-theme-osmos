@@ -89,7 +89,7 @@
       height 12vmin
       width 20vmin
       top 2vh
-      transform translateX(15vw)
+      transform translateX(2vw)
       animation-duration 200s
       animation-delay -40s
       z-index 2

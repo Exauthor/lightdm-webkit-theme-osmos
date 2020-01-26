@@ -82,7 +82,7 @@ export default {
         {
           fullscreen: true,
           src: getters.getImage,
-          color: { active: state.defaultColor }
+          color: { active: state.defaultColor, background: '#1a0532' }
         } :
         state.themes.find(({ name }) => name === state.currentTheme)
     }

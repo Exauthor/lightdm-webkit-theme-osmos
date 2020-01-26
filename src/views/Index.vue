@@ -16,20 +16,34 @@ export default {
     LoginComponent,
   },
   computed: {
-    ...mapGetters('page', ['getBlock']),
+    ...mapGetters('page', ['getBlock', 'getActiveBlock']),
     isOpenLogin() {
       return this.getBlock('login')
     }
   },
   mounted() {
     window.addEventListener('keyup', this.keyPress)
+    window.addEventListener('click', this.handleClick)
     setTimeout(this.openActiveBlock, 3000, { id: 'login' })
   },
   destroyed() {
     window.removeEventListener('keyup', this.keyPress)
+    window.removeEventListener('click', this.handleClick)
   },
   methods: {
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
+    handleClick(event) {
+      const node = event.target
+      if (!this.getActiveBlock) {
+        return
+      }
+      const parent = document.querySelector('#' + this.getActiveBlock.id)
+      const hasInclude = parent.contains(node)
+
+      if (!hasInclude) {
+        this.closeActiveBlock()
+      }
+    },
     keyPress(event) {
       const ENTER_CODE = 13
       const isFocusPassword = document.querySelector('#password:focus')

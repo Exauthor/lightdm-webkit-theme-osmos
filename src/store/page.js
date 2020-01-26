@@ -14,6 +14,9 @@ export default {
     getBlock: (state) => (id) => {
       return state.activeBlocks.find((activeBlock) => id === activeBlock.id)
     },
+    getActiveBlock: ({ activeBlocks }) => {
+      return activeBlocks[activeBlocks.length - 1]
+    },
     isOpenBlock: (state, getters) => (id) => {
       return !!getters.getBlock(id)
     },

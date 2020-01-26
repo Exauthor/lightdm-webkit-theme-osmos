@@ -1,6 +1,6 @@
 <template lang='pug'>
   transition(:name='`slide-${loginPosition}`')
-    .login-menu(v-if='isOpen' :class='classObject')
+    .login-menu#login(v-if='isOpen' :class='classObject')
       transition(:name='`slide-${loginPosition}`')
         .login-content(v-if='!isOpenSettings' key='content')
           div(:class='{"widget-blocks": ["bottom", "top"].includes(loginPosition)}')
@@ -9,7 +9,7 @@
             Clock.mb-3
             CommonSettings
           SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
-        LoginSettings(v-else-if='isOpenSettings' key='settings')
+        LoginSettings#settings(v-else-if='isOpenSettings' key='settings')
 </template>
 
 <script>
@@ -68,7 +68,7 @@ export default {
   position absolute
   right 0
   width 30ch
-  overflow hidden
+  overflow visible
   height 100%
   border-left 2px var(--color-active) solid
 
@@ -89,8 +89,7 @@ export default {
   width inherit
   height auto
 
-
-.login-content
+ .login-content
   display flex
 
 .login-content, .login-settings
@@ -104,6 +103,12 @@ export default {
   border-right 2px var(--color-active) solid
 
 .login-left, .login-right
+  .settings-themes-body
+    height auto
+  .settings-themes-items
+    height auto
+    position relative
+    display block
   .login-settings
     overflow auto
 
@@ -111,7 +116,6 @@ export default {
   border none
   height var(--login-height)
   width 100%
-  overflow visible
   .login-content
     width 100vw
   .widget-block
@@ -119,11 +123,11 @@ export default {
     margin-right 10px
   .login-settings
     display flex
-    overflow auto
+    overflow hidden
     .settings-themes-item
       width 200px
       min-width 200px
-      height calc(12vmin - 20px)
+      height 100%
       margin 0
       margin-right 15px
 
@@ -134,7 +138,6 @@ export default {
 .login-top
   width 100%
   left 0
-  height auto
   border none
   overflow visible
   border-bottom 2px var(--color-active) solid

@@ -1,5 +1,5 @@
 <template lang='pug'>
-  .selection(@click.stop='openList' :class='{"selection-open": isOpen}' ref='selector')
+  .selection(@click.stop='openList' :class='{"selection-open": isOpen}' ref='selector' :id='interactiveBlock')
     span {{  checkedValue.text || checkedValue }}
     .selection-icon
     transition(name='menu-popover')
