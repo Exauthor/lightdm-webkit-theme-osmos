@@ -1,17 +1,20 @@
 <template lang='pug'>
-  .login-settings(ref='body')
+  .login-settings(
+  )
     h1 {{ $t('settings.title') }}:
-    .settings-themes-item(
-      @click='changeTheme(theme)'
-      v-for='(theme, i) in themes' :key='i'
-      :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
-    )
-      h4 {{theme.name}}
-    .settings-themes-item(
-      @click='changeTheme(background, true)'
-      v-for='(background, index) in backgrounds'
-      :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
-    )
+    .settings-themes-body(ref='listener')
+      .settings-themes-items(ref='body' :style='`transform: translateX(${offset}px)`')
+        .settings-themes-item(
+          @click='changeTheme(theme)'
+          v-for='(theme, i) in themes' :key='i'
+          :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
+        )
+          h4 {{ theme.name }}
+        .settings-themes-item(
+          @click='changeTheme(background, true)'
+          v-for='(background, index) in backgrounds'
+          :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
+        )
 </template>
 
 <script>
@@ -19,10 +22,11 @@ import { backgrounds } from '@/lightdm'
 import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
-  name: 'LoginComponent',
+  name: 'LoginSettings',
   data() {
     return {
-      backgrounds: backgrounds()
+      backgrounds: backgrounds(),
+      offset: 0
     }
   },
   computed: {
@@ -30,18 +34,33 @@ export default {
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
   },
   mounted() {
-    const block = this.$refs.body || document.querySelector('.login-settings')
+    if (['left', 'right'].includes(this.loginPosition)) {
+      return
+    }
+    const listener = this.$refs.listener
+    const block = this.$refs.body
 
-    console.log(this.$refs.body, 'this.$refs.body')
-    block.addEventListener('scroll', this.handleScroll, { passive: false })
+    listener.addEventListener('wheel', this.handleWheel, { passive: false })
   },
-  destroyed () {
-    const block = document.querySelector('.login-settings')
-    block.removeEventListener('scroll', this.handleScroll)
+  beforeDestroy() {
+    const listener = this.$refs.listener
+    listener.removeEventListener('wheel', this.handleWheel)
   },
   methods: {
-    handleScroll(event) {
-      console.log(event)
+    handleWheel(event) {
+      const block = this.$refs.body
+      const { wheelDeltaY } = event
+      let step = 20
+      const maxOffset =  block.scrollWidth - block.clientWidth
+
+      wheelDeltaY > 0 ? step *= 1 : step *= -1
+      if (
+        (step > 0 && this.offset + step < step) ||
+        (step < 0 && Math.abs(this.offset + step) < maxOffset)
+      ) {
+        this.offset +=step
+      }
+
       event.stopPropagation()
       event.preventDefault()
     },
@@ -67,4 +86,16 @@ export default {
 }
 </script>
 
-<style lang="stylus"></style>
+<style lang="stylus">
+.settings-themes-body
+  width 100%
+  height 100%
+  position relative
+  overflow hidden
+
+.settings-themes-items
+  width 100%
+  height 100%
+  position absolute
+  display flex
+</style>
