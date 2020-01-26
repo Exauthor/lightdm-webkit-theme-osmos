@@ -1,0 +1,21 @@
+{
+    "welcome": "bienvenido",
+    "themes":  {
+      "title": "temas"
+    },
+    "settings": {
+      "title": "configuración",
+      "choiceLanguage": "Idioma de elección",
+      "language": "Idioma",
+      "choiceLoginPosition": {
+        "title": "Posición",
+        "about": "Elección de posición de inicio de sesión",
+        "center": "centro",
+        "top": "top",
+        "left": "izquierda",
+        "right": "bien",
+        "bottom": "fondo"
+      },
+      "about": "Sistema de configuración"
+    }
+}

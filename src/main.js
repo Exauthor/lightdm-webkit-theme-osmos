@@ -15,8 +15,12 @@ const i18n = new VueI18n({
   fallbackLocale: 'en-US',
   silentTranslationWarn: true,
   messages: {
-    'en-US': require('./locales/en-US.json'),
-    'ru-RU': require('./locales/ru-RU.json'),
+    'en': require('./locales/en.json'),
+    'ru': require('./locales/ru.json'),
+    'fr': require('./locales/fr.json'),
+    'de': require('./locales/de.json'),
+    'pl': require('./locales/pl.json'),
+    'es': require('./locales/es.json'),
   }
 })
 

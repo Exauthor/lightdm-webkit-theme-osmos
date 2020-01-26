@@ -1,0 +1,21 @@
+{
+    "welcome": "bienvenue",
+    "themes":  {
+      "title": "thèmes"
+    },
+    "settings": {
+      "title": "settings",
+      "choiceLanguage": "Choix de la langue",
+      "language": "Langue",
+      "choiceLoginPosition": {
+        "title": "Position",
+        "about": "Choix de la position de connexion",
+        "center": "centre",
+        "top": "top",
+        "left": "left",
+        "right": "droite",
+        "bottom": "bas"
+      },
+      "about": "Système de paramètres"
+    }
+}
