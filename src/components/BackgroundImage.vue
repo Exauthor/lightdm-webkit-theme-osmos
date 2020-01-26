@@ -1,6 +1,7 @@
 <template lang='pug'>
   .background-image(:class='classObject')
-    component(:is='theme.component' class='background-item center-position')
+    .background(v-if='getImage' :style='`background-image: url(${getImage})`')
+    component(v-else :is='theme.component' class='background-item center-position')
 </template> 
 
 <script>
@@ -23,6 +24,7 @@ export default {
   computed: {
     ...mapState('settings', ['loginPosition']),
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
+    ...mapGetters('settings', ['getImage']),
     ...mapGetters('page', ['isOpenBlock']),
     classObject() {
       return {
@@ -41,6 +43,13 @@ export default {
 :root
    --margin-login: 30ch;
 
+.background
+  width 100%
+  height 100%
+  background-size cover
+  background-position center
+  background-repeat no-repeat
+
 .background-left
   margin-left var(--margin-login)
 
@@ -55,10 +64,6 @@ export default {
 .background-center, .background-top, .background-bottom
   width 100%
 
-.background-fullscreen
-  width 100%
-  margin 0
-
 .background-item
   position absolute
 
@@ -66,6 +71,12 @@ export default {
   height calc(100vh - var(--login-height))
 
 .background-top
-  top var(--login-height)
+  margin-top var(--login-height)
   height calc(100vh - var(--login-height))
+
+.background-fullscreen
+  width 100%
+  height 100%
+  margin 0
+
 </style>

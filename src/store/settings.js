@@ -50,89 +50,103 @@ export default {
     ],
     language: '',
     languages: [],
-    loginPosition: '',
+    defaultColor: '#6BBBED',
+    loginPosition: 'right',
     currentTheme: 'Fire',
-    user: lightdm.users[0],
+    username: lightdm.users[0].username,
     users: lightdm.users,
     desktop: lightdm.sessions[0].name,
     desktops: lightdm.sessions,
     version: '1.0.4'
   },
   getters: {
+    getMainSettings: (state) => {
+      const { language, loginPosition, currentTheme, username, desktop, version, defaultColor } = state
+      return { language, loginPosition, currentTheme, username, desktop, version, defaultColor }
+    },
     getAvatar: (state, getters) => image => {
-      if (!image || image === '') {
-        return 'user';
-      }
-
-      return image;
+      return image || 'user';
+    },
+    getImage: (state) => {
+      const match = state.currentTheme.match(/^image-(.{1,})/)
+      return match ? match[1] : false
+    },
+    getCurrentUser: (state) => {
+      return state.users.find(({ username }) => username === state.username)
     },
     getCurrentDesktop: (state) => {
       return state.desktops.find(({ name }) => name === state.desktop)
     },
-    getCurrentTheme: (state) => {
-      return state.themes.find(({ name }) => name === state.currentTheme)
+    getCurrentTheme: (state, getters) => {
+      return getters.getImage ?
+        {
+          fullscreen: true,
+          src: getters.getImage,
+          color: { active: state.defaultColor }
+        } :
+        state.themes.find(({ name }) => name === state.currentTheme)
     }
   },
   mutations: {
-    CHANGE_SETTINGS(state, { key, value }) {
+    SET_SETTIGNS_STATE(state, { key, value }) {
       state[key] = value
-      localStorage.setItem('settings', JSON.stringify(state))
-    },
-    SAVE_SETTINGS(state, payload) {
-      localStorage.setItem('settings', JSON.stringify(payload ? state = payload : state.settings))
-    },
-    CHANGE_LANGUAGE(state, { key, value }) {
-      key.$i18n.locale = value
-      state.language = value
-      localStorage.setItem('settings', JSON.stringify(state))
     }
   },
   actions: {
-    updatePosition({ commit, dispatch }, value) {
+    changeLanguage({ commit, getters }, { key, value }) {
+      key.$i18n.locale = value
+      commit('SET_SETTIGNS_STATE', { key: 'language', value })
+      localStorage.setItem('settings', JSON.stringify(getters.getMainSettings))
+    },
+    changeSettings({ getters, commit }, changeObject) {
+      commit('SET_SETTIGNS_STATE', changeObject)
+      localStorage.setItem('settings', JSON.stringify(getters.getMainSettings))
+    },
+    updatePosition({ dispatch }, value) {
       dispatch('page/closeActiveBlock', { isAll: true }, { root: true })
       setTimeout(() => {
-        commit('CHANGE_SETTINGS', { key: 'loginPosition', value })
+        dispatch('changeSettings', { key: 'loginPosition', value })
         dispatch('page/openActiveBlock', { id: 'login' }, { root: true })
       }, 1000)
     },
-    setUpSettings({ state, getters, commit }) {
+    setUpSettings({ state, getters, dispatch }) {
       let local = JSON.parse(localStorage.getItem('settings'))
 
       if (local) {
         if (local.version !== state.version) {
-          localStorage.setItem('settings', JSON.stringify(state));
+          local = getters.getMainSettings
+          localStorage.setItem('settings', JSON.stringify(local));
         }
-        commit('CHANGE_SETTINGS', { key: 'currentTheme', value: local.currentTheme })
-        commit('CHANGE_SETTINGS', { key: 'loginPosition', value: local.loginPosition })
+
+        dispatch('changeSettings', { key: 'currentTheme', value: local.currentTheme })
         const theme = getters.getCurrentTheme
-        let existDesk = !!lightdm.sessions.filter((item, i) => {
-          return item.key === local.desktop.key
+
+        let isExistDE = !!lightdm.sessions.filter((item, i) => {
+          return item.name === local.desktop
         }).length;
 
-        if (!existDesk) {
-          local.desktop = lightdm.sessions[0]
+        if (!isExistDE) {
+          local.desktop = lightdm.sessions[0].name
         }
 
-        let existUser = !!lightdm.users.filter((item, i) => {
-          return item.username === local.user.username
+        let isExistUser = !!lightdm.users.filter((item, i) => {
+          return item.username === local.username
         }).length;
         
-        if (!existUser) {
-          local.user = lightdm.users[0]
-        }
-
-        local.desktops = lightdm.sessions;
-        local.users = lightdm.users;
-        if (typeof local.currentTheme === undefined) {
-          local.currentTheme = state.currentTheme
+        if (!isExistUser) {
+          local.user = lightdm.users[0].username
         }
 
         document.documentElement.style
           .setProperty('--color-active', theme.color.active);
         document.documentElement.style
           .setProperty('--color-bg', theme.color.background);
+
+        dispatch('changeSettings', { key: 'loginPosition', value: local.loginPosition })
+        dispatch('changeSettings', { key: 'desktop', value: local.desktop })
+        dispatch('changeSettings', { key: 'user', value: local.user })
       } else {
-        localStorage.setItem('settings', JSON.stringify(state));
+        localStorage.setItem('settings', JSON.stringify(getters.getMainSettings));
       }
     }
   }

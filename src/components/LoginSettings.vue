@@ -2,13 +2,13 @@
   .login-settings(ref='body')
     h1 {{ $t('settings.title') }}:
     .settings-themes-item(
-      v-for='(theme, i) in themes' 
-      :key='i' 
-      :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
       @click='changeTheme(theme)'
+      v-for='(theme, i) in themes' :key='i'
+      :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
     )
       h4 {{theme.name}}
     .settings-themes-item(
+      @click='changeTheme(background, true)'
       v-for='(background, index) in backgrounds'
       :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
     )
@@ -16,7 +16,7 @@
 
 <script>
 import { backgrounds } from '@/lightdm'
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'LoginComponent',
@@ -27,6 +27,7 @@ export default {
   },
   computed: {
     ...mapState('settings', ['themes', 'loginPosition']),
+    ...mapGetters('settings', { theme: 'getCurrentTheme' }),
   },
   mounted() {
     const block = this.$refs.body || document.querySelector('.login-settings')
@@ -44,7 +45,7 @@ export default {
       event.stopPropagation()
       event.preventDefault()
     },
-    ...mapMutations('settings', ['CHANGE_SETTINGS']),
+    ...mapActions('settings', ['changeSettings']),
     setImage(name) {
       try {
         var index = require(`@/assets/images/themes/${name}/index.png`);
@@ -53,14 +54,14 @@ export default {
       }
       return index
     },
-    changeTheme(theme) {
-      this.CHANGE_SETTINGS({ key: 'currentTheme', value: theme.name })
+    async changeTheme(theme, isImage) {
+      await this.changeSettings({ key: 'currentTheme', value: theme.name || 'image-' + theme })
 
       document.documentElement.style
-        .setProperty('--color-active', theme.color.active);
+        .setProperty('--color-active', this.theme.color.active || '#ffffff');
       
       document.documentElement.style
-        .setProperty('--color-bg', theme.color.background);
+        .setProperty('--color-bg', this.theme.color.background || '#000000');
     }
   }
 }

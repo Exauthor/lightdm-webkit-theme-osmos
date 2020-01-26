@@ -1,15 +1,14 @@
 export default {
   namespaced: true,
   state: {
-    username: '',
-    password: '123',
+    password: '',
     de: '',
     logging: false,
     error: false
   },
   getters: {
     getUserName: (state, getters, rootState) => {
-      return state.username || rootState.settings.user.username
+      return rootState.settings.username
     }
   },
   mutations: {
@@ -27,7 +26,6 @@ export default {
 
       setTimeout(() => {
         const username = getters.getUserName
-        console.log(rootGetters)
         const desktop = rootGetters['settings/getCurrentDesktop']
         lightdm_login(username, state.password, () => {
           setTimeout(() => lightdm_start(desktop.key), 400);

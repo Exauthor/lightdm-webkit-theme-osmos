@@ -52,26 +52,6 @@ export default {
     isOpen() {
       return this.getBlock('login')
     }
-  },
-  methods: {
-    ...mapMutations('settings', ['CHANGE_SETTINGS']),
-    setImage(name) {
-      try {
-        var index = require(`@/assets/images/themes/${name}/index.png`);
-      } catch {
-        var index = 'notFound'
-      }
-      return index
-    },
-    changeTheme(theme) {
-      this.CHANGE_SETTINGS({ key: 'currentTheme', value: theme.name })
-
-      document.documentElement.style
-        .setProperty('--color-active', theme.color.active);
-      
-      document.documentElement.style
-        .setProperty('--color-bg', theme.color.background);
-    }
   }
 }
 </script>
@@ -94,7 +74,7 @@ export default {
 
 .login-fullscreen
   border none
-  background rgba(0,0,0,.8)
+  background rgba(0,0,0,.6)
 
 .login-center
   position absolute

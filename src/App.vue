@@ -45,11 +45,9 @@ export default {
     this.$router.push({name: 'intro'});
   },
   methods: {
-    ...mapMutations('settings', ['SET_SETTINGS']),
     ...mapMutations('page', ['SET_PAGE']),
     ...mapActions('settings', ['setUpSettings']),
-    ...mapActions('page', ['setTime']),
-    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock', 'setTime'])
+    ...mapActions('page', ['setTime'])
   }
 }
 </script>

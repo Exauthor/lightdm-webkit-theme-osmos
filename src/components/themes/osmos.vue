@@ -72,12 +72,13 @@
   width 100%
   z-index 1
   & > *
-    animation-name cloud
+    // animation-name cloud
     animation-iteration-count infinite
     position absolute
     &:first-child 
       background url("data:image/svg+xml;charset=utf-8,%3Csvg style='isolation:isolate' viewBox='153 714 741 238' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m415 834v-2c0-21-17-38-38-38h-11c-21 0-38-17-38-38v-4c0-21 17-38 38-38h490c21 0 38 17 38 38v4c0 21-17 38-38 38h-99c-21 0-38 17-38 38v2c0 21 17 38 38 38h6c21 0 38 17 38 38v4c0 21-17 38-38 38h-572c-21 0-38-17-38-38v-4c0-21 17-38 38-38h186c21 0 38-17 38-38z' fill='%23ee81c8'/%3E%3C/svg%3E") no-repeat
       height 15vmin
+      transform translateX(70vw)
       width 30vmin
       top 5vh
       animation-duration 100s
@@ -88,12 +89,14 @@
       height 12vmin
       width 20vmin
       top 2vh
+      transform translateX(15vw)
       animation-duration 200s
       animation-delay -40s
       z-index 2
     &:last-child
       background: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' style='isolation:isolate' viewBox='1050.315 722.398 212.578 62.843' width='212.578' height='62.843'%3E%3Cpath d='M1068.721 753.26c-10.158 0-18.406 7.166-18.406 15.991s8.962 15.99 20 15.99h172.578c11.039 0 20-7.165 20-15.99s-8.961-15.991-20-15.991h-37.892c-11.038 0-20-6.914-20-15.431 0-8.516-8.962-15.431-20-15.431h-57.874c-11.038 0-20 6.915-20 15.431 0 8.517-8.247 15.431-18.406 15.431z' fill='%23C35EA0'/%3E%3C/svg%3E") 50%/contain no-repeat;
       height 7vmin
+      transform translateX(25vw)
       width 12vmin
       animation-delay -140s
       animation-duration 300s

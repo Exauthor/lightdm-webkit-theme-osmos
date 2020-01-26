@@ -1,18 +1,18 @@
 <template lang='pug'>
   .widget-dual.widget-block
-    AppIcon.icon-circle.icon(:name='getAvatar(user.image)')
+    AppIcon.icon-circle.icon(:name='getAvatar(getCurrentUser.image)')
     .widget-interactive
       SelectItem(
         name='user'
         interactiveBlock='selectorUser'
         :items='users'
-        :value='user.username'
+        :value='username'
         :actions=`[
           {
-            type: 'commit',
+            type: 'action',
             on: 'change',
             key: 'username',
-            path: 'user/SET_USER_STATE'
+            path: 'settings/changeSettings'
           }
         ]`
       )
@@ -29,9 +29,9 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   name: 'UserChoiceWidget',
   computed: {
-    ...mapState('settings', ['users', 'user']),
+    ...mapState('settings', ['users', 'username']),
     ...mapState('user', ['password', 'logging', 'error']),
-    ...mapGetters('settings', ['getAvatar']),
+    ...mapGetters('settings', ['getAvatar', 'getCurrentUser']),
     initPassword: {
       get() {
         return this.password

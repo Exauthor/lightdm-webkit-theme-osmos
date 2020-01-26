@@ -9,10 +9,10 @@
         :value='desktop'
         :actions=`[
           {
-            type: 'commit',
+            type: 'action',
             on: 'change',
             key: 'desktop',
-            path: 'settings/CHANGE_SETTINGS'
+            path: 'settings/changeSettings'
           }
         ]`
       )

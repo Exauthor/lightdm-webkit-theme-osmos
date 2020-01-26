@@ -47,10 +47,10 @@ export default {
   },
   mounted() {
     this.actions.push({
-      type: 'commit',
+      type: 'action',
       on: 'change',
       key: this, 
-      path: 'settings/CHANGE_LANGUAGE'
+      path: 'settings/changeLanguage'
     })
   },
 };
