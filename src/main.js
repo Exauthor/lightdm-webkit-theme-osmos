@@ -11,8 +11,8 @@ Vue.use(VueI18n)
 
 const settings = JSON.parse(localStorage.getItem('settings'))
 const i18n = new VueI18n({
-  locale: (settings && settings.language) || 'en-US',
-  fallbackLocale: 'en-US',
+  locale: (settings && settings.language) || 'en',
+  fallbackLocale: 'en',
   silentTranslationWarn: true,
   messages: {
     'en': require('./locales/en.json'),
