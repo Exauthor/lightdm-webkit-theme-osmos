@@ -91,6 +91,7 @@ export default {
 
  .login-content
   display flex
+  justify-content center
 
 .login-content, .login-settings
   height 100%
@@ -116,6 +117,9 @@ export default {
   border none
   height var(--login-height)
   width 100%
+  .system-button
+    width 2.5vmin
+    height 2.5vmin
   .login-content
     width 100vw
   .widget-block
@@ -149,10 +153,7 @@ export default {
   display flex
   align-items center
   .widget-block
-    min-width 200px
-
-.mb-3
-  margin-bottom 12px
+    max-width 20vw
 
 .settings-themes-item
   display block

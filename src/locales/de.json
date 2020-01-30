@@ -3,6 +3,24 @@
     "themes":  {
       "title": "themen"
     },
+    "text": {
+      "yes": "ja",
+      "no": "nein"
+    },
+    "modals": {
+      "shutdown": {
+        "title": "Herunterfahren",
+        "text": "Möchten Sie den Computer wirklich ausschalten?"
+      },
+      "restart": {
+        "title": "Neustart",
+        "text": "Möchten Sie Ihren Computer wirklich neu starten?"
+      },
+      "suspend": {
+        "title": "Aussetzen",
+        "text": "Möchten Sie Ihren Computer wirklich anhalten?"
+      }
+    },
     "settings": {
       "title": "die einstellungen",
       "choiceLanguage": "Wahl Sprache",

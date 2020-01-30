@@ -1,6 +1,6 @@
 <template lang='pug'>
   .widget-dual.widget-block
-    AppIcon.icon(:name='icon')
+    AppIcon.icon.mr-2(:name='icon')
     .widget-interactive
       SelectItem(
         name='desktop'

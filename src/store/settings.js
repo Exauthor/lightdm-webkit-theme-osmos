@@ -51,8 +51,8 @@ export default {
     language: '',
     languages: [],
     defaultColor: '#6BBBED',
-    loginPosition: 'right',
-    currentTheme: 'Fire',
+    loginPosition: 'top',
+    currentTheme: 'Space',
     username: lightdm.users[0].username,
     users: lightdm.users,
     desktop: lightdm.sessions[0].name,
@@ -93,6 +93,15 @@ export default {
     }
   },
   actions: {
+    async changeTheme({ dispatch, getters }, theme) {
+      await dispatch('changeSettings', { key: 'currentTheme', value: theme.name || 'image-' + theme })
+      const { color } = getters.getCurrentTheme
+
+      document.documentElement.style
+      .setProperty('--color-active', color.active);
+      document.documentElement.style
+        .setProperty('--color-bg', color.background);
+    },
     changeLanguage({ commit, getters }, { key, value }) {
       key.$i18n.locale = value
       commit('SET_SETTIGNS_STATE', { key: 'language', value })
@@ -118,8 +127,7 @@ export default {
           localStorage.setItem('settings', JSON.stringify(local));
         }
 
-        dispatch('changeSettings', { key: 'currentTheme', value: local.currentTheme })
-        const theme = getters.getCurrentTheme
+        dispatch('changeTheme', { name: local.currentTheme })
 
         let isExistDE = !!lightdm.sessions.filter((item, i) => {
           return item.name === local.desktop
@@ -136,11 +144,6 @@ export default {
         if (!isExistUser) {
           local.user = lightdm.users[0].username
         }
-
-        document.documentElement.style
-          .setProperty('--color-active', theme.color.active);
-        document.documentElement.style
-          .setProperty('--color-bg', theme.color.background);
 
         dispatch('changeSettings', { key: 'loginPosition', value: local.loginPosition })
         dispatch('changeSettings', { key: 'desktop', value: local.desktop })

@@ -1,6 +1,6 @@
 <template lang='pug'>
   .widget-dual.widget-block
-    .clock.icon
+    .clock.icon.mr-2
       .position-center
         .clock-item.clock-seconds(ref='seconds')
         .clock-item.clock-minutes(ref='minutes')

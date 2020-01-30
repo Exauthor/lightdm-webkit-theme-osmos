@@ -3,6 +3,24 @@
     "themes":  {
       "title": "themes"
     },
+    "text": {
+      "yes": "yes",
+      "no": "no"
+    },
+    "modals": {
+      "shutdown": {
+        "title": "Shutdown",
+        "text": "Are you sure you want to turn off the computer?"
+      },
+      "restart": {
+        "title": "Restart",
+        "text": "Are you sure you want to restart your computer?"
+      },
+      "suspend": {
+        "title": "Suspend",
+        "text": "Are you sure you want to suspend your computer?"
+      }
+    },
     "settings": {
       "title": "settings",
       "choiceLanguage": "Choice language",

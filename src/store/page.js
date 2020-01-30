@@ -1,3 +1,21 @@
+const modals = [
+  {
+    id: 'shutdown',
+    title: 'modals.shutdown.title',
+    text: 'modals.shutdown.text',
+  },
+  {
+    id: 'restart',
+    title: 'modals.restart.title',
+    text: 'modals.restart.text',
+  },
+  {
+    id: 'suspend',
+    title: 'modals.suspend.title',
+    text: 'modals.suspend.text',
+  }
+]
+
 export default {
   namespaced: true,
   state: {
@@ -8,7 +26,8 @@ export default {
       seconds: 0,
     },
     activeBlocks: [],
-    interactiveBlocks: []
+    interactiveBlocks: [],
+    activeModal: 'shutdown'
   },
   getters: {
     getBlock: (state) => (id) => {
@@ -19,6 +38,9 @@ export default {
     },
     isOpenBlock: (state, getters) => (id) => {
       return !!getters.getBlock(id)
+    },
+    getCurrentModal: ({ activeModal }) => {
+      return modals.find(({ id }) => id === activeModal)
     },
     timeArray: (state) => {
       const { hours, minutes, seconds } = state.time

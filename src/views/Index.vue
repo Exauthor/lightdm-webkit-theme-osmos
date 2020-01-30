@@ -2,11 +2,13 @@
   .index
     BackgroundImage
     LoginComponent
+    MainModal
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapActions } from 'vuex'
+import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 import LoginComponent from '@/components/LoginComponent.vue'
+import MainModal from '@/components/MainModal.vue'
 import BackgroundImage from '@/components/BackgroundImage'
 
 export default {
@@ -14,8 +16,10 @@ export default {
   components: {
     BackgroundImage,
     LoginComponent,
+    MainModal
   },
   computed: {
+    ...mapState('page', ['activeModal']),
     ...mapGetters('page', ['getBlock', 'getActiveBlock']),
     isOpenLogin() {
       return this.getBlock('login')
@@ -24,17 +28,20 @@ export default {
   mounted() {
     window.addEventListener('keyup', this.keyPress)
     window.addEventListener('click', this.handleClick)
-    setTimeout(this.openActiveBlock, 3000, { id: 'login' })
+    setTimeout(this.openActiveBlock, 2000, { id: 'login' })
   },
   destroyed() {
+    this.closeActiveBlock()
     window.removeEventListener('keyup', this.keyPress)
     window.removeEventListener('click', this.handleClick)
   },
   methods: {
+    ...mapMutations('page', ['SET_PAGE']),
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     handleClick(event) {
       const node = event.target
       if (!this.getActiveBlock) {
+        this.openActiveBlock({ id: 'login' })
         return
       }
       const parent = document.querySelector('#' + this.getActiveBlock.id)
@@ -58,7 +65,11 @@ export default {
       }
 
       if (event.key === 'Escape') {
-        this.closeActiveBlock()
+        if (this.activeModal) {
+          this.SET_PAGE({ key: 'activeModal', value: false })
+        } else {
+          this.closeActiveBlock()
+        }
       }
     }
   }

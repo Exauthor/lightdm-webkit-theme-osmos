@@ -17,11 +17,13 @@ export default {
   },
   methods: {
     ...mapActions('page', ['openActiveBlock']),
-    handleClick(type) {
-      if (type === 'settings') {
+    ...mapMutations('page', ['SET_PAGE']),
+    handleClick(button) {
+      if (button === 'settings') {
         this.openActiveBlock({ id: 'settings' })
       } else {
-        setTimeout(lightdm[type], 500);
+        // setTimeout(lightdm[button], 500);
+        this.SET_PAGE({ key: 'activeModal', value: button})
       }
     }
   }

@@ -3,6 +3,24 @@
     "themes":  {
       "title": "thèmes"
     },
+    "text": {
+      "yes": "oui",
+      "no": "non"
+    },
+    "modals": {
+      "shutdown": {
+        "title": "Fermer",
+        "text": "Voulez-vous vraiment éteindre l'ordinateur?"
+      },
+      "restart": {
+        "title": "Redémarrer",
+        "text": "Voulez-vous vraiment redémarrer votre ordinateur?"
+      },
+      "suspend": {
+        "title": "Suspendre",
+        "text": "Voulez-vous vraiment suspendre votre ordinateur?"
+      }
+    },
     "settings": {
       "title": "settings",
       "choiceLanguage": "Choix de la langue",

@@ -1,6 +1,6 @@
 <template lang='pug'>
   .widget-dual.widget-block
-    AppIcon.icon-circle.icon(:name='getAvatar(getCurrentUser.image)')
+    AppIcon.icon-circle.icon.mr-2(:name='getAvatar(getCurrentUser.image)')
     .widget-interactive
       SelectItem(
         name='user'
@@ -16,11 +16,13 @@
           }
         ]`
       )
-      input#password(
-        @keyup='handleKeyup'
-        type='password' ref='password' placeholder='password'
-        v-model='initPassword' :readonly='logging' :class="{'error': error}"
-      )
+      .widget-input-block
+        input#password(
+          @keyup='handleKeyup'
+          type='password' ref='password' placeholder='password'
+          v-model='initPassword' :readonly='logging' :class="{'error': error}"
+        )
+        .selection-icon(@click='login')
 </template>
 
 <script>
@@ -57,4 +59,16 @@ export default {
 };
 </script>
 
-<style lang='stylus'></style>
+<style lang='stylus'>
+.widget-input-block
+  display flex
+  width 100%
+  input
+    width 10%
+    margin-right 10px
+    flex 1 1 auto
+  .selection-icon
+    flex 0 0 auto
+    &::before
+      transform translate(4px, 6px) rotate(90deg)
+</style>

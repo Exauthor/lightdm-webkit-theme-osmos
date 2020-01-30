@@ -11,7 +11,7 @@
         )
           h4 {{ theme.name }}
         .settings-themes-item(
-          @click='changeTheme(background, true)'
+          @click='changeTheme({ name:background })'
           v-for='(background, index) in backgrounds'
           :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
         )
@@ -64,7 +64,7 @@ export default {
       event.stopPropagation()
       event.preventDefault()
     },
-    ...mapActions('settings', ['changeSettings']),
+    ...mapActions('settings', ['changeSettings', 'changeTheme']),
     setImage(name) {
       try {
         var index = require(`@/assets/images/themes/${name}/index.png`);
@@ -72,15 +72,6 @@ export default {
         var index = 'notFound'
       }
       return index
-    },
-    async changeTheme(theme, isImage) {
-      await this.changeSettings({ key: 'currentTheme', value: theme.name || 'image-' + theme })
-
-      document.documentElement.style
-        .setProperty('--color-active', this.theme.color.active || '#ffffff');
-      
-      document.documentElement.style
-        .setProperty('--color-bg', this.theme.color.background || '#000000');
     }
   }
 }

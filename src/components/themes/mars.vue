@@ -9,12 +9,23 @@
       .blick.center-position
       .blick.center-position
       .kore
-    .meteor
-    .planet
+    .meteor(@click.stop='changeTheme({name: "Space"})')
+    .planet(@click.stop='changeTheme({name: "Osmos"})')
     .mountain-back
     .mountain-second
     .mountain-front
 </template>
+
+<script>
+import {  mapActions } from 'vuex';
+
+export default {
+  name: 'MarsTheme',
+  methods: {
+    ...mapActions('settings', ['changeTheme'])
+  }
+}
+</script>
 
 <style lang="stylus">
 .mars
