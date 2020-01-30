@@ -10,6 +10,7 @@ import mars from '@/components/themes/mars';
 import { mapState, mapGetters } from 'vuex';
 import osmos from '@/components/themes/osmos';
 import space from '@/components/themes/space';
+import sahara from '@/components/themes/sahara';
 import timeComponent from '@/components/themes/time';
 
 export default {
@@ -19,7 +20,8 @@ export default {
     fire,
     osmos,
     mars,
-    space
+    space,
+    sahara
   },
   computed: {
     ...mapState('settings', ['loginPosition']),

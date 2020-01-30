@@ -47,6 +47,15 @@ export default {
           background: '#13111c'
         },
       },
+      {
+        name: 'Sahara',
+        component: 'sahara',
+        fullscreen: true,
+        color: {
+          active: '#b2299b',
+          background: '#230C54'
+        },
+      },
     ],
     language: '',
     languages: [],

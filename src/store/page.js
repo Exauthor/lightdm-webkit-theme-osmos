@@ -27,7 +27,7 @@ export default {
     },
     activeBlocks: [],
     interactiveBlocks: [],
-    activeModal: 'shutdown'
+    activeModal: ''
   },
   getters: {
     getBlock: (state) => (id) => {
