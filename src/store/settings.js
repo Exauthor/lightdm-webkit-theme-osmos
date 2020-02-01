@@ -158,7 +158,8 @@ export default {
         dispatch('changeSettings', { key: 'desktop', value: local.desktop })
         dispatch('changeSettings', { key: 'user', value: local.user })
       } else {
-        localStorage.setItem('settings', JSON.stringify(getters.getMainSettings));
+        localStorage.setItem('settings', JSON.stringify(getters.getMainSettings))
+        dispatch('setUpSettings')
       }
     }
   }
