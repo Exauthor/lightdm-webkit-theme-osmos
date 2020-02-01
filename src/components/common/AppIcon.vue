@@ -54,7 +54,7 @@
   <svg v-else-if="name === 'user'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="1032.735 31.5 83.025 93.273" width="83.025" height="93.273">
     <linearGradient id="_lgradient_0" x1="0" y1="0.5" x2="1" y2="0.5" gradientTransform="matrix(83.025,0,0,93.273,1032.735,31.5)" gradientUnits="userSpaceOnUse">
       <stop offset="50%" stop-opacity="1" style="stop-color: var(--color-active)"/>
-      <stop offset="50%" stop-opacity="1" :style="`stop-color: ${CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, -0, -10)}`"/>
+      <stop offset="50%" stop-opacity="1" :style="`stop-color: ${colorDark}`"/>
     </linearGradient>
     <path d=" M 1067.744 87.497 L 1067.744 79.388 C 1062.551 77.141 1058.914 71.97 1058.914 65.955 L 1058.914 46.128 C 1058.914 38.055 1065.468 31.5 1073.542 31.5 L 1074.953 31.5 C 1083.026 31.5 1089.58 38.055 1089.58 46.128 L 1089.58 65.955 C 1089.58 71.97 1085.943 77.141 1080.75 79.388 L 1080.75 87.497 L 1101.222 87.497 C 1109.245 87.497 1115.76 94.011 1115.76 102.034 L 1115.76 110.235 C 1115.76 118.259 1109.245 124.773 1101.222 124.773 L 1047.273 124.773 C 1039.249 124.773 1032.735 118.259 1032.735 110.235 L 1032.735 102.034 C 1032.735 94.011 1039.249 87.497 1047.273 87.497 L 1067.744 87.497 Z " fill="url(#_lgradient_0)"/>
   </svg>
@@ -62,8 +62,8 @@
   <svg v-else-if="name === 'Arch Linux'" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="535.623 183 294.755 294.755" width="294.755" height="294.755">
     <linearGradient id="_lgradient_0" x1="0.5" y1="0" x2="0.5" y2="1" gradientTransform="matrix(294.755,0,0,294.755,535.623,183)" gradientUnits="userSpaceOnUse">
       <stop offset="0%" stop-opacity="1" style="stop-color: var(--color-active)"/>
-      <stop offset="35%" stop-opacity="1" :style="`stop-color: ${CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, -0, -20)}`"/>
-      <stop offset="100%" stop-opacity="1" :style="`stop-color: ${CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, 0, -40)}`"/>
+      <stop offset="35%" stop-opacity="1" :style="`stop-color: ${colorDarker}`"/>
+      <stop offset="100%" stop-opacity="1" :style="`stop-color: ${colorDarkest}`"/>
     </linearGradient>
     <path d=" M 683 183 C 669.879 215.166 661.911 236.236 647.307 267.447 C 656.26 276.94 667.267 287.955 685.124 300.442 C 665.927 292.544 652.842 284.636 643.061 276.405 C 624.366 315.414 595.058 370.961 535.623 477.755 C 582.323 450.795 618.531 434.159 652.273 427.812 C 650.825 421.59 650.056 414.829 650.112 407.805 L 650.149 406.332 C 650.89 376.406 666.461 353.391 684.906 354.953 C 703.348 356.514 717.708 382.052 716.966 411.984 C 716.824 417.621 716.17 423.037 715.06 428.066 C 748.436 434.596 784.299 451.154 830.377 477.755 C 821.291 461.028 813.153 445.954 805.406 431.589 C 793.206 422.133 780.485 409.832 754.529 396.509 C 772.371 401.147 785.155 406.507 795.112 412.485 C 716.368 265.868 710.002 246.372 683 183 L 683 183 L 683 183 Z " fill="url(#_lgradient_0)"/>
   </svg>
@@ -82,7 +82,16 @@ export default {
   props: ['name'],
   computed: {
     ...mapGetters('settings', { theme: 'getCurrentTheme' }),
-    ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL'])
+    ...mapGetters(['CONVERT_TO_HSL', 'CHANGE_HSL']),
+    colorDark({ CHANGE_HSL, CONVERT_TO_HSL, theme}) {
+      return CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, -0, -10)
+    },
+    colorDarker({ CHANGE_HSL, CONVERT_TO_HSL, theme}) {
+      return CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, -0, -20)
+    },
+    colorDarkest({ CHANGE_HSL, CONVERT_TO_HSL, theme}) {
+      return CHANGE_HSL(CONVERT_TO_HSL(theme.color.active), 0, -0, -40)
+    }
   }
 }
 </script>
