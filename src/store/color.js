@@ -1,11 +1,22 @@
 export default {
-  //namespaced: true,
   getters: {
-    CONVERT_TO_HSL: (state, getters) => color => {
+    color: (stage, getters, rootStage, rootGetters) => {
+      return rootGetters['settings/getCurrentTheme'].color.active
+    },
+    colorDark: (stage, getters) => {
+      return getters.CHANGE_HSL(getters.CONVERT_TO_HSL(getters.color), 0, -0, -10)
+    },
+    colorDarker: (stage, getters) => {
+      return getters.CHANGE_HSL(getters.CONVERT_TO_HSL(getters.color), 0, -0, -20)
+    },
+    colorDarkest: (stage, getters) => {
+      return getters.CHANGE_HSL(getters.CONVERT_TO_HSL(getters.color), 0, -0, -40)
+    },
+    CONVERT_TO_HSL: (state, getters) => (color) => {
       var type = color.slice(0,3);
-      if (type == "rgb") {
+      if (type === 'rgb') {
         return getters.RGB_TO_HSL(...getters.FROM_BRACKETS_TO_NUM(color));
-      } else if (color[0] == "#") {
+      } else if (color[0] === '#') {
         return getters.RGB_TO_HSL(...getters.HEX_TO_RGB(color)) 
       } else {
         return color;
@@ -17,12 +28,12 @@ export default {
       return `hsl(${hslMass[0] + hAdd}, ${hslMass[1] + sAdd}%, ${hslMass[2] + lAdd}%)`;
     },
 
-    FROM_BRACKETS_TO_NUM: state => color => {
+    FROM_BRACKETS_TO_NUM: (state) => (color) => {
       var num = color.slice(color.indexOf('(') + 1).replace(")", "").split(",") ;
       return [parseInt(num[0]), parseInt(num[1]), parseInt(num[2])];
     },
 
-    HEX_TO_RGB: state => color => {
+    HEX_TO_RGB: (state) => (color) => {
       var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
       return result ? [
           parseInt(result[1], 16),
@@ -31,7 +42,7 @@ export default {
       ] : null;
     },
 
-    RGB_TO_HSL: state => (r, g, b) => {
+    RGB_TO_HSL: (state) => (r, g, b) => {
       r /= 255, g /= 255, b /= 255;
       var max = Math.max(r, g, b), min = Math.min(r, g, b);
       var h, s, l = (max + min) / 2;

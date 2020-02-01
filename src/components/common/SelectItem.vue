@@ -121,10 +121,12 @@ export default {
 
 .selection-list
   position absolute
-  width 100%
   text-align center
+  min-width 100%
   left 0
   z-index 1
+  left 50%
+  transform translateX(-50%)
   border-radius 7px
   overflow hidden
   & .selection-list-item
@@ -133,7 +135,6 @@ export default {
     &:hover
       text-shadow 0 0 7px currentColor
       background rgba(0,0,0,.8)
-// .selection-list-bottom
 
 .selection-list-top
   top 0
