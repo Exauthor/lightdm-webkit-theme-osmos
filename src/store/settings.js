@@ -78,6 +78,7 @@ export default {
     },
     getImage: (state) => {
       const match = state.currentTheme.match(/^image-(.{1,})/)
+      console.log(match, 'match')
       return match ? match[1] : false
     },
     getCurrentUser: (state) => {

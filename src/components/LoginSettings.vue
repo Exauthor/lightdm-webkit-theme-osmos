@@ -11,9 +11,9 @@
         )
           h4 {{ theme.name }}
         .settings-themes-item(
-          @click='changeTheme({ name:background })'
+          @click='changeTheme(background)'
           v-for='(background, index) in backgrounds'
-          :key='`${index}-background`' :style='`background: url(${backgrounds[index]}) no-repeat center/cover`'
+          :key='`${index}-background`' :style='`background: url(${background}) no-repeat center/cover`'
         )
 </template>
 
