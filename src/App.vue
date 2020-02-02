@@ -8,6 +8,9 @@
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
+  beforeMount() {
+    this.$router.push({ name: 'intro' });
+  },
   mounted() {
     this.setTime()
     this.setUpSettings()
@@ -42,7 +45,6 @@ export default {
       }
     ]
     this.SET_PAGE({ key: 'interactiveBlocks', value: interactiveBlocks })
-    this.$router.push({name: 'intro'});
   },
   methods: {
     ...mapMutations('page', ['SET_PAGE']),

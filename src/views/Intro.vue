@@ -28,8 +28,9 @@ export default {
 #content 
   margin 0 auto
   text-align center
-  img
-    height 35vh;
+  svg
+    max-height 30vmin
+    max-width 30vmin
   h1
     font-size 3rem
     position relative

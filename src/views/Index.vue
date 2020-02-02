@@ -28,7 +28,7 @@ export default {
   mounted() {
     window.addEventListener('keyup', this.keyPress)
     window.addEventListener('click', this.handleClick)
-    setTimeout(this.openActiveBlock, 2000, { id: 'login' })
+    setTimeout(this.openActiveBlock, 1000, { id: 'login' })
   },
   destroyed() {
     this.closeActiveBlock()
