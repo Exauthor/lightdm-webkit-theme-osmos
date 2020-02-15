@@ -1,13 +1,14 @@
 <template lang='pug'>
   .background-image(:class='classObject')
     .background(v-if='getImage' :style='`background-image: url(${getImage})`')
-    component(v-else :is='theme.component' class='background-item center-position')
+    component(v-else :is='theme.component')
 </template> 
 
 <script>
-import fire from '@/components/themes/fire';
-import mars from '@/components/themes/mars';
 import { mapState, mapGetters } from 'vuex';
+import fire from '@/components/themes/fire';
+import malevich from '@/components/themes/malevich';
+import mars from '@/components/themes/mars';
 import osmos from '@/components/themes/osmos';
 import space from '@/components/themes/space';
 import sahara from '@/components/themes/sahara';
@@ -21,7 +22,8 @@ export default {
     osmos,
     mars,
     space,
-    sahara
+    sahara,
+    malevich
   },
   computed: {
     ...mapState('settings', ['loginPosition']),

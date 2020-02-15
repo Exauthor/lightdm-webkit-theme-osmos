@@ -12,6 +12,15 @@ export default {
         },
       },
       {
+        name: 'Malevich',
+        component: 'malevich',
+        fullscreen: false,
+        color: {
+          active: '#F690FF',
+          background: '#fff'
+        },
+      },
+      {
         name: 'Osmos',
         component: 'osmos',
         fullscreen: true,

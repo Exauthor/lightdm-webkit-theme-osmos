@@ -1,5 +1,5 @@
-<template lang="pug">
-  <div class="body">
+<template>
+  <div class="body center-position">
     <div class="time center-position">
       <h1 class="time-format"> {{currentTime.format("H:mm")}} </h1>
       <h3> {{currentTime.format("D ddd, MMM YYYY")}} </h3>

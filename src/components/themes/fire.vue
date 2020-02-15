@@ -1,5 +1,5 @@
 <template lang="pug">
-  .fire
+  .fire.center-position
 </template>
 
 <script>
