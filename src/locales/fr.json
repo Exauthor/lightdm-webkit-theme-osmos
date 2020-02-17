@@ -9,7 +9,7 @@
     },
     "modals": {
       "shutdown": {
-        "title": "Fermer",
+        "title": "Eteindre",
         "text": "Voulez-vous vraiment éteindre l'ordinateur?"
       },
       "restart": {
@@ -22,18 +22,18 @@
       }
     },
     "settings": {
-      "title": "settings",
+      "title": "Paramètres",
       "choiceLanguage": "Choix de la langue",
       "language": "Langue",
       "choiceLoginPosition": {
         "title": "Position",
         "about": "Choix de la position de connexion",
         "center": "centre",
-        "top": "top",
-        "left": "left",
+        "top": "haut",
+        "left": "gauche",
         "right": "droite",
         "bottom": "bas"
       },
-      "about": "Système de paramètres"
+      "about": "Paramètres système"
     }
 }
