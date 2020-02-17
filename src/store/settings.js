@@ -21,6 +21,15 @@ export default {
         },
       },
       {
+        name: 'Polygon',
+        component: 'polygonComponent',
+        fullscreen: false,
+        color: {
+          active: '#f7bb3b',
+          background: '#fff'
+        },
+      },
+      {
         name: 'Osmos',
         component: 'osmos',
         fullscreen: true,

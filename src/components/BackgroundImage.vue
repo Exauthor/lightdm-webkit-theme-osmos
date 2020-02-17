@@ -7,6 +7,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex';
 import fire from '@/components/themes/fire';
+import polygonComponent from '@/components/themes/polygon';
 import malevich from '@/components/themes/malevich';
 import mars from '@/components/themes/mars';
 import osmos from '@/components/themes/osmos';
@@ -17,13 +18,14 @@ import timeComponent from '@/components/themes/time';
 export default {
   name: 'BackgroundTheme',
   components: {
-    timeComponent,
     fire,
     osmos,
     mars,
     space,
     sahara,
-    malevich
+    malevich,
+    timeComponent,
+    polygonComponent
   },
   computed: {
     ...mapState('settings', ['loginPosition']),

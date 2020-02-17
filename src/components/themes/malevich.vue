@@ -40,8 +40,8 @@ export default {
     position absolute
 
 .parralax-item-cube
-  width 20vmin
-  height 20vmin
+  width 27vmin
+  height 27vmin
   background black
 
 .parralax-item-bottom-left
