@@ -1,39 +1,38 @@
 {
+  "text": {
+    "themes": "tytuł",
+    "password": "hasło",
     "welcome": "Witamy",
-    "themes":  {
-      "title": "tytuł"
+    "yes": "tak",
+    "no": "nie"
+  },
+  "modals": {
+    "shutdown": {
+      "title": "Zamknąć",
+      "text": "Are you sure you want to turn off the computer?"
     },
-    "text": {
-      "yes": "tak",
-      "no": "nie"
+    "restart": {
+      "title": "Uruchom ponownie",
+      "text": "Czy na pewno chcesz ponownie uruchomić komputer?"
     },
-    "modals": {
-      "shutdown": {
-        "title": "Zamknąć",
-        "text": "Are you sure you want to turn off the computer?"
-      },
-      "restart": {
-        "title": "Uruchom ponownie",
-        "text": "Czy na pewno chcesz ponownie uruchomić komputer?"
-      },
-      "suspend": {
-        "title": "Zawieszać",
-        "text": "Czy na pewno chcesz zawiesić komputer?"
-      }
-    },
-    "settings": {
-      "title": "ustawienia",
-      "choiceLanguage": "wybór języka",
-      "language": "język",
-      "choiceLoginPosition": {
-        "title": "Pozycja",
-        "about": "Wybierz pozycję logowania",
-        "center": "сentrum",
-        "top": "do góry",
-        "left": "lewo",
-        "right": "dobrze",
-        "bottom": "dolny"
-      },
-      "about": "System ustawień"
+    "suspend": {
+      "title": "Zawieszać",
+      "text": "Czy na pewno chcesz zawiesić komputer?"
     }
+  },
+  "settings": {
+    "title": "ustawienia",
+    "choiceLanguage": "wybór języka",
+    "language": "język",
+    "choiceLoginPosition": {
+      "title": "Pozycja",
+      "about": "Wybierz pozycję logowania",
+      "center": "сentrum",
+      "top": "do góry",
+      "left": "lewo",
+      "right": "dobrze",
+      "bottom": "dolny"
+    },
+    "about": "System ustawień"
+  }
 }

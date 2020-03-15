@@ -5,7 +5,7 @@
     .meteor
     .another-planet
     .hole
-    h2.welcome.center-position {{ $t('welcome') }} <br> {{ getUserName }}
+    h2.welcome.center-position {{ $t('text.welcome') }} <br> {{ getUserName }}
 </template>
 
 <script>

@@ -1,39 +1,38 @@
 {
+  "text": {
+    "themes": "temas",
+    "password": "contraseña",
     "welcome": "bienvenido",
-    "themes":  {
-      "title": "temas"
+    "yes": "si",
+    "no": "no"
+  },
+  "modals": {
+    "shutdown": {
+      "title": "Apagar",
+      "text": "¿Seguro que quieres apagar la computadora?"
     },
-    "text": {
-      "yes": "si",
-      "no": "no"
+    "restart": {
+      "title": "Reiniciar",
+      "text": "¿Seguro que quieres reiniciar tu computadora?"
     },
-    "modals": {
-      "shutdown": {
-        "title": "Apagar",
-        "text": "¿Seguro que quieres apagar la computadora?"
-      },
-      "restart": {
-        "title": "Reiniciar",
-        "text": "¿Seguro que quieres reiniciar tu computadora?"
-      },
-      "suspend": {
-        "title": "Suspender",
-        "text": "¿Estás seguro de que quieres suspender tu computadora?"
-      }
-    },
-    "settings": {
-      "title": "configuración",
-      "choiceLanguage": "Idioma de elección",
-      "language": "Idioma",
-      "choiceLoginPosition": {
-        "title": "Posición",
-        "about": "Elección de posición de inicio de sesión",
-        "center": "centro",
-        "top": "top",
-        "left": "izquierda",
-        "right": "bien",
-        "bottom": "fondo"
-      },
-      "about": "Sistema de configuración"
+    "suspend": {
+      "title": "Suspender",
+      "text": "¿Estás seguro de que quieres suspender tu computadora?"
     }
+  },
+  "settings": {
+    "title": "configuración",
+    "choiceLanguage": "Idioma de elección",
+    "language": "Idioma",
+    "choiceLoginPosition": {
+      "title": "Posición",
+      "about": "Elección de posición de inicio de sesión",
+      "center": "centro",
+      "top": "top",
+      "left": "izquierda",
+      "right": "bien",
+      "bottom": "fondo"
+    },
+    "about": "Sistema de configuración"
+  }
 }

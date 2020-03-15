@@ -19,7 +19,7 @@
       .widget-input-block
         input#password(
           @keyup='handleKeyup'
-          type='password' ref='password' placeholder='password'
+          type='password' ref='password' :placeholder='$t("text.password")'
           v-model='initPassword' :readonly='logging' :class="{'error': error}"
         )
         .selection-icon(@click='login')
