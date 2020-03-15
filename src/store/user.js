@@ -18,10 +18,6 @@ export default {
   },
   actions: {
     login({ state, getters, commit, rootState, rootGetters }) {
-      if (!state.password) {
-        alert('password in empty')
-        return;
-      }
       commit('SET_USER_STATE', { key: 'logging', value: true})
 
       setTimeout(() => {

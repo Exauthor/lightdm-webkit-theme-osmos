@@ -1,12 +1,11 @@
 <template lang='pug'>
-  transition(name='router-anim')
-    .modal-background(v-if='modal' @click.stop='close')
+    .modal-background(@click.stop='close')
       .modal.position-center(@click.stop)
         .modal-title {{ $t(modal.title) }}
         .modal-body {{ $t(modal.text) }}
         .modal-buttons
-          .modal-button.modal-button--active(@click.stop='close') {{ $t(modal.no || 'text.no') }}
-          .modal-button(@click='submitModal') {{ $t(modal.yes || 'text.yes') }}
+          .modal-button(@click.stop='close' :class='{ "modal-button--active": activeButton}') {{ $t(modal.no || 'text.no') }}
+          .modal-button(@click.stop='submitModal' :class='{ "modal-button--active": !activeButton}') {{ $t(modal.yes || 'text.yes') }}
 </template>
 
 <script>
@@ -14,17 +13,37 @@ import { mapState, mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'MainModal',
+  data() {
+    return {
+      activeButton: true
+    }
+  },
   computed: {
-    ...mapState('page', ['activeModal']),
+    ...mapState('page', ['activeModal', 'event']),
     ...mapGetters('page', ['getCurrentModal']),
     modal() {
       return this.getCurrentModal
     }
   },
+  watch: {
+    event(value) {
+      const code = value && value.code
+      if (code !== 'Enter') {
+        this.activeButton = code  === 'ArrowLeft' ? true : false
+        return
+      }
+
+      (this.activeButton ? this.close : this.submitModal)()
+    }
+  },
+  mounted() {
+    this.activeButton = true
+  },
   methods: {
     ...mapMutations('page', ['SET_PAGE']),
-    close(value) {
+    close() {
       this.SET_PAGE({ key: 'activeModal', value: false })
+      this.activeButton = true
     },
     submitModal() {
       setTimeout(lightdm[this.activeModal], 500);

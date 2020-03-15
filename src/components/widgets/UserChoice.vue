@@ -60,8 +60,6 @@ export default {
 </script>
 
 <style lang='stylus'>
-// .widget-user-image
-
 .widget-input-block
   display flex
   width 100%

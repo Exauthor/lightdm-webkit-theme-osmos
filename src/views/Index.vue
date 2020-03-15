@@ -2,7 +2,8 @@
   .index
     BackgroundImage
     LoginComponent
-    MainModal
+    transition(name='router-anim')
+      MainModal(v-if='activeModal')
 </template>
 
 <script>
@@ -28,10 +29,15 @@ export default {
   mounted() {
     window.addEventListener('keyup', this.keyPress)
     window.addEventListener('click', this.handleClick)
-    setTimeout(this.openActiveBlock, 1000, { id: 'login' })
+
+    setTimeout(() => {
+      this.openActiveBlock({ id: 'login' })
+      this.$nextTick(() => document.querySelector('#password').focus())
+    }, 700)
   },
   destroyed() {
     this.closeActiveBlock()
+
     window.removeEventListener('keyup', this.keyPress)
     window.removeEventListener('click', this.handleClick)
   },
@@ -45,9 +51,8 @@ export default {
         return
       }
       const parent = document.querySelector('#' + this.getActiveBlock.id)
-      const hasInclude = parent.contains(node)
 
-      if (!hasInclude) {
+      if (!parent.contains(node)) {
         this.closeActiveBlock()
       }
     },
@@ -55,7 +60,9 @@ export default {
       const ENTER_CODE = 13
       const isFocusPassword = document.querySelector('#password:focus')
       if (event.which === ENTER_CODE) {
-        if (!this.isOpenLogin) {
+        if (this.activeModal) {
+          this.SET_PAGE({ key: 'event', value: { code: 'Enter' } })
+        } else  if (!this.isOpenLogin) {
           this.openActiveBlock({ id: 'login' })
         } else if (this.isOpenLogin && !isFocusPassword) {
           document.querySelector('#password').focus()
@@ -70,6 +77,13 @@ export default {
         } else {
           this.closeActiveBlock()
         }
+      }
+
+      const eventsPass = ['ArrowRight', 'ArrowLeft']
+
+      if (eventsPass.includes(event.code)) {
+        const eventObject = { code: event.code }
+        this.SET_PAGE({ key: 'event', value: eventObject })
       }
     }
   }

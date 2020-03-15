@@ -27,7 +27,8 @@ export default {
     },
     activeBlocks: [],
     interactiveBlocks: [],
-    activeModal: ''
+    activeModal: '',
+    event: false
   },
   getters: {
     getBlock: (state) => (id) => {
