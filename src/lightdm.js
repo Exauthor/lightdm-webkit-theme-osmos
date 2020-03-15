@@ -43,6 +43,10 @@ if (window.lightdm_debug) {
         key: 'xfce'
       },
       {
+        name: 'Openbox',
+        key: 'openbox'
+      },
+      {
         name: 'Cinnamon',
         key: 'cinnamon'
       },

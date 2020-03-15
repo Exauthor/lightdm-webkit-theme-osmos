@@ -27,34 +27,36 @@ export default {
     ...mapState('settings', ['desktop', 'desktops']),
     ...mapGetters('settings', ['getCurrentDesktop']),
     icon() {
-      let key = this.getCurrentDesktop.key.toLowerCase();
+      let key = this.getCurrentDesktop.key.toLowerCase()
 
       if (key.indexOf('plasma') > -1 || key.indexOf('kde') > -1) {
-        return 'kde';
+        return 'kde'
       } if (key.indexOf('gnome') > -1) {
-        return 'gnome';
+        return 'gnome'
       } if (key.indexOf('xfce') > -1) {
-        return 'xfce';
+        return 'xfce'
       } if (key.indexOf('unity') > -1 || key.indexOf('ubuntu') > -1) {
-        return 'ubuntu';
+        return 'ubuntu'
       } if (key.indexOf('dde') > -1 || key.indexOf('deepin') > -1) {
-        return 'deepin';
+        return 'deepin'
       } if (key.indexOf('lxde') > -1 || key.indexOf('lxqt') > -1) {
-        return 'lxde';
+        return 'lxde'
+      } if (key.indexOf('openbox') > -1 || key.indexOf('openbox') > -1) {
+        return 'openbox'
       } if (key.indexOf('pantheon') > -1 || key.indexOf('elementary') > -1) {
-        return 'elementary';
+        return 'elementary'
       } if (key.indexOf('mate') > -1) {
-        return 'mate';
+        return 'mate'
       } if (key.indexOf('cinnamon') > -1 || key.indexOf('mint') > -1) {
-        return 'cinnamon';
+        return 'cinnamon'
       } if (key.indexOf('enlightenment') > -1 || (key.length === 3 && /e[1-9]{2}/g.test(key))) {
         return 'enlightenment';
       } if (key.indexOf('i3') > -1) {
-        return 'i3';
+        return 'i3'
       } if (key.indexOf('xmonad') > -1) {
-        return 'xmonad';
+        return 'xmonad'
       } if (key.indexOf('budgie') > -1 || key.indexOf('solus') > -1) {
-        return 'budgie';
+        return 'budgie'
       }
     }
   }
