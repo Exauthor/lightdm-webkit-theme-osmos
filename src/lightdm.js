@@ -35,6 +35,10 @@ if (window.lightdm_debug) {
         key: 'plasma-shell'
       },
       {
+        name: 'Kodi',
+        key: 'kodi'
+      },
+      {
         name: 'Gnome 3',
         key: 'gnome-shell'
       },

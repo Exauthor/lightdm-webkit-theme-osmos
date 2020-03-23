@@ -57,6 +57,8 @@ export default {
         return 'xmonad'
       } if (key.indexOf('budgie') > -1 || key.indexOf('solus') > -1) {
         return 'budgie'
+      } else {
+        return 'love'
       }
     }
   }
