@@ -67,7 +67,7 @@ export default {
 .login-menu
   position absolute
   right 0
-  z-index 10
+  z-index 5
   width 30ch
   overflow visible
   height 100%

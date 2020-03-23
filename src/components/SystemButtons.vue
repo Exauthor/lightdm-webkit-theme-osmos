@@ -22,7 +22,6 @@ export default {
       if (button === 'settings') {
         this.openActiveBlock({ id: 'settings' })
       } else {
-        // setTimeout(lightdm[button], 500);
         this.SET_PAGE({ key: 'activeModal', value: button})
       }
     }

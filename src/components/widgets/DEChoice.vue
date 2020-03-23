@@ -39,6 +39,8 @@ export default {
         return 'ubuntu'
       } if (key.indexOf('dde') > -1 || key.indexOf('deepin') > -1) {
         return 'deepin'
+      } if (key.indexOf('kodi') > -1 || key.indexOf('kodi') > -1) {
+        return 'kodi'
       } if (key.indexOf('lxde') > -1 || key.indexOf('lxqt') > -1) {
         return 'lxde'
       } if (key.indexOf('openbox') > -1 || key.indexOf('openbox') > -1) {

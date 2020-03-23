@@ -55,6 +55,7 @@ export default {
 
 <style lang="stylus">
 .modal-background
+  z-index 6
   position absolute
   left 0
   top 0
