@@ -120,8 +120,12 @@ export default {
     }
   },
   actions: {
-    async changeTheme({ dispatch, getters }, theme) {
-      await dispatch('changeSettings', { key: 'currentTheme', value: theme.name || 'image-' + theme })
+    async changeTheme({ state, getters, dispatch }, theme) {
+      const isExistTheme = state.themes.find(({ name }) => name === theme.name)
+      const finalTheme = isExistTheme ? theme.name || 'image-' + theme : state.themes[0].name
+
+      await dispatch('changeSettings', { key: 'currentTheme', value: finalTheme })
+
       const { color } = getters.getCurrentTheme
 
       document.documentElement.style
@@ -156,17 +160,13 @@ export default {
 
         dispatch('changeTheme', { name: local.currentTheme })
 
-        let isExistDE = !!lightdm.sessions.filter((item, i) => {
-          return item.name === local.desktop
-        }).length;
+        let isExistDE = lightdm.sessions.find(item => item.name === local.desktop)
 
         if (!isExistDE) {
           local.desktop = lightdm.sessions[0].name
         }
 
-        let isExistUser = !!lightdm.users.filter((item, i) => {
-          return item.username === local.username
-        }).length;
+        let isExistUser = lightdm.users.filter(item => item.username === local.username);
         
         if (!isExistUser) {
           local.user = lightdm.users[0].username

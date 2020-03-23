@@ -39,7 +39,6 @@ export default {
         transition: 1500
       },
       {
-        // closeBeforeMount: ['login'],
         id: 'settings',
         openAfterDestroy: ['login']
       }
