@@ -5,25 +5,30 @@
 </template> 
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-import fire from '@/components/themes/fire';
-import polygonComponent from '@/components/themes/polygon';
-import malevich from '@/components/themes/malevich';
-import mars from '@/components/themes/mars';
-import osmos from '@/components/themes/osmos';
-import space from '@/components/themes/space';
-import sahara from '@/components/themes/sahara';
-import timeComponent from '@/components/themes/time';
+import { mapState, mapGetters } from 'vuex'
+
+import fire from '@/components/themes/fire'
+import mars from '@/components/themes/mars'
+import fluid from '@/components/themes/fluid'
+import osmos from '@/components/themes/osmos'
+import space from '@/components/themes/space'
+import sahara from '@/components/themes/sahara'
+import malevich from '@/components/themes/malevich'
+import fluidPro from '@/components/themes/fluidPro'
+import timeComponent from '@/components/themes/time'
+import polygonComponent from '@/components/themes/polygon'
 
 export default {
   name: 'BackgroundTheme',
   components: {
     fire,
-    osmos,
     mars,
+    osmos,
     space,
+    fluid,
     sahara,
     malevich,
+    fluidPro,
     timeComponent,
     polygonComponent
   },

@@ -3,6 +3,15 @@ export default {
   state: {
     themes: [
       {
+        name: 'Fluid Pro',
+        component: 'fluidPro',
+        fullscreen: true,
+        color: {
+          active: '#04ded4',
+          background: 'black'
+        },
+      },
+      {
         name: 'Fire',
         component: 'fire',
         fullscreen: false,
