@@ -1402,6 +1402,29 @@ export default {
       updatePointerMoveData(pointer, posX, posY);
     }
 
+    const toRight = [{ x: 690, y: 633 }, { x: 500, y: 633 }]
+    let stepAnimationPass = 0
+    const allAnimationPass = 100
+
+    setInterval(() => {
+      if (stepAnimationPass === 0) {
+        stepAnimationPass++
+        initFluid(toRight[0].x, toRight[0].y)
+      } else if (stepAnimationPass === allAnimationPass) {
+        updatePointerUpData(pointers[0])
+      } else {
+        const percentCurrentAnimation = stepAnimationPass / allAnimationPass
+        const differenceX = toRight[0].x - toRight[1].x
+        const differenceY = toRight[0].y - toRight[1].y
+        const diffX = differenceX > 0 ? -1 : 1
+        const diffY = differenceY > 0 ? -1 : 1
+        const x = toRight[0].x + differenceX * diffX * percentCurrentAnimation
+        const y = toRight[0].y + differenceY * diffY * percentCurrentAnimation
+        stepAnimationPass++
+        moveFluid(x, y)
+      }
+    }, 20)
+
     canvas.addEventListener('mousedown', e => {
       initFluid(e.offsetX, e.offsetY)
     });
