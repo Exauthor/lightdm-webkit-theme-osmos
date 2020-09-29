@@ -1384,14 +1384,14 @@ export default {
     })
 
     function initFluid(x, y) {
-      let posX = scaleByPixelRatio(x);
-      let posY = scaleByPixelRatio(y);
-      console.log({ posX, posY })
-      let pointer = pointers.find(p => p.id == -1);
+      let posX = scaleByPixelRatio(x)
+      let posY = scaleByPixelRatio(y)
+
+      let pointer = pointers.find(p => p.id == -1)
       if (pointer == null) {
-        pointer = new pointerPrototype();
+        pointer = new pointerPrototype()
       }
-      updatePointerDownData(pointer, -1, posX, posY);
+      updatePointerDownData(pointer, -1, posX, posY)
     }
 
     function moveFluid(x, y) {
@@ -1402,30 +1402,87 @@ export default {
       updatePointerMoveData(pointer, posX, posY);
     }
 
-    const toRight = [{ x: 690, y: 633 }, { x: 500, y: 633 }]
-    let stepAnimationPass = 0
-    const allAnimationPass = 100
+    function windowBoundCalculator(position = '') {
+      const [directionX, directionY] = `${position}-`.split('-').map(dir => dir || 'center')
+      const width = window.innerWidth
+      const height = window.innerHeight
 
-    setInterval(() => {
-      if (stepAnimationPass === 0) {
-        stepAnimationPass++
-        initFluid(toRight[0].x, toRight[0].y)
-      } else if (stepAnimationPass === allAnimationPass) {
-        updatePointerUpData(pointers[0])
-      } else {
-        const percentCurrentAnimation = stepAnimationPass / allAnimationPass
-        const differenceX = toRight[0].x - toRight[1].x
-        const differenceY = toRight[0].y - toRight[1].y
-        const diffX = differenceX > 0 ? -1 : 1
-        const diffY = differenceY > 0 ? -1 : 1
-        const x = toRight[0].x + differenceX * diffX * percentCurrentAnimation
-        const y = toRight[0].y + differenceY * diffY * percentCurrentAnimation
-        stepAnimationPass++
-        moveFluid(x, y)
+      const calculateDirection = (direction, number) => {
+        if (['bottom', 'right'].includes(direction)) return number
+        else if (direction === 'center') return Math.round(number / 2)
+        return 0
       }
-    }, 20)
+
+      return {
+        x: calculateDirection(directionX, width), 
+        y: calculateDirection(directionY, height)
+      }
+    }
+
+    function createDirectionMove(from = '', to = '', amplitude = 100) {
+      [from, to] = [windowBoundCalculator(from), windowBoundCalculator(to)]
+
+      const calcFinalPosition = (start, finish) => {
+        const diffPos = Math.round(Math.abs(start - finish) * amplitude / 100)
+        const sign = start > finish ? -1 : 1
+
+        return start + diffPos * sign
+      }
+
+      if (amplitude < 100) {
+        to.x = calcFinalPosition(from.x, to.x)
+        to.y = calcFinalPosition(from.y, to.y)
+      }
+
+      return [from, to]
+    }
+
+    function initRightMove() {
+      const move = createDirectionMove('', 'right', 30)
+
+      animateMove(move)
+    }
+
+    function initLeftMove() {
+      const move = createDirectionMove('', 'left', 30)
+
+      animateMove(move)
+    }
+
+    function animateMove(move, speed = 30) {
+      let stepAnimationPass = 0
+      const allAnimationPass = speed
+
+      const interval = setInterval(() => {
+        if (stepAnimationPass === 0) {
+          stepAnimationPass++
+          initFluid(move[0].x, move[0].y)
+        } else if (
+          stepAnimationPass === allAnimationPass ||
+          stepAnimationPass > allAnimationPass
+        ) {
+          updatePointerUpData(pointers[0])
+          clearInterval(interval)
+        } else {
+          const percentCurrentAnimation = stepAnimationPass / allAnimationPass
+
+          const calcMove = (from, to) => {
+            const differenceX = from - to
+            const diffX = differenceX > 0 ? -1 : 1
+            return from + Math.abs(differenceX) * diffX * percentCurrentAnimation
+          }
+
+          const x = calcMove(move[0].x, move[1].x)
+          const y = calcMove(move[0].y, move[1].y)
+
+          stepAnimationPass++
+          moveFluid(x, y)
+        }
+      }, 20)
+    }
 
     canvas.addEventListener('mousedown', e => {
+      clearInterval('movement')
       initFluid(e.offsetX, e.offsetY)
     });
 

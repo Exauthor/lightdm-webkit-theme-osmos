@@ -14,7 +14,6 @@ import osmos from '@/components/themes/osmos'
 import space from '@/components/themes/space'
 import sahara from '@/components/themes/sahara'
 import malevich from '@/components/themes/malevich'
-import fluidPro from '@/components/themes/fluidPro'
 import timeComponent from '@/components/themes/time'
 import polygonComponent from '@/components/themes/polygon'
 
@@ -28,7 +27,6 @@ export default {
     fluid,
     sahara,
     malevich,
-    fluidPro,
     timeComponent,
     polygonComponent
   },
