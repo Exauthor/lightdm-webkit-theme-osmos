@@ -1481,8 +1481,14 @@ export default {
       }, 20)
     }
 
+    let movement = setInterval(() => {
+      initRightMove()
+      setTimeout(initLeftMove, 1000)
+    }, 2000)
+
     canvas.addEventListener('mousedown', e => {
-      clearInterval('movement')
+      clearInterval(movement)
+      movement = null
       initFluid(e.offsetX, e.offsetY)
     });
 
