@@ -1383,19 +1383,28 @@ export default {
       e.stopPropagation()
     })
 
-    function initFluid(x, y) {
+    const mousePointerId = -1
+
+    function initFluid(x, y, isMouse) {
       let posX = scaleByPixelRatio(x)
       let posY = scaleByPixelRatio(y)
 
-      let pointer = pointers.find(p => p.id == -1)
-      if (pointer == null) {
-        pointer = new pointerPrototype()
-      }
-      updatePointerDownData(pointer, -1, posX, posY)
+      let pointer = isMouse ? pointers.find(p => p.id === mousePointerId) : new pointerPrototype()
+      const id = isMouse ? mousePointerId : Math.random()
+
+      if (pointer === null) pointer = new pointerPrototype()
+
+      pointers.push(pointer)
+      updatePointerDownData(pointer, id, posX, posY)
+
+      return pointer
     }
 
-    function moveFluid(x, y) {
-      let pointer = pointers[0];
+    function moveFluid(x, y, pointer) {
+      if (!pointer) {
+        pointer = pointers.find(p => p && p.id === mousePointerId)
+      }
+
       if (!pointer.down) return;
       let posX = scaleByPixelRatio(x);
       let posY = scaleByPixelRatio(y);
@@ -1403,7 +1412,8 @@ export default {
     }
 
     function windowBoundCalculator(position = '') {
-      const [directionX, directionY] = `${position}-`.split('-').map(dir => dir || 'center')
+      const initPosition = ['top', 'bottom'].includes(position) ? `-${position}` : `${position}-`
+      const [directionX, directionY] = initPosition.split('-').map(dir => dir || 'center')
       const width = window.innerWidth
       const height = window.innerHeight
 
@@ -1446,22 +1456,62 @@ export default {
     function initLeftMove() {
       const move = createDirectionMove('', 'left', 30)
 
-      animateMove(move)
+      animateMove(move, 20)
     }
+
+    function initTopMove() {
+      const move = createDirectionMove('', 'top', 30)
+
+      animateMove(move, 20)
+    }
+
+    function initBottomMove() {
+      const move = createDirectionMove('', 'bottom', 30)
+
+      animateMove(move, 20)
+    }
+
+    function initTopRightMove() {
+      const move = createDirectionMove('', 'right-to', 30)
+
+      animateMove(move, 20)
+    }
+
+    function initTopLeftMove() {
+      const move = createDirectionMove('', 'top-left', 30)
+
+      animateMove(move, 20)
+    }
+
+    function initBottomRightMove() {
+      const move = createDirectionMove('', 'right-bottom', 30)
+
+      animateMove(move, 20)
+    }
+
+    function initBottomLeftMove() {
+      const move = createDirectionMove('', 'left-bottom', 30)
+
+      animateMove(move, 20)
+    }
+
 
     function animateMove(move, speed = 30) {
       let stepAnimationPass = 0
       const allAnimationPass = speed
+      let pointer = null
 
       const interval = setInterval(() => {
         if (stepAnimationPass === 0) {
           stepAnimationPass++
-          initFluid(move[0].x, move[0].y)
+          pointer = initFluid(move[0].x, move[0].y)
         } else if (
           stepAnimationPass === allAnimationPass ||
           stepAnimationPass > allAnimationPass
         ) {
-          updatePointerUpData(pointers[0])
+          updatePointerUpData(pointer)
+          pointers = pointers.filter(p => p.id !== pointer.id)
+
           clearInterval(interval)
         } else {
           const percentCurrentAnimation = stepAnimationPass / allAnimationPass
@@ -1476,20 +1526,20 @@ export default {
           const y = calcMove(move[0].y, move[1].y)
 
           stepAnimationPass++
-          moveFluid(x, y)
+          moveFluid(x, y, pointer)
         }
       }, 20)
     }
 
     let movement = setInterval(() => {
       initRightMove()
-      setTimeout(initLeftMove, 1000)
+      initLeftMove()
     }, 2000)
 
     canvas.addEventListener('mousedown', e => {
       clearInterval(movement)
       movement = null
-      initFluid(e.offsetX, e.offsetY)
+      initFluid(e.offsetX, e.offsetY, true)
     });
 
     canvas.addEventListener('mousemove', e => {
@@ -1497,7 +1547,7 @@ export default {
     });
 
     window.addEventListener('mouseup', () => {
-        updatePointerUpData(pointers[0]);
+      pointers.forEach(updatePointerUpData)
     });
 
     canvas.addEventListener('touchstart', e => {
@@ -1571,7 +1621,7 @@ export default {
     }
 
     function updatePointerUpData(pointer) {
-        pointer.down = false;
+      pointer.down = false;
     }
 
     function correctDeltaX(delta) {
