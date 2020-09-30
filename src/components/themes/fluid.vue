@@ -1531,9 +1531,33 @@ export default {
       }, 20)
     }
 
+    let animationIntervalItems = 0
+
     let movement = setInterval(() => {
-      initRightMove()
-      initLeftMove()
+      animationIntervalItems++
+
+      switch(animationIntervalItems % 4) {
+        case 0: {
+          initTopLeftMove()
+          initBottomRightMove()
+          break
+        }
+        case 1: {
+          initRightMove()
+          initLeftMove()
+          break
+        }
+        case 2: {
+          initTopRightMove()
+          initBottomLeftMove()
+          break
+        }
+        case 3: {
+          initTopMove()
+          initBottomMove()
+          break
+        }
+      }
     }, 2000)
 
     canvas.addEventListener('mousedown', e => {
