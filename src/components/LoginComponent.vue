@@ -1,13 +1,17 @@
 <template lang='pug'>
   transition(:name='`slide-${loginPosition}`')
     .login-menu#login(v-if='isOpen' :class='classObject')
-      transition(:name='`slide-${loginPosition}`')
+      transition-group(
+        name='slide-out-bottom'
+        tag="div"
+        style="height: 100%;"
+      )
         .login-content(v-if='!isOpenSettings' key='content')
           div(:class='{"widget-blocks": ["bottom", "top"].includes(loginPosition)}')
             UserChoice.mb-3
             DEChoice.mb-3
             Clock.mb-3
-            CommonSettings
+            // CommonSettings
           SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
         LoginSettings#settings(v-else-if='isOpenSettings' key='settings')
 </template>
@@ -153,6 +157,8 @@ export default {
 .widget-blocks
   display flex
   align-items center
+  justify-content space-around
+  min-width: 80vmin
   .widget-block
     max-width 20vw
 

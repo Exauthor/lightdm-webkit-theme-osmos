@@ -234,15 +234,31 @@ section
   transition all .5s
 
 .slide-top-enter, .slide-top-leave-to
-  position absolute
   transform translateY(-100%)
+  opacity 0
 
 .slide-bottom-enter-active, .slide-bottom-leave-active 
-  transition all .5s
+  transition all 50s
 
 .slide-bottom-enter, .slide-bottom-leave-to
   position absolute
-  transform translateY(100%)
+  transform translateY(-100%)
+
+.slide-out-bottom-enter-active, .slide-out-bottom-leave-active
+  position: absolute
+  transition: .5s
+
+.slide-out-bottom-enter, .slide-out-bottom-leave-to
+  position absolute
+  transform translateY(-100%)
+
+.slide-out-bottom-leave-to,
+  transform translateY(-100%)
+  position: absolute
+
+.slide-out-bottom-enter-to
+  opacity: 1
+  transform translateY(0%)
 
 .menu-popover-enter,
 .menu-popover-leave-to 
