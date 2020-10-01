@@ -1,29 +1,40 @@
 <template lang="pug">
-  .osmos
-    .stars
-    .clouds
-      div
-      div
-      div
-    .clouds-reflex
-      div
-      div
-      div
-    .sun
-    .sea
-      .rocks
-        .rocks_left
-          div
-          div
-          div
-        .rocks_right
-          div
-          div
-          div
+  .osmos(ref='scene' data-hover-only='true' data-friction-x="0.1" data-friction-y='0.1' data-scalar-x='25' data-scalar-y='15')
+    li.prllx-block(data-depth='0.0')
+      .stars
+    li.prllx-block(data-depth='0.0')
+      .sun
+    li.prllx-block(data-depth='0.1')
+      .clouds
+        div
+        div
+        div
+      .clouds-reflex
+        div
+        div
+        div
+    li.prllx-block(data-depth='0.0')
+      .sea
+        .rocks
+          .rocks_left
+            div
+            div
+            div
+          .rocks_right
+            div
+            div
+            div
 </template>
 
 <script>
+import Parallax from 'parallax-js'
 
+export default {
+  name: 'OsmosTheme',
+  mounted() {
+    new Parallax(this.$refs.scene);
+  }
+}
 </script>
 
 <style lang="stylus">
@@ -72,7 +83,7 @@
   width 100%
   z-index 1
   & > *
-    // animation-name cloud
+    animation-name cloud
     animation-iteration-count infinite
     position absolute
     &:first-child 

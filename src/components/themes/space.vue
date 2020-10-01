@@ -1,21 +1,31 @@
 <template lang="pug">
-  .space
-    .main-planet.center-position
-    .ufo
-    .meteor
-    .another-planet
-    .hole
-    h2.welcome.center-position {{ $t('text.welcome') }} <br> {{ getUserName }}
+  .space(ref='scene' data-hover-only='true' data-friction-x="0.1" data-friction-y='0.1' data-scalar-x='25' data-scalar-y='15')
+    li.prllx-block(data-depth='0.0')
+      .main-planet.center-position
+    li.prllx-block(data-depth='0.2')
+      .ufo
+    li.prllx-block(data-depth='0.1')
+      .meteor
+    li.prllx-block(data-depth='0.07')
+      .hole
+    li.prllx-block(data-depth='0.02')
+      .another-planet
+    li.prllx-block(data-depth='0.0')
+      h2.welcome.center-position {{ $t('text.welcome') }} <br> {{ getUserName }}
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import Parallax from 'parallax-js'
 
 export default {
   name: 'Space',
   computed: {
     ...mapGetters('user', ['getUserName'])
   },
+  mounted() {
+    new Parallax(this.$refs.scene);
+  }
 }
 </script>
 

@@ -1,28 +1,37 @@
 <template lang="pug">
-  .mars
-    .stars
-    .sun
-      .blick.center-position
-      .blick.center-position
-      .blick.center-position
-      .blick.center-position
-      .blick.center-position
-      .blick.center-position
-      .kore
-    .meteor(@click.stop='changeTheme({name: "Space"})')
-    .planet(@click.stop='changeTheme({name: "Osmos"})')
-    .mountain-back
-    .mountain-second
-    .mountain-front
+  .mars(ref='scene' data-hover-only='true' data-friction-x="0.1" data-friction-y='0.1' data-scalar-x='25' data-scalar-y='15')
+    li.prllx-block(data-depth='0.0')
+      .stars
+      .sun
+        .blick.center-position
+        .blick.center-position
+        .blick.center-position
+        .blick.center-position
+        .blick.center-position
+        .blick.center-position
+        .kore
+      .planet(@click.stop='changeTheme({name: "Osmos"})')
+    li.prllx-block(data-depth='0.1')
+      .meteor(@click.stop='changeTheme({name: "Space"})')
+    li.prllx-block(data-depth='0.02')
+      .mountain-back
+    li.prllx-block(data-depth='0.05')
+      .mountain-second
+    li.prllx-block(data-depth='0.08')
+      .mountain-front
 </template>
 
 <script>
-import {  mapActions } from 'vuex';
+import { mapActions } from 'vuex';
+import Parallax from 'parallax-js'
 
 export default {
   name: 'MarsTheme',
   methods: {
     ...mapActions('settings', ['changeTheme'])
+  },
+  mounted() {
+    new Parallax(this.$refs.scene);
   }
 }
 </script>
@@ -100,8 +109,8 @@ export default {
   position absolute
   bottom 0
   left 0
+  transform scaleX(1.1)
   background url(../../assets/images/themes/mars/MountainBack.svg) 50% bottom/ contain no-repeat
-
 
 .mountain-second
   width 100vw
@@ -109,6 +118,7 @@ export default {
   position absolute
   bottom 0
   left 0
+  transform scaleX(1.1)
   background url(../../assets/images/themes/mars/MountainSecond.svg) 50% bottom/ contain no-repeat
 
 .mountain-front
@@ -117,5 +127,6 @@ export default {
   position absolute
   bottom -3vw
   left 0
+  transform scaleX(1.2)
   background url(../../assets/images/themes/mars/MountainFront.svg) 50% bottom/ contain no-repeat
 </style>

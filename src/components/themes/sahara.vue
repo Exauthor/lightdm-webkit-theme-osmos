@@ -1,18 +1,29 @@
 <template lang="pug">
-  .sahara
-    .sand
-    .sand-second
-    .stars
-    .pyramids
-    .rocket
+  .sahara(ref='scene' data-hover-only='true' data-friction-x="1" data-friction-y='0' data-scalar-x='25' data-scalar-y='15')
+    li.prllx-block(data-depth='0.0')
+      .stars
+    li.prllx-block(data-depth='0.02')
+      .pyramids
+    li.prllx-block(data-depth='0.1')
+      .rocket
+    li.prllx-block(data-depth='0.2')
+      .sand
+    li.prllx-block(data-depth='0.1')
+      .sand-second
 </template>
 
 <script>
+import Parallax from 'parallax-js'
 
+export default {
+  name: 'SaharaTheme',
+  mounted() {
+    new Parallax(this.$refs.scene);
+  }
+}
 </script>
 
 <style lang="stylus">
-
 :root {
   --height-sea: 30vh;
 } 
@@ -51,6 +62,7 @@
   position absolute
   bottom 0
   left 0
+  transform scaleX(1.2)
   background url('../../assets/images/themes/sahara/sand-second.svg') bottom/contain no-repeat
 
 .sand-second
@@ -60,6 +72,7 @@
   position absolute
   bottom 0
   left 0
+  transform scaleX(1.1)
   background url('../../assets/images/themes/sahara/sand.svg') bottom/contain no-repeat
 
 
@@ -72,36 +85,4 @@
 
 .stars
   bottom var(--height-sea)
-
-  //   & *:first-child, *:first-child:before
-  //     background url('../../assets/images/themes/osmos/MountainBack_Left.svg') 50% bottom/ contain no-repeat
-
-  //   & *:nth-child(2), *:nth-child(2):before
-  //     background url('../../assets/images/themes/osmos/MountainSecond_Left.svg') 50% bottom/ contain no-repeat
-
-  //   & *:last-child 
-  //     width 95%
-  //   & *:last-child, *:last-child:before
-  //     background url('../../assets/images/themes/osmos/MountainFront_Left.svg') 50% bottom/ contain no-repeat
-
-  // & .rocks_right
-  //   width 50vw
-  //   right 0
-
-  //   & *:first-child
-  //     width 95%
-  //     right 0
-
-  //   & *:first-child, *:first-child:before
-  //     background url(../../assets/images/themes/osmos/MountainBack_Right.svg) 50% bottom/ contain no-repeat
-
-  //   & *:nth-child(2), *:nth-child(2):before
-  //     background url(../../assets/images/themes/osmos/MountainSecond_Right.svg) 50% bottom/ contain no-repeat
-
-  //   & *:last-child, *:last-child:before
-  //     background url(../../assets/images/themes/osmos/MountainFront_Right.svg) 50% bottom/ contain no-repeat
-
-  //   & *:last-child
-  //     width 93%
-  //     right 0
 </style>
