@@ -32,13 +32,13 @@ import BackgroundImage from '@/components/BackgroundImage';
 export default {
   name: 'LoginComponent',
   components: {
-    BackgroundImage,
-    CommonSettings,
+    Clock,
+    DEChoice,
+    UserChoice,
     LoginSettings,
     SystemButtons,
-    UserChoice,
-    DEChoice,
-    Clock
+    CommonSettings,
+    BackgroundImage
   },
   computed: {
     ...mapState('settings', ['themes', 'loginPosition']),

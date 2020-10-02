@@ -249,15 +249,12 @@ section
   transition: .5s
 
 .slide-out-bottom-enter, .slide-out-bottom-leave-to
-  position absolute
   transform translateY(-100%)
 
 .slide-out-bottom-leave-to,
   transform translateY(-100%)
-  position: absolute
 
 .slide-out-bottom-enter-to
-  opacity: 1
   transform translateY(0%)
 
 .menu-popover-enter,
@@ -291,6 +288,9 @@ section
     transform: translateX(0)
   }
 }
+
+.w-100
+  width 100%
 
 .widget-interactive
   display flex 

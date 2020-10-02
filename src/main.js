@@ -2,11 +2,15 @@ import Vue from 'vue'
 import './lightdm'
 
 import App from './App.vue'
-import router from './router';
-import store from './store/index';
+import router from './router'
+import store from './store/index'
 
 import VueI18n from 'vue-i18n'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
 
+import 'swiper/css/swiper.css'
+
+Vue.use(VueAwesomeSwiper)
 Vue.use(VueI18n)
 
 const settings = JSON.parse(localStorage.getItem('settings'))
