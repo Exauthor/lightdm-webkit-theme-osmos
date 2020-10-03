@@ -1,6 +1,12 @@
 <template lang='pug'>
   .login-settings
-    h2 {{ $t('settings.title') }}:
+    .settings-menu
+      h2.settings-menu-title(
+        v-for="menuItem in menu"
+        :key="menuItem"
+        @click="activeMenu = menuItem"
+        :class="`${activeMenu === menuItem ? 'settings-menu-title--active' : ''}`"
+      ) {{ $t(`settings.${menuItem}`) }}
     .settings-themes-body
       swiper(
         :cleanup-styles-on-destroy="false"
@@ -33,6 +39,8 @@ export default {
   name: 'LoginSettings',
   data() {
     return {
+      menu: ['themes', 'title'],
+      activeMenu: 'themes',
       backgrounds: backgrounds(),
       offset: 0,
       swiperOption: {
@@ -61,6 +69,25 @@ export default {
 </script>
 
 <style lang="stylus">
+.settings-menu
+  width 15%
+  padding-right 10px
+
+.settings-menu-title
+  padding 5px 0
+  font-size 1.2rem
+  font-weight bold
+  cursor pointer
+  &::before
+    width 100%
+    transform scaleX(0) translateX(-50%)
+    transition .3s
+
+.settings-menu-title--active
+  &::before
+    width 100%
+    transform scaleX(1) translateX(-50%)
+
 .settings-themes-body
   width 100%
   height 100%

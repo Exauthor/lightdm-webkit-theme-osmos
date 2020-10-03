@@ -22,6 +22,7 @@
   },
   "settings": {
     "title": "settings",
+    "themes": "themes",
     "choiceLanguage": "Choice language",
     "language": "Language",
     "choiceLoginPosition": {
