@@ -11,7 +11,6 @@
             UserChoice.mb-3
             DEChoice.mb-3
             Clock.mb-3
-            // CommonSettings
           SystemButtons(:class='[["bottom", "top"].includes(loginPosition) ? "system-buttons-right" : "system-buttons-bottom"]')
         LoginSettings#settings(v-else-if='isOpenSettings' key='settings')
 </template>
@@ -20,7 +19,6 @@
 import { mapState, mapGetters, mapMutations } from 'vuex'
 
 import UserChoice from '@/components/widgets/UserChoice';
-import CommonSettings from '@/components/widgets/CommonSettings';
 import Clock from '@/components/widgets/Clock';
 import DEChoice from '@/components/widgets/DEChoice';
 
@@ -37,7 +35,6 @@ export default {
     UserChoice,
     LoginSettings,
     SystemButtons,
-    CommonSettings,
     BackgroundImage
   },
   computed: {
@@ -110,6 +107,7 @@ export default {
 
 .login-left, .login-right
   .settings-themes-body
+    width auto
     height auto
   .settings-themes-items
     height auto

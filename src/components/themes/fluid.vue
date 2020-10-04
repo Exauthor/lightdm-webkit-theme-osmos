@@ -1563,6 +1563,10 @@ export default {
     canvas.addEventListener('mousedown', e => {
       clearInterval(movement)
       movement = null
+
+      e.preventDefault();
+      e.stopPropagation();
+
       initFluid(e.offsetX, e.offsetY, true)
     });
 
