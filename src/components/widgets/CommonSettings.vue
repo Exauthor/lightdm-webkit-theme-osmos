@@ -4,7 +4,6 @@
       h3 {{ $t('settings.language') }}:
       SelectItem(
         name='language'
-        interactiveBlock='language'
         :items='languages'
         :value='language'
         :actions='actions'
@@ -13,7 +12,6 @@
       h3 {{ $t('settings.choiceLoginPosition.title') }}:
       SelectItem(
         name='loginPosition'
-        interactiveBlock='loginPosition'
         :items='positionArrayValues'
         :value='$t(`settings.choiceLoginPosition.${loginPosition || "right"}`)'
         :actions=`[
@@ -58,7 +56,7 @@ export default {
 
 <style lang='stylus'>
 .widget-mono
-  width 100%
+  width max-content
   display flex
   align-items center
   justify-content center

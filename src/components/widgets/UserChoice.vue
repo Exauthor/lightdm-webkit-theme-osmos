@@ -4,17 +4,9 @@
     .widget-interactive
       SelectItem(
         name='user'
-        interactiveBlock='selectorUser'
         :items='users'
         :value='username'
-        :actions=`[
-          {
-            type: 'action',
-            on: 'change',
-            key: 'username',
-            path: 'settings/changeSettings'
-          }
-        ]`
+        :callback="changeUser"
       )
       .widget-input-block
         input#password(
@@ -49,6 +41,10 @@ export default {
   methods: {
     ...mapMutations('user', ['SET_USER_STATE']),
     ...mapActions('user', ['login']),
+    changeUser(item) {
+      // { key: username value: item.value }
+      console.log({item}, 'changeUser')
+    },
     handleKeyup(event) {
       const ENTER_CODE = 13
       if (event.which === ENTER_CODE) {

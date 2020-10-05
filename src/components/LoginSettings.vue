@@ -21,6 +21,7 @@
           :key="menuItem"
         )
           swiper(
+            :key="menuItem"
             v-if="menuItem === 'themes'"
             :cleanup-styles-on-destroy="false"
             :auto-update="true"
@@ -100,7 +101,7 @@ export default {
 
 <style lang="stylus">
 .settings-menu
-  min-width 150px
+  min-width max-content
   padding-right 10px
 
 .settings-menu-title

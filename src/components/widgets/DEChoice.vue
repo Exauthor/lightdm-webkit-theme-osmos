@@ -4,7 +4,6 @@
     .widget-interactive
       SelectItem(
         name='desktop'
-        interactiveBlock='selectorDE'
         :items='desktops'
         :value='desktop'
         :actions=`[

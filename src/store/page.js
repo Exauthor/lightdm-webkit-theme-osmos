@@ -25,6 +25,14 @@ export default {
       minutes: 0,
       seconds: 0,
     },
+    menu: {
+      view: true,
+      position: {
+        top: 20,
+        left: 100
+      },
+      items: [ {"name":"i3wm","key":"i3"},{"name":"KDE 5","key":"plasma-shell"},{"name":"Kodi","key":"kodi"},{"name":"Gnome 3","key":"gnome-shell"},{"name":"XFCE 4","key":"xfce"},{"name":"Openbox","key":"openbox"},{"name":"Cinnamon","key":"cinnamon"},{"name":"xmonad","key":"xmonad"}]
+    },
     activeBlocks: [],
     interactiveBlocks: [],
     activeModal: '',
@@ -54,6 +62,9 @@ export default {
       if (activeBlock) {
         state.activeBlocks.push(activeBlock)
       }
+    },
+    ASSING_MENU(state, menu) {
+      state.menu = Object.assign(state.menu, menu)
     },
     CLOSE_ACTIVE_BLOCK(state, id) {
       const index = state.activeBlocks.findIndex((block) => {

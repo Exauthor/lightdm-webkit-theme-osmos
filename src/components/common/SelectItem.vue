@@ -1,17 +1,15 @@
 <template lang='pug'>
-  .selection(@click.stop='openList' :class='{"selection-open": isOpen}' ref='selector' :id='interactiveBlock')
-    span.mr-2 {{  checkedValue.text || checkedValue }}
+  .selection(
+    @click.stop='openList'
+    :class='{"selection-open": true || "isOpen"}'
+    ref='selector'
+  )
+    span.mr-2 {{ checkedValue.text || checkedValue }}
     .selection-icon
-    transition(name='menu-popover')
-      ul.selection-list(v-if='isOpen' :class='selectorListClass')
-        li.selection-list-item(
-          v-for='(item, i) in items'
-          :key='i' @click.stop='changeItem(item)'
-        ) {{ item.name || item.username || item.text || item }}
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'SelectItem',
@@ -27,39 +25,15 @@ export default {
       type: String,
       required: true
     },
-    interactiveBlock: {
-      type: String,
-      required: true
-    },
-    actions: {
-      type: Array,
-      default: () => []
+    callback: {
+      type: Function,
+      default: () => {}
     }
   },
   data() {
     return {
+      isOpen: false,
       checkedValue: '',
-      positionSelector: ''
-    }
-  },
-  computed: {
-    ...mapGetters('page', ['getBlock']),
-    selectorListClass({ positionSelector }) {
-      return {
-        [`selection-list-${positionSelector}`]: true
-      }
-    },
-    isOpen: {
-      get() {
-        return this.getBlock(this.interactiveBlock)
-      },
-      set(open) {
-        if (open) {
-          this.openActiveBlock({ id: this.interactiveBlock })
-        } else {
-          this.closeActiveBlock({ id: this.interactiveBlock })
-        }
-      }
     }
   },
   watch: {
@@ -71,19 +45,37 @@ export default {
     this.checkedValue = this.value
   },
   methods: {
-    ...mapActions(['globalDistributor']),
-    ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
-    changeItem(item) {
-      this.checkedValue = item.name || item.username || item
-      this.globalDistributor(this.actions
-        .filter((action) => action.on === 'change')
-        .map((action) => Object.assign(action, {value: item.value || this.checkedValue})))
-      this.isOpen = !this.isOpen
-    },
+    ...mapMutations('page', ['ASSING_MENU']),
     openList() {
-      const { bottom } = this.$refs.selector.getBoundingClientRect()
-      const height = window.innerHeight
-      this.positionSelector = (height - bottom > 100) ? 'bottom' : 'top'
+      let { bottom, left, top, height } = this.$refs.selector.getBoundingClientRect()
+      const windowHeight = window.innerHeight
+      
+      this.isOpen = true
+
+
+      const positionY = (windowHeight - bottom > 100) ? 'bottom' : 'top'
+      let position = {}
+
+
+      if (position === 'bottom') {
+        position = {
+          bottom: bottom + height,
+          left
+        }
+      } else {
+        position = {
+          top: top + height,
+          left
+        }
+      }
+
+      this.ASSING_MENU({
+        position,
+        view: true,
+        items: this.items,
+        handler: this.callback
+      })
+
       this.isOpen = !this.isOpen
     }
   }
@@ -118,25 +110,4 @@ export default {
     border-bottom: 7px solid var(--color-bg);
     transition .4s
     transform translate(3px, 5px)
-
-.selection-list
-  position absolute
-  text-align center
-  min-width 100%
-  left 0
-  z-index 1
-  left 50%
-  transform translateX(-50%)
-  border-radius 7px
-  overflow hidden
-  & .selection-list-item
-    padding 4px 5px
-    background rgba(0,0,0,.7)
-    &:hover
-      text-shadow 0 0 7px currentColor
-      background rgba(0,0,0,.8)
-
-.selection-list-top
-  top 0
-  transform translateY(-100%)
 </style>

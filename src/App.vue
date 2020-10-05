@@ -1,5 +1,6 @@
 <template lang="pug">
   #app
+    AppMenu
     transition(name="fade")
       router-view
 </template>

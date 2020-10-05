@@ -35,10 +35,14 @@ Vue.config.productionTip = false;
 
 Vue.filter('formatTime', (number) => ('00' + number).slice(-2))
 
-import AppIcon from '@/components/common/AppIcon';
-import SelectItem from '@/components/common/SelectItem';
+import AppIcon from '@/components/common/AppIcon'
+import AppMenu from '@/components/common/AppMenu'
+import SelectItem from '@/components/common/SelectItem'
+import vClickOutside from 'v-click-outside'
 
+Vue.use(vClickOutside)
 Vue.component('AppIcon', AppIcon)
+Vue.component('AppMenu', AppMenu)
 Vue.component('SelectItem', SelectItem)
 
 new Vue({
