@@ -10,6 +10,7 @@ import { mapState, mapGetters } from 'vuex'
 import fire from '@/components/themes/fire'
 import mars from '@/components/themes/mars'
 import fluid from '@/components/themes/fluid'
+import neon from '@/components/themes/neon'
 import osmos from '@/components/themes/osmos'
 import space from '@/components/themes/space'
 import sahara from '@/components/themes/sahara'
@@ -22,6 +23,7 @@ export default {
   components: {
     fire,
     mars,
+    neon,
     osmos,
     space,
     fluid,

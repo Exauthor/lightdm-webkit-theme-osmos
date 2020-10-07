@@ -12,6 +12,15 @@ export default {
         },
       },
       {
+        name: 'Neon',
+        component: 'neon',
+        fullscreen: true,
+        color: {
+          active: '#04ded4',
+          background: 'black'
+        },
+      },
+      {
         name: 'Fire',
         component: 'fire',
         fullscreen: false,
