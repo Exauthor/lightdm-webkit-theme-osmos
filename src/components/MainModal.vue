@@ -1,6 +1,6 @@
 <template lang='pug'>
     .modal-background(@click.stop='close')
-      .modal.position-center(@click.stop)
+      .modal.position-center
         .modal-title {{ $t(modal.title) }}
         .modal-body {{ $t(modal.text) }}
         .modal-buttons

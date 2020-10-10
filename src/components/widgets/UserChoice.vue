@@ -41,9 +41,9 @@ export default {
   methods: {
     ...mapMutations('user', ['SET_USER_STATE']),
     ...mapActions('user', ['login']),
+    ...mapActions('settings', ['changeSettings']),
     changeUser(item) {
-      // { key: username value: item.value }
-      console.log({item}, 'changeUser')
+      this.changeSettings({ key: 'username', value: item.username })
     },
     handleKeyup(event) {
       const ENTER_CODE = 13

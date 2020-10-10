@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div
+  div(@click.stop.prevent)
     transition(name='menu-popover')
       ul.selection-list(
         v-if='menu.view'
@@ -38,7 +38,6 @@ export default {
   },
   methods: {
     ...mapMutations('page', ['ASSING_MENU']),
-
     async handleCallback(item) {
       if (this.menu.handler) {
         await this.menu.handler(item)

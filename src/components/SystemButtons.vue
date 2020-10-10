@@ -1,6 +1,10 @@
 <template lang='pug'>
   .system-buttons
-    .system-button(v-for='(button, index) in buttons' :key='index' @click.stop.prevent='handleClick(button)')
+    .system-button(
+      v-for='(button, index) in buttons'
+      :key='index'
+      @click.stop.prevent='handleClick(button)'
+    )
       AppIcon(:name='button')
 </template>
 

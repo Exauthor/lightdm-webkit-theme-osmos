@@ -27,7 +27,7 @@ export default {
     },
     callback: {
       type: Function,
-      default: () => {}
+      required: true
     }
   },
   data() {
@@ -52,21 +52,13 @@ export default {
       
       this.isOpen = true
 
+      const positionY = (windowHeight - bottom < 100) ? 'bottom' : 'top'
+      let position = { left }
 
-      const positionY = (windowHeight - bottom > 100) ? 'bottom' : 'top'
-      let position = {}
-
-
-      if (position === 'bottom') {
-        position = {
-          bottom: bottom + height,
-          left
-        }
+      if (positionY === 'bottom') {
+        position.bottom = windowHeight - bottom + height
       } else {
-        position = {
-          top: top + height,
-          left
-        }
+        position.top = top + height
       }
 
       this.ASSING_MENU({
@@ -87,6 +79,8 @@ export default {
   cursor pointer
   position relative
   text-align left
+  display flex
+  align-items center
   &.active .item_icon::before
     transform translate(3px, 7px) rotate(180deg)
 

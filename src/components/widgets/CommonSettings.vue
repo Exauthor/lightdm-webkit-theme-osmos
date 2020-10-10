@@ -6,7 +6,7 @@
         name='language'
         :items='languages'
         :value='language'
-        :actions='actions'
+        :callback='handleChangeLanguage'
       )
     .widget-mono
       h3 {{ $t('settings.choiceLoginPosition.title') }}:
@@ -14,18 +14,12 @@
         name='loginPosition'
         :items='positionArrayValues'
         :value='$t(`settings.choiceLoginPosition.${loginPosition || "right"}`)'
-        :actions=`[
-          {
-            type: 'action',
-            on: 'change',
-            path: 'settings/updatePosition'
-          }
-        ]`
+        :callback='handleChangeMenuView'
       )  
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CommonSettingsWidget',  
@@ -36,20 +30,20 @@ export default {
   },
   computed: {
     ...mapState('settings', ['themes', 'language', 'languages', 'loginPosition']),
-    ...mapGetters('settings', ['getCurrentDesktop']),
     positionArrayValues() {
       const position = ['left', 'bottom', 'top', 'right']
       const pre = 'settings.choiceLoginPosition.'
       return position.map(position => ({ text: this.$t(pre + position), value: position }))
     },
   },
-  mounted() {
-    this.actions.push({
-      type: 'action',
-      on: 'change',
-      key: this, 
-      path: 'settings/changeLanguage'
-    })
+  methods: {
+    ...mapActions('settings', ['changeLanguage', 'updatePosition']),
+    handleChangeLanguage(item) {
+      this.changeLanguage({ key: this, value: item })
+    },
+    handleChangeMenuView(item) {
+      this.updatePosition(item.value)
+    }
   },
 };
 </script>

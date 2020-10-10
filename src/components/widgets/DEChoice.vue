@@ -6,19 +6,12 @@
         name='desktop'
         :items='desktops'
         :value='desktop'
-        :actions=`[
-          {
-            type: 'action',
-            on: 'change',
-            key: 'desktop',
-            path: 'settings/changeSettings'
-          }
-        ]`
+        :callback='changeDE'
       )
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'DEChoiceWidget',  
@@ -61,6 +54,12 @@ export default {
       } else {
         return 'love'
       }
+    }
+  },
+  methods: {
+    ...mapActions('settings', ['changeSettings']),
+    changeDE(item) {
+      this.changeSettings({ key: 'desktop', value: item.name })
     }
   }
 };
