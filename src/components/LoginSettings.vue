@@ -21,8 +21,8 @@
           :key="menuItem"
         )
           swiper(
-            :key="menuItem"
             v-if="menuItem === 'themes'"
+            :key="updateMenuKey"
             :cleanup-styles-on-destroy="false"
             :auto-update="true"
             :options="swiperOption"
@@ -59,8 +59,9 @@ export default {
   },
   data() {
     return {
-      menu: ['themes', 'title'],
-      activeMenu: 'themes',
+      updateMenuKey: Math.round(),
+      menu: ['title', 'themes'],
+      activeMenu: 'title',
       backgrounds: backgrounds(),
       offset: 0,
       swiperOption: {

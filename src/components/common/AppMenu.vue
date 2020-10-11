@@ -1,5 +1,5 @@
 <template lang='pug'>
-  div(@click.stop.prevent)
+  div(@mousedown.stop.prevent)
     transition(name='menu-popover')
       ul.selection-list(
         v-if='menu.view'

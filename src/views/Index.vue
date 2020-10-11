@@ -28,8 +28,7 @@ export default {
   },
   mounted() {
     window.addEventListener('keyup', this.keyPress)
-    window.addEventListener('click', this.handleClick)
-    // window.addEventListener('mousedown', this.handleClick)
+    window.addEventListener('mousedown', this.handleClick)
 
     setTimeout(() => {
       this.openActiveBlock({ id: 'login' })
@@ -40,7 +39,7 @@ export default {
     this.closeActiveBlock()
 
     window.removeEventListener('keyup', this.keyPress)
-    window.removeEventListener('click', this.handleClick)
+    window.removeEventListener('mousedown', this.handleClick)
   },
   methods: {
     ...mapMutations('page', ['SET_PAGE']),

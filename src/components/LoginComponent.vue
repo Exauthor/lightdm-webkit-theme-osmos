@@ -119,6 +119,7 @@ export default {
 .login-bottom, .login-top
   border none
   height var(--login-height)
+  min-height 150px
   width 100%
   .system-button
     width 2.5vmin
