@@ -61,33 +61,29 @@ if (window.lightdm_debug) {
     ],
     users: [
       {
-        display_name: 'John Doe',
-        username: 'Sisyphus'
+        display_name: 'Tyler',
+        username: 'Tyler'
       }, 
       {
-        display_name: 'John Doe',
-        username: 'Jon'
+        display_name: 'Bob',
+        username: 'Bob'
       }, 
-      {
-        display_name: 'Adrien Navratil',
-        username: 'Store',
-      }
     ],
     languages: [{
       name: 'American English',
       code: 'en_US.utf8'
     }, {
-      name: 'Français',
-      code: 'fr_FR.utf8'
+      name: 'Русский',
+      code: 'ru_RU.utf8'
     }],
     language: 'American English',
-    start_authentication: (username) => {
+    startAuthentication: (username) => {
       console.log(`Starting authenticating : '${username}'`);
       lightdm.authentication_user = username;
 
-      show_prompt("Password: ");
+      showPrompt("Password: ");
     },
-    cancel_authentication: () => {
+    cancelAuthentication: () => {
       console.log('Auth cancelled');
     },
     respond: (password) => {
@@ -100,19 +96,19 @@ if (window.lightdm_debug) {
         while (new Date().getTime() < now + 2000);
       }
 
-      authentication_complete();
+      authenticationComplete();
     },
     login: (user, session) => {
       alert(`Logged with '${user}' (Session: '${session}') !`);
     },
     shutdown: () => {
-      alert('(DEBUG: System is shutting down)')
+      alert('System is shutting down')
     },
     suspend: () => {
-      alert('(DEBUG: System is suspending)')
+      alert('System is suspending')
     },
     restart: () => {
-      alert('(DEBUG: System is rebooting)')
+      alert('System is rebooting')
     }
   };
 }
@@ -121,30 +117,30 @@ let password;
 let errorCB;
 let completeCB;
 
-window.lightdm_login = (username, pass, cb, errCB) => {
+window.lightdmLogin = (username, pass, cb, errCB) => {
   completeCB = cb;
   errorCB = errCB;
   password = pass;
 
-  lightdm.start_authentication(username);
+  lightdm.startAuthentication(username);
 };
 
-window.lightdm_start = (desktop) => {
+window.lightdmStart = (desktop) => {
   lightdm.login(lightdm.authentication_user, desktop);
 };
 
-window.show_prompt = (text, type) => {
+window.showPrompt = (text, type) => {
   if (text === "Password: ")
   {
     lightdm.respond(password);
   }
 };
 
-window.authentication_complete = () => {
+window.authenticationComplete = () => {
   if (lightdm.is_authenticated) {
     completeCB();
   } else {
-    lightdm.cancel_authentication();
+    lightdm.cancelAuthentication();
     errorCB('Invalid username/password');
   }
 };

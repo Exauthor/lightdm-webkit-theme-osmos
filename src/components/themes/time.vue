@@ -1,8 +1,8 @@
 <template>
   <div class="body center-position">
     <div class="time center-position">
-      <h1 class="time-format"> {{currentTime.format("H:mm")}} </h1>
-      <h3> {{currentTime.format("D ddd, MMM YYYY")}} </h3>
+      <h1 class="time-format"> {{ getTime }} </h1>
+      <h3> {{ formattedTime }} </h3>
     </div>
     <svg id="svg-time" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 530 530" width="530" height="530">
       <path d=" M 264.272 15 C 402.25 15 514.597 127.021 514.999 265 C 515.401 402.979 403.706 515 265.728 515 C 127.75 515 15.403 402.979 15.001 265 C 14.599 127.021 126.294 15 264.272 15 Z " fill="none" stroke-width="30" stroke="rgb(10,170,162)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"/>
@@ -13,19 +13,46 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { mapState, mapGetters } from 'vuex'
+
+const languageTransform = {
+  'ru': 'ru-RU',
+  'en': 'en-US',
+  'de': 'de_DE',
+  'es': 'es_ES',
+  'fr': 'fr_FR',
+  'pl': 'pl_PL',
+}
 
 export default {
   name: 'Time',
   data() {
     return {
-      currentTime: moment(),
+      currentTime: new Date().getTime(),
     }
   },
   computed: {
     ...mapState('page', ['time']),
-    ...mapGetters('page', ['timeArray'])
+    ...mapState('settings', ['language']),
+    ...mapGetters('page', ['timeArray']),
+    formattedTime() {
+      const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "long",
+        day: "2-digit"
+      }
+
+      return new Intl.DateTimeFormat(languageTransform[this.language], options).format(new Date(this.currentTime))
+    },
+    getTime() {
+      const options = {
+        hour: "2-digit",
+        minute: "2-digit",
+      }
+
+      return new Intl.DateTimeFormat(languageTransform[this.language], options).format(new Date(this.currentTime))
+    }
   },
   methods: {
     updatePath(path, time) {
@@ -34,7 +61,7 @@ export default {
       path.style.transition = `3s`
       path.style.strokeDasharray = length + ' ' + length
       path.style.strokeDashoffset = length - 1
-      this.currentTime = moment()
+      this.currentTime = new Date().getTime()
 
       setTimeout(() => {
         path.style.transition = `${time - (time / 20)}s linear`
@@ -76,8 +103,9 @@ export default {
 
 <style lang="stylus">
 .time-format
-  font-size 8vmin
+  font-size 4rem
   text-align center
+  white-space nowrap
   text-shadow 0 0 2vmin var(--color-active)
 
 #svg-time
