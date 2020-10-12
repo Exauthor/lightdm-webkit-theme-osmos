@@ -18,10 +18,10 @@ import { mapState, mapGetters } from 'vuex'
 const languageTransform = {
   'ru': 'ru-RU',
   'en': 'en-US',
-  'de': 'de_DE',
-  'es': 'es_ES',
-  'fr': 'fr_FR',
-  'pl': 'pl_PL',
+  'de': 'de-DE',
+  'es': 'es-ES',
+  'fr': 'fr-FR',
+  'pl': 'pl-PL',
 }
 
 export default {

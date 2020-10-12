@@ -20,6 +20,7 @@ export default {
     MainModal
   },
   computed: {
+    ...mapState('page', ['menu']),
     ...mapState('page', ['activeModal']),
     ...mapGetters('page', ['getBlock', 'getActiveBlock']),
     isOpenLogin() {
@@ -42,14 +43,18 @@ export default {
     window.removeEventListener('mousedown', this.handleClick)
   },
   methods: {
-    ...mapMutations('page', ['SET_PAGE']),
+    ...mapMutations('page', ['SET_PAGE', 'ASSING_MENU']),
     ...mapActions('page', ['closeActiveBlock', 'openActiveBlock']),
     handleClick(event) {
+      if (this.menu.view) return
+
       const node = event.target
+
       if (!this.getActiveBlock) {
         this.openActiveBlock({ id: 'login' })
         return
       }
+
       const parent = document.querySelector('#' + this.getActiveBlock.id)
 
       if (!parent.contains(node)) {
@@ -72,16 +77,22 @@ export default {
         }
       }
 
-      if (event.altKey && event.which === 80) { // 80 is 'r' symbol
+      const [pCode, rCode, sCode] = [80, 82, 83]
+
+      if (event.altKey && event.which === pCode) {
         this.SET_PAGE({ key: 'activeModal', value: 'shutdown'})
-      } else if (event.altKey && event.which === 83) { // 83 is 'r' symbol
+      } else if (event.altKey && event.which === sCode) {
         this.SET_PAGE({ key: 'activeModal', value: 'suspend'})
-      } else if (event.altKey && event.which === 82) { // 82 is 'r' symbol
+      } else if (event.altKey && event.which === rCode) {
         this.SET_PAGE({ key: 'activeModal', value: 'restart'})
       }
 
       if (event.key === 'Escape') {
-        if (this.activeModal) {
+        if (this.menu.view) {
+          this.ASSING_MENU({
+            view: false
+          })
+        } else if (this.activeModal) {
           this.SET_PAGE({ key: 'activeModal', value: false })
         } else {
           this.closeActiveBlock()

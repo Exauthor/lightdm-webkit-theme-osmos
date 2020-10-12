@@ -4,7 +4,7 @@
     :class='{"selection-open": true || "isOpen"}'
     ref='selector'
   )
-    span.mr-2 {{ checkedValue.text || checkedValue }}
+    span.mr-2.flex-1 {{ checkedValue.text || checkedValue }}
     .selection-icon
 </template>
 

@@ -17,23 +17,6 @@ export default {
     this.setUpSettings()
     const interactiveBlocks = [
       {
-        closeBeforeMount: ['loginPosition', 'language', 'selectorDE'],
-        id: 'selectorUser',
-      },
-      {
-        closeBeforeMount: ['loginPosition', 'language', 'selectorUser'],
-        id: 'selectorDE',
-      },
-      {
-        closeBeforeMount: ['loginPosition', 'selectorDE', 'selectorUser'],
-        id: 'language',
-      },
-      {
-        closeBeforeMount: ['selectorDE', 'language', 'selectorUser'],
-        id: 'loginPosition',
-      },
-      {
-        closeBeforeMount: ['selectorUser', 'selectorDE', 'loginPosition', 'language'],
         id: 'login',
         order: 1,
         delay: 500,

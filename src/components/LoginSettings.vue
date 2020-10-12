@@ -22,27 +22,22 @@
         )
           swiper(
             v-if="menuItem === 'themes'"
-            :key="updateMenuKey"
             :cleanup-styles-on-destroy="false"
             :auto-update="true"
             :options="swiperOption"
             class="settings-themes-items"
           )
             swiper-slide(
-              v-for='(theme, i) in themes'
-              :key="i"
+              v-for='theme in themes'
+              :key="theme.name"
               class="settings-themes-item"
+              :class="`${theme.name === currentTheme.name ? 'settings-themes-item--active' : ''}`"
             )
               .settings-themes-item(
                 @click='changeTheme(theme)'
                 :style='`background: url(${setImage(theme.name.toLowerCase())}) no-repeat center/cover`'
               )
                 h4 {{ theme.name }}
-              .settings-themes-item(
-                @click='changeTheme(background)'
-                v-for='(background, index) in backgrounds'
-                :key='`${index}-background`' :style='`background: url(${background}) no-repeat center/cover`'
-              )
           div(v-else-if="menuItem === 'title'")
             CommonSettings
 </template>
@@ -60,8 +55,8 @@ export default {
   data() {
     return {
       updateMenuKey: Math.round(),
-      menu: ['title', 'themes'],
-      activeMenu: 'title',
+      menu: ['themes', 'title'],
+      activeMenu: 'themes',
       backgrounds: backgrounds(),
       offset: 0,
       swiperOption: {
@@ -73,11 +68,16 @@ export default {
   },
   computed: {
     ...mapState('settings', ['themes', 'loginPosition']),
-    ...mapGetters('settings', { theme: 'getCurrentTheme' }),
+    ...mapGetters('settings', { currentTheme: 'getCurrentTheme' }),
     swiper() {
       const swiper = this.$refs.menuSwiper
       return swiper && swiper.$swiper
     }
+  },
+  mounted() { 
+    // Reinit theme slider 
+    this.swiper.slideTo(1, 0, false)
+    this.swiper.slideTo(0, 0, false)
   },
   methods: {
     ...mapActions('settings', ['changeSettings', 'changeTheme']),
@@ -93,7 +93,7 @@ export default {
       this.activeMenu = this.menu[this.swiper.snapIndex]
     },
     changeActiveMenu(link, i) {
-      this.swiper.slideTo(i, 500, false)
+      this.swiper.slideTo(i, 300, false)
       this.activeMenu = link
     }
   }
@@ -119,6 +119,13 @@ export default {
   &::before
     width 100%
     transform scaleX(1) translateX(-50%)
+
+.settings-themes-item
+  transition .3s
+  border 1px solid transparent
+
+.settings-themes-item--active
+  border 1px solid var(--color-active)
 
 .settings-themes-body
   width 100%
