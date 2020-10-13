@@ -872,7 +872,8 @@ export default {
     let sunrays;
     let sunraysTemp;
 
-    let ditheringTexture = createTextureAsync('LDR_LLL1_0.png');
+    // require('@/assets/images/themes/fluid')
+    let ditheringTexture = createTextureAsync(require('@/assets/images/themes/fluid/texture.png'));
 
     const blurProgram            = new Program(blurVertexShader, blurShader);
     const copyProgram            = new Program(baseVertexShader, copyShader);

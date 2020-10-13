@@ -130,8 +130,7 @@ window.lightdmStart = (desktop) => {
 };
 
 window.showPrompt = (text, type) => {
-  if (text === "Password: ")
-  {
+  if (text === "Password: ") {
     lightdm.respond(password);
   }
 };
@@ -145,7 +144,7 @@ window.authenticationComplete = () => {
   }
 };
 
-window.show_message = (text, type) => {
+window.showMessage = (text, type) => {
   errorCB(text);
 };
 
