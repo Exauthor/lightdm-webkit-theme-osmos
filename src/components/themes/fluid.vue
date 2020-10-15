@@ -1534,7 +1534,7 @@ export default {
 
     let animationIntervalItems = 0
 
-    let movement = setInterval(() => {
+    const clockDirection = () => {
       animationIntervalItems++
 
       switch(animationIntervalItems % 4) {
@@ -1559,11 +1559,19 @@ export default {
           break
         }
       }
-    }, 2000)
+    }
+
+    let movement = setInterval(clockDirection, 2000)
+    let timeOutAnimation = null
 
     canvas.addEventListener('mousedown', e => {
       clearInterval(movement)
+      clearTimeout(timeOutAnimation)
       movement = null
+
+      timeOutAnimation = setTimeout(() => {
+        let movement = setInterval(clockDirection, 2000)
+      }, 3000)
 
       e.preventDefault();
       e.stopPropagation();

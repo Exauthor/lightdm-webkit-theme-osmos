@@ -77,13 +77,13 @@ if (window.lightdm_debug) {
       code: 'ru_RU.utf8'
     }],
     language: 'American English',
-    startAuthentication: (username) => {
+    start_authentication: (username) => {
       console.log(`Starting authenticating : '${username}'`);
       lightdm.authentication_user = username;
 
-      showPrompt("Password: ");
+      show_prompt("Password: ");
     },
-    cancelAuthentication: () => {
+    cancel_authentication: () => {
       console.log('Auth cancelled');
     },
     respond: (password) => {
@@ -96,19 +96,19 @@ if (window.lightdm_debug) {
         while (new Date().getTime() < now + 2000);
       }
 
-      authenticationComplete();
+      authentication_complete();
     },
     login: (user, session) => {
       alert(`Logged with '${user}' (Session: '${session}') !`);
     },
     shutdown: () => {
-      alert('System is shutting down')
+      alert('(DEBUG: System is shutting down)')
     },
     suspend: () => {
-      alert('System is suspending')
+      alert('(DEBUG: System is suspending)')
     },
     restart: () => {
-      alert('System is rebooting')
+      alert('(DEBUG: System is rebooting)')
     }
   };
 }
@@ -117,34 +117,35 @@ let password;
 let errorCB;
 let completeCB;
 
-window.lightdmLogin = (username, pass, cb, errCB) => {
+window.lightdm_login = (username, pass, cb, errCB) => {
   completeCB = cb;
   errorCB = errCB;
   password = pass;
 
-  lightdm.startAuthentication(username);
+  lightdm.start_authentication(username);
 };
 
-window.lightdmStart = (desktop) => {
+window.lightdm_start = (desktop) => {
   lightdm.login(lightdm.authentication_user, desktop);
 };
 
-window.showPrompt = (text, type) => {
-  if (text === "Password: ") {
+window.show_prompt = (text, type) => {
+  if (text === "Password: ")
+  {
     lightdm.respond(password);
   }
 };
 
-window.authenticationComplete = () => {
+window.authentication_complete = () => {
   if (lightdm.is_authenticated) {
     completeCB();
   } else {
-    lightdm.cancelAuthentication();
+    lightdm.cancel_authentication();
     errorCB('Invalid username/password');
   }
 };
 
-window.showMessage = (text, type) => {
+window.show_message = (text, type) => {
   errorCB(text);
 };
 
