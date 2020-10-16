@@ -5,5 +5,5 @@ module.exports = {
   assetsDir: undefined,
   runtimeCompiler: undefined,
   parallel: undefined,
-  css: undefined
-}
+  css: undefined,
+};
