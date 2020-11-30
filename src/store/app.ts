@@ -1,7 +1,7 @@
 import { Module, VuexModule, getModule, Mutation, Action } from 'vuex-module-decorators'
 import store from '@/store/index'
 
-import { AppImageTheme, AppSettings, AppTheme, AppThemes, defaultTheme } from '@/models/app'
+import { AppImageTheme, AppSettings, AppTheme, AppThemes, AppTimestamp, defaultTheme } from '@/models/app'
 import { appWindow, LightdmSession, LightdmUsers } from '@/models/lightdm'
 
 const lightdm = appWindow.lightdm
@@ -14,6 +14,7 @@ export interface AppState extends AppSettings {
   username: string
   desktops: LightdmSession[]
   users: LightdmUsers[]
+  time: AppTimestamp
 }
 
 console.log({ lightdm })
@@ -24,13 +25,19 @@ class App extends VuexModule implements AppState {
   language = 'en'
   languages = []
   loginPosition = 'top'
-  currentTheme = 'Space'
+  currentTheme = 'Mars'
   desktop = lightdm.sessions[0].name
   desktops = lightdm.sessions
   defaultColor = '#6BBBED'
   username = lightdm.users[0].username
   users = lightdm.users
   themes = AppThemes
+  time = {
+    day: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  } as AppTimestamp
 
   get getMainSettings(): AppSettings {
     const { language, loginPosition, currentTheme, username, desktop, version, defaultColor } = this
@@ -63,6 +70,11 @@ class App extends VuexModule implements AppState {
     localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
   }
 
+  @Mutation
+  UPDATE_TIME(timestamp: AppTimestamp) {
+    this.time = Object.assign(this.time, timestamp)
+  }
+
   @Action
   async changeTheme(themeName: string) {
     const isExistTheme = this.themes.find(({ name }) => name === themeName)
@@ -76,6 +88,25 @@ class App extends VuexModule implements AppState {
       .setProperty('--color-active', color.active)
     document.documentElement.style
       .setProperty('--color-bg', color.background)
+  }
+
+  @Action
+  setTime() {
+    const getTimeObject = () => {
+      const date = new Date()
+      return {
+        seconds: date.getSeconds(),
+        minutes: date.getMinutes(),
+        hours: date.getHours()
+      }
+    }
+    const updateTimeStage = () => this.UPDATE_TIME(getTimeObject())
+    updateTimeStage()
+
+    setTimeout(() => {
+      updateTimeStage()
+      setInterval(updateTimeStage, 60000)
+    }, (60 - getTimeObject().seconds) * 1000)
   }
 
   @Action

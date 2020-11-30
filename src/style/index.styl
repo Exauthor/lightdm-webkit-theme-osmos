@@ -1,4 +1,5 @@
-// @import './fonts.styl'
+@import './themes/index.styl'
+@import './base/index.styl'
 
 forText = "DINPro-Light", Sans
 forBigTitle = "Code-Pro-Light", Sans
@@ -31,8 +32,10 @@ html
   --color-bg #13111C
   --color-green #91e60a
   --color-blue #04ded4
-  font-size 16px
   --text-font forText
+   --margin-login 30ch
+  --login-height: 14vmin
+  font-size 16px
 
 body
   color var(--color-active)
@@ -353,3 +356,9 @@ input
   background-repeat no-repeat
   border-radius 50%
   border 2px solid var(--color-active)
+
+.fire
+  width 80vmin
+  height 80vmin
+  margin 20px auto
+  background url('../assets/images/themes/fire/fire.svg') no-repeat center/contain

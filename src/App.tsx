@@ -5,6 +5,7 @@ import { CreateElement } from 'vue/types/umd'
 @Component
 export default class MainApp extends Vue {
   mounted() {
+    AppModule.setTime()
     AppModule.setUpSettings()
   }
 

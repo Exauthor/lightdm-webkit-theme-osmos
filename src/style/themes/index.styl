@@ -1,0 +1,30 @@
+@import './fire.styl'
+@import './mars.styl'
+@import './osmos.styl'
+
+.index
+  width 100vw
+  height 100vh
+  display flex
+  overflow hidden
+  background var(--color-bg)
+  position absolute
+
+.p-absolute
+  position absolute
+
+.popover-enter,
+.popover-leave-to 
+  opacity 0
+  transform: translate(-50%, -50%) perspective(900px) rotate3d(70, 0, 0, -30deg);
+
+.popover-enter-to,
+.popover-leave 
+  opacity 1
+  transform: translate(-50%, -50%) perspective(900px) rotate3d(0, 0, 0, 0deg);
+
+.popover-enter-active
+  transition .4s
+
+.popover-leave-active 
+  transition .2s
