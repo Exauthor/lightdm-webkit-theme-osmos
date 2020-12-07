@@ -48,7 +48,7 @@ class Page extends VuexModule implements PageState {
   //   return modals.find(({ id }) => id === activeModal)
   // }
 
-  timeArray() {
+  get timeArray() {
     const { hours, minutes, seconds } = this.time
     return [hours, minutes, seconds]
   }

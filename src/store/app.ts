@@ -103,6 +103,7 @@ class App extends VuexModule implements AppState {
       : this.themes[0].name
 
     this.SET_STATE_APP({ key: 'currentTheme', value: finalTheme })
+    localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
 
     const { color } = this.getCurrentTheme
 
@@ -122,6 +123,7 @@ class App extends VuexModule implements AppState {
         return
       }
 
+      console.log({ settings })
       if (settings.version !== this.version) {
         settings = this.getMainSettings
         localStorage.setItem('settings', JSON.stringify(settings))

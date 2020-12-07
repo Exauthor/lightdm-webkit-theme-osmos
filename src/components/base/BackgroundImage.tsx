@@ -7,27 +7,27 @@ import { AppModule } from '@/store/app'
 import sphere from '@/components/themes/sphere.vue'
 import fire from '@/components/themes/fire.tsx'
 import mars from '@/components/themes/mars.tsx'
+import time from '@/components/themes/time'
 import osmos from '@/components/themes/osmos'
 // import fluid from '@/components/themes/fluid'
-// import neon from '@/components/themes/neon'
+import neon from '@/components/themes/neon.vue'
 import space from '@/components/themes/space'
 import sahara from '@/components/themes/sahara'
 import malevich from '@/components/themes/malevich'
-// import timeComponent from '@/components/themes/time'
-// import polygonComponent from '@/components/themes/polygon'
+import polygon from '@/components/themes/polygon'
 
 @Component({
   components: {
+    timeTheme: time,
     fire,
     mars,
     osmos,
-    // neon,
+    neon,
     space,
     // fluid,
     sahara,
-    malevich
-    // timeComponent,
-    // polygonComponent
+    malevich,
+    polygonTheme: polygon
   }
 })
 export default class BackgroundImage extends Vue {
@@ -55,10 +55,13 @@ export default class BackgroundImage extends Vue {
   render(h: CreateElement) {
     const component: { [k: string]: any } = {
       fire: h(fire),
+      time: h(time),
       mars: h(mars),
+      neon: h(neon),
       osmos: h(osmos),
       space: h(space),
       sahara: h(sahara),
+      polygon: h(polygon),
       malevich: h(malevich)
     }
     const body = this.image ? (

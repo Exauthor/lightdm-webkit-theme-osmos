@@ -69,7 +69,7 @@ export const AppThemes: AppTheme[] = [
   },
   {
     name: 'Polygon',
-    component: 'polygonComponent',
+    component: 'polygon',
     fullscreen: false,
     color: {
       active: '#f7bb3b',
@@ -105,7 +105,7 @@ export const AppThemes: AppTheme[] = [
   },
   {
     name: 'Time',
-    component: 'timeComponent',
+    component: 'time',
     fullscreen: false,
     color: {
       active: '#91e60a',
