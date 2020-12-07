@@ -3,7 +3,7 @@
     <div id="content">
       <AppIcon name="Arch Linux" />
       <!-- <h1> {{ $t('text.welcome') }} </h1> -->
-      <h1> AAA  </h1>
+      <h1>AAA</h1>
     </div>
   </div>
 </template>

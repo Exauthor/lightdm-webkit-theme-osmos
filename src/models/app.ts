@@ -1,30 +1,31 @@
 export interface AppSettings {
-  version: string
-  language: string
-  loginPosition: string
-  currentTheme: string
-  username: string
-  desktop: string
-  defaultColor: string
+  version: string;
+  language: string;
+  loginPosition: string;
+  currentTheme: string;
+  username: string;
+  desktop: string;
+  defaultColor: string;
 }
 
 export interface AppTimestamp {
-  seconds: number
-  minutes: number
-  hours: number
+  day: number;
+  seconds: number;
+  minutes: number;
+  hours: number;
 }
 
 export interface AppImageTheme {
-  fullscreen: boolean
+  fullscreen: boolean;
   color: {
-    active: string
-    background: string
-  }
+    active: string;
+    background: string;
+  };
 }
 
 export interface AppTheme extends AppImageTheme {
-  name: string
-  component: string
+  name: string;
+  component: string;
 }
 
 export const defaultTheme: AppTheme = {

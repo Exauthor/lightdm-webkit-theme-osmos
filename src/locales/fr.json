@@ -1,0 +1,38 @@
+{
+  "text": {
+    "themes": "thèmes",
+    "password": "mot de passe",
+    "welcome": "bienvenue",
+    "yes": "oui",
+    "no": "non"
+  },
+  "modals": {
+    "shutdown": {
+      "title": "Eteindre",
+      "text": "Voulez-vous vraiment éteindre l'ordinateur?"
+    },
+    "restart": {
+      "title": "Redémarrer",
+      "text": "Voulez-vous vraiment redémarrer votre ordinateur?"
+    },
+    "suspend": {
+      "title": "Suspendre",
+      "text": "Voulez-vous vraiment suspendre votre ordinateur?"
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "choiceLanguage": "Choix de la langue",
+    "language": "Langue",
+    "choiceLoginPosition": {
+      "title": "Position",
+      "about": "Choix de la position de connexion",
+      "center": "centre",
+      "top": "haut",
+      "left": "gauche",
+      "right": "droite",
+      "bottom": "bas"
+    },
+    "about": "Paramètres système"
+  }
+}

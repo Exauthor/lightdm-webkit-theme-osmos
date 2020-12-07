@@ -1,17 +1,32 @@
 import { Component, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/app'
-import { CreateElement } from 'vue/types/umd'
+import { PageModule } from '@/store/page'
 
 @Component
 export default class MainApp extends Vue {
-  mounted() {
-    AppModule.setTime()
+  created() {
+    PageModule.setTime()
     AppModule.setUpSettings()
+
+    const interactiveBlocks = [
+      {
+        id: 'login',
+        closeBeforeMount: ['settings']
+      },
+      {
+        id: 'settings',
+        closeBeforeMount: ['login']
+      }
+    ]
+
+    PageModule.SET_STATE_PAGE({ key: 'interactiveBlocks', value: interactiveBlocks })
   }
 
-  render(h: CreateElement) {
-    return <div id="app">
-      <router-view />
-    </div>
+  render() {
+    return (
+      <div id="app">
+        <router-view />
+      </div>
+    )
   }
 }

@@ -56,18 +56,6 @@ h2
   margin 10px
   text-align center
   position relative
-  &:before
-    content ""
-    display block
-    background var(--color-active)
-    left 50%
-    transform translateX(-50%)
-    width 15ch
-    height 2px
-    position absolute
-    bottom 0px
-    border-radius 2px
-    filter drop-shadow(0 0 3px var(--color-active))
 
 svg
   width 100%
@@ -206,6 +194,15 @@ section
   opacity 0
 
 
+.fade-content-enter-active
+  transition .2s opacity
+
+.fade-content-leave-active 
+  transition .1s opacity
+
+.fade-content-enter, .fade-content-leave-active 
+  opacity 0
+
 .layout-enter-active
   animation slideIn .4s
   animation-delay .4s
@@ -301,18 +298,6 @@ section
   display flex 
   flex-direction column
   justify-content space-around
-
-input
-  background none
-  border none
-  border-bottom 2px var(--color-active) solid
-  width 100%
-  color var(--colort-active)
-  &.error
-    border-color red
-    color red
-  &:focus
-    outline none
 
 .widget-dual
   display flex

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { Lightdm, appWindow } from '@/models/lightdm'
 
 const DEBUG_PASSWORD = 'password'
@@ -60,23 +61,27 @@ if (lightdmDebug) {
     ],
     users: [
       {
-        display_name: 'Tyler',
-        username: 'Tyler'
+        display_name: 'Tyler Durden',
+        username: 'Tyler Durden',
+        image: 'https://ychef.files.bbci.co.uk/976x549/p07h2zhs.jpg'
       },
       {
         display_name: 'Bob',
         username: 'Bob'
       }
     ],
-    languages: [{
-      name: 'American English',
-      code: 'en_US.utf8'
-    }, {
-      name: 'Русский',
-      code: 'ru_RU.utf8'
-    }],
+    languages: [
+      {
+        name: 'American English',
+        code: 'en_US.utf8'
+      },
+      {
+        name: 'Русский',
+        code: 'ru_RU.utf8'
+      }
+    ],
     language: 'American English',
-    start_authentication: (username) => {
+    start_authentication: username => {
       console.log(`Starting authenticating : '${username}'`)
       lightdm.authentication_user = username
 
@@ -85,7 +90,7 @@ if (lightdmDebug) {
     cancel_authentication: () => {
       console.log('Auth cancelled')
     },
-    respond: (password) => {
+    respond: password => {
       console.log(`Password provided : '${password}'`)
 
       if (password === DEBUG_PASSWORD) {
@@ -124,11 +129,11 @@ appWindow.lightdm_login = (username, pass, cb, errCB) => {
   lightdm.start_authentication(username)
 }
 
-appWindow.lightdm_start = (desktop) => {
+appWindow.lightdm_start = desktop => {
   lightdm.login(lightdm.authentication_user || '', desktop)
 }
 
-appWindow.show_prompt = (text, type) => {
+appWindow.show_prompt = (text, _type) => {
   if (text === 'Password: ') {
     lightdm.respond(password)
   }

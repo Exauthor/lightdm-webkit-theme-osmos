@@ -1,7 +1,7 @@
 import { Component, Vue } from 'vue-property-decorator'
-import { CreateElement } from 'vue/types/umd'
-
 import BackgroundImage from '@/components/base/BackgroundImage'
+import LoginComponent from '@/components/base/LoginComponent'
+import { PageModule } from '@/store/page'
 
 @Component({
   components: {
@@ -9,9 +9,16 @@ import BackgroundImage from '@/components/base/BackgroundImage'
   }
 })
 export default class HomePage extends Vue {
-  render(h: CreateElement) {
-    return <div class="index">
-      <BackgroundImage></BackgroundImage>
-    </div>
+  render() {
+    return (
+      <div class="index">
+        <LoginComponent />
+        <BackgroundImage />
+      </div>
+    )
+  }
+
+  mounted() {
+    PageModule.openBlock({ id: 'settings' })
   }
 }

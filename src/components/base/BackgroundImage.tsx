@@ -1,5 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator'
-import { CreateElement, VNode } from 'vue/types/umd'
+import { CreateElement } from 'vue/types/umd'
 
 import { AppTheme } from '@/models/app'
 import { AppModule } from '@/store/app'
@@ -10,9 +10,9 @@ import mars from '@/components/themes/mars.tsx'
 import osmos from '@/components/themes/osmos'
 // import fluid from '@/components/themes/fluid'
 // import neon from '@/components/themes/neon'
-// import space from '@/components/themes/space'
-// import sahara from '@/components/themes/sahara'
-// import malevich from '@/components/themes/malevich'
+import space from '@/components/themes/space'
+import sahara from '@/components/themes/sahara'
+import malevich from '@/components/themes/malevich'
 // import timeComponent from '@/components/themes/time'
 // import polygonComponent from '@/components/themes/polygon'
 
@@ -20,12 +20,12 @@ import osmos from '@/components/themes/osmos'
   components: {
     fire,
     mars,
-    osmos
+    osmos,
     // neon,
-    // space,
+    space,
     // fluid,
-    // sahara,
-    // malevich,
+    sahara,
+    malevich
     // timeComponent,
     // polygonComponent
   }
@@ -53,16 +53,18 @@ export default class BackgroundImage extends Vue {
   }
 
   render(h: CreateElement) {
-    const component: {[k: string]: any} = {
-      fire: fire,
-      mars: mars,
-      osmos: osmos
+    const component: { [k: string]: any } = {
+      fire: h(fire),
+      mars: h(mars),
+      osmos: h(osmos),
+      space: h(space),
+      sahara: h(sahara),
+      malevich: h(malevich)
     }
-    const body = this.image ? <div class='background' style={`background-image: url(${this.image})`} /> : h(component[this.theme.component] || fire)
+    const body = this.image ? (
+      <div class="background" style={`background-image: url(${this.image})`} />
+    ) : component[this.theme.component] || h(fire)
 
-    console.log({ body })
-    return <div class={this.classObject}>
-      {body}
-    </div>
+    return <div class={this.classObject}>{body}</div>
   }
 }

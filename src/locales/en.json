@@ -1,0 +1,39 @@
+{
+  "text": {
+    "themes": "themes",
+    "welcome": "welcome",
+    "password": "password",
+    "yes": "yes",
+    "no": "no"
+  },
+  "modals": {
+    "shutdown": {
+      "title": "Shutdown",
+      "text": "Are you sure you want to turn off the computer?"
+    },
+    "restart": {
+      "title": "Restart",
+      "text": "Are you sure you want to restart your computer?"
+    },
+    "suspend": {
+      "title": "Suspend",
+      "text": "Are you sure you want to suspend your computer?"
+    }
+  },
+  "settings": {
+    "title": "settings",
+    "themes": "themes",
+    "choiceLanguage": "Choice language",
+    "language": "Language",
+    "choiceLoginPosition": {
+      "title": "Position",
+      "about": "Choice login position",
+      "center": "center",
+      "top": "top",
+      "left": "left",
+      "right": "right",
+      "bottom": "bottom"
+    },
+    "about": "Settings system"
+  }
+}

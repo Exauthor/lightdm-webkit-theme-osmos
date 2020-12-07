@@ -1,14 +1,10 @@
 module.exports = {
   root: true,
+
   env: {
     node: true
   },
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/recommended',
-    '@vue/standard',
-    '@vue/typescript'
-  ],
+
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -23,9 +19,22 @@ module.exports = {
     'vue/eqeqeq': 'error',
     'vue/key-spacing': 'error',
     'vue/match-component-file-name': 'error',
-    'vue/object-curly-spacing': 'error'
+    'vue/object-curly-spacing': 'error',
+    'no-useless-constructor': 'off',
+    '@typescript-eslint/no-useless-constructor': 'error'
   },
+
   parserOptions: {
-    parser: '@typescript-eslint/parser'
-  }
+    parser: '@typescript-eslint/parser',
+    ecmaVersion: 2020
+  },
+
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/recommended',
+    '@vue/standard',
+    '@vue/typescript',
+    'plugin:vue/essential',
+    '@vue/typescript/recommended'
+  ]
 }

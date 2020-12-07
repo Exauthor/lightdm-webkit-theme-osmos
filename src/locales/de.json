@@ -1,0 +1,38 @@
+{
+  "text": {
+    "themes": "themen",
+    "welcome": "herzlich willkommen",
+    "password": "passwort",
+    "yes": "ja",
+    "no": "nein"
+  },
+  "modals": {
+    "shutdown": {
+      "title": "Herunterfahren",
+      "text": "Möchten Sie den Computer wirklich ausschalten?"
+    },
+    "restart": {
+      "title": "Neustart",
+      "text": "Möchten Sie Ihren Computer wirklich neu starten?"
+    },
+    "suspend": {
+      "title": "Aussetzen",
+      "text": "Möchten Sie Ihren Computer wirklich anhalten?"
+    }
+  },
+  "settings": {
+    "title": "die einstellungen",
+    "choiceLanguage": "Wahl Sprache",
+    "language": "Sprache",
+    "choiceLoginPosition": {
+      "title": "Position",
+      "about": "Wahl Login-Position",
+      "center": "center",
+      "top": "oben",
+      "left": "links",
+      "right": "richtig",
+      "bottom": "unten"
+    },
+    "about": "Systemeinstellun"
+  }
+}

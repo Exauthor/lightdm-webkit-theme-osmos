@@ -4,7 +4,7 @@ import { CreateElement } from 'vue/types/umd'
 
 @Component
 export default class FireTheme extends Vue {
-  render(h: CreateElement) {
+  render() {
     return <div class="fire center-position"></div>
   }
 }
