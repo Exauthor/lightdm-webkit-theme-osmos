@@ -65,7 +65,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  ADD_ACTIVE_BLOCK(id: string) {
+  OPEN_ACTIVE_BLOCK(id: string) {
     const activeBlock = this.interactiveBlocks.find((block) => block.id === id)
     if (activeBlock) {
       this.activeBlocks.push(activeBlock)
@@ -73,13 +73,13 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  CLOSE_ACTIVE_BLOCK(id: string) {
-    const index = this.activeBlocks.findIndex((block) => {
-      return block.id === id
-    })
+  CLOSE_ACTIVE_BLOCK(idBlock?: string) {
+    const index = this.activeBlocks.findIndex(({ id }) => id === idBlock)
 
     if (index !== -1) {
       this.activeBlocks.splice(index, 1)
+    } else if (!idBlock) {
+      this.activeBlocks.pop()
     }
   }
 
@@ -111,7 +111,25 @@ class Page extends VuexModule implements PageState {
       closeBlocks.forEach((id) => this.CLOSE_ACTIVE_BLOCK(id))
     }
 
-    this.ADD_ACTIVE_BLOCK(id)
+    this.OPEN_ACTIVE_BLOCK(id)
+  }
+
+  @Action
+  async closeBlock(settings?: { id?: string }) {
+    settings = settings || {}
+    const id = settings.id || this.activeBlocks.slice(-1)[0].id
+    if (!id) { return }
+
+    const block = this.activeBlocks.find((block) => block.id === id)
+    if (!block) { return }
+
+    const openBlocks = block.openAfterDestroy
+
+    if (openBlocks) {
+      openBlocks.forEach((id) => this.OPEN_ACTIVE_BLOCK(id))
+    }
+
+    this.CLOSE_ACTIVE_BLOCK(id)
   }
 
   @Action

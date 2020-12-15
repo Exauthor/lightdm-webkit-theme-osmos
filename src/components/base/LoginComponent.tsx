@@ -34,6 +34,10 @@ export default class LoginComponent extends Vue {
     }
   }
 
+  get isOpen() {
+    return this.isOpenLogin || this.isOpenSettings
+  }
+
   get isOpenLogin() {
     return PageModule.isOpenBlock('login')
   }
@@ -75,10 +79,10 @@ export default class LoginComponent extends Vue {
       ? <UserInput />
       : <SettingsView />
 
-    const blockWrapper = <div class={ { 'login-content': true, 'login-content-settings': this.isOpenSettings } }>
+    const blockWrapper = this.isOpen ? <div class={ { 'login-content': true, 'login-content-settings': this.isOpenSettings } }>
       { loginWrapper(loginView) }
       { toggleViewButton }
-    </div>
+    </div> : null
 
     return <transition name='fade'>
       { blockWrapper }

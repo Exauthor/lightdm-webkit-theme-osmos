@@ -15,7 +15,8 @@ export default class MainApp extends Vue {
       },
       {
         id: 'settings',
-        closeBeforeMount: ['login']
+        closeBeforeMount: ['login'],
+        openAfterDestroy: ['login']
       }
     ]
 
