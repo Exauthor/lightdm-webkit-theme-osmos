@@ -12,8 +12,8 @@ export type InteractiveBlocIds = 'login' | 'settings'
 
 export interface InteractiveBlock {
   id: InteractiveBlocIds;
-  openAfterDestroy?: string[];
-  closeBeforeMount?: string[];
+  openAfterDestroy?: InteractiveBlocIds[];
+  closeBeforeMount?: InteractiveBlocIds[];
 }
 
 export interface PageState {
@@ -71,7 +71,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  OPEN_ACTIVE_BLOCK(id: string) {
+  OPEN_ACTIVE_BLOCK(id: InteractiveBlocIds) {
     const activeBlock = this.interactiveBlocks.find((block) => block.id === id)
     if (activeBlock) {
       this.activeBlocks.push(activeBlock)
@@ -100,7 +100,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Action
-  async openBlock(settings: { id: string }) {
+  async openBlock(settings: { id: InteractiveBlocIds }) {
     settings = settings || {}
     const { id } = settings
     if (!id) { return }
@@ -121,7 +121,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Action
-  async closeBlock(settings?: { id?: string }) {
+  async closeBlock(settings?: { id?: InteractiveBlocIds }) {
     settings = settings || {}
     const id = settings.id || this.activeBlocks.slice(-1)[0].id
     if (!id) { return }

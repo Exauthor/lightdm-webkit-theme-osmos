@@ -15,8 +15,13 @@
 
 .user-settings-tabs
   display flex
+  margin-bottom 8px
   
 .user-settings-tab
   padding 4px 8px
   color white
   cursor pointer
+  border-bottom 2px solid transparent
+  &.active
+    border-bottom 2px solid var(--color-active)
+

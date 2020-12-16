@@ -15,6 +15,7 @@ import space from '@/components/themes/space'
 import sahara from '@/components/themes/sahara'
 import malevich from '@/components/themes/malevich'
 import polygon from '@/components/themes/polygon'
+import { PageModule } from '@/store/page'
 
 @Component({
   components: {
@@ -48,8 +49,7 @@ export default class BackgroundImage extends Vue {
   }
 
   get isOpenLogin() {
-    return true
-    // return this.isOpenBlock('login')
+    return PageModule.isOpenBlock('login')
   }
 
   render(h: CreateElement) {
