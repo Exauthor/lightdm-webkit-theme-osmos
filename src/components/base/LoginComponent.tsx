@@ -8,6 +8,7 @@ import AppIcon from '@/components/app/AppIcon.vue'
 import UserAvatar from '@/components/base/UserAvatar'
 import UserInput from '@/components/base/UserInput'
 import SettingsView from '@/components/base/SettingsView'
+import { prevent } from '@/utils/jsx'
 
 @Component({
   components: {
@@ -34,8 +35,8 @@ export default class LoginComponent extends Vue {
     }
   }
 
-  get isOpen() {
-    return this.isOpenLogin || this.isOpenSettings
+  get activeBlock() {
+    return PageModule.activeBlock
   }
 
   get isOpenLogin() {
@@ -46,7 +47,19 @@ export default class LoginComponent extends Vue {
     return PageModule.isOpenBlock('settings')
   }
 
-  openSettings() {
+  get isOpen() {
+    return this.isOpenLogin || this.isOpenSettings
+  }
+
+  handleClickOutside() {
+    PageModule.closeBlock()
+  }
+
+  openSettings(event: MouseEvent) {
+    console.log({ event })
+    event.preventDefault()
+    event.stopPropagation()
+
     if (this.isOpenLogin) {
       PageModule.openBlock({ id: 'settings' })
     } else {
@@ -61,31 +74,35 @@ export default class LoginComponent extends Vue {
 
   render() {
     const toggleViewButton = <button
-      class='settings-button'
+      class={ `settings-button block-${this.activeBlock?.id}` }
       onClick={this.openSettings}
     >
       <AppIcon name='settings'/>
     </button>
-    const loginWrapper = (child: any) => {
-      return <div class='login-view'>
-        <UserAvatar />
-        <transition name='fade-content'>
-          { this.viewContent ? child : null }
-        </transition>
-      </div>
-    }
-
-    const loginView = this.isOpenLogin
+    const loginContent = this.isOpenLogin
       ? <UserInput />
       : <SettingsView />
 
-    const blockWrapper = this.isOpen ? <div class={ { 'login-content': true, 'login-content-settings': this.isOpenSettings } }>
-      { loginWrapper(loginView) }
+    const loginView = this.isOpen ? <div
+      key="contextAnimation"
+      class={ { [`block-${this.activeBlock?.id}`]: true, 'login-content-settings': this.isOpenSettings }}
+    >
+      <div class='login-view'>
+        <UserAvatar />
+        <transition name='fade-content'>
+          { this.viewContent ? loginContent : null }
+        </transition>
+      </div>
       { toggleViewButton }
     </div> : null
 
-    return <transition name='fade'>
-      { blockWrapper }
-    </transition>
+    const emptyView = !this.isOpen ? <div key="emptyAnimation">
+      <h2 class="login-empty-title"> { this.$t('text.emptyPage') } </h2>
+    </div> : null
+
+    return <transition-group class="login-transition" name='fade' tag="div">
+      { loginView }
+      { emptyView }
+    </transition-group>
   }
 }

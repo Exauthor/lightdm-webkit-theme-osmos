@@ -4,7 +4,8 @@
     "welcome": "welcome",
     "password": "password",
     "yes": "yes",
-    "no": "no"
+    "no": "no",
+    "emptyPage": "Press any key to login"
   },
   "modals": {
     "shutdown": {
