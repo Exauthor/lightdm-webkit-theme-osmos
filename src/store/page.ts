@@ -8,8 +8,10 @@ import {
 import store from '@/store/index'
 import { AppTimestamp } from '@/models/app'
 
+export type InteractiveBlocIds = 'login' | 'settings'
+
 export interface InteractiveBlock {
-  id: string;
+  id: InteractiveBlocIds;
   openAfterDestroy?: string[];
   closeBeforeMount?: string[];
 }
@@ -51,6 +53,10 @@ class Page extends VuexModule implements PageState {
   get timeArray() {
     const { hours, minutes, seconds } = this.time
     return [hours, minutes, seconds]
+  }
+
+  get activeBlock(): InteractiveBlock | null {
+    return this.activeBlocks.slice(-1)[0]
   }
 
   @Mutation

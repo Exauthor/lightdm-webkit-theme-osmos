@@ -18,6 +18,36 @@ export default class HomePage extends Vue {
     )
   }
 
+  get activeBlock() {
+    return PageModule.activeBlock
+  }
+
+  mounted() {
+    PageModule.openBlock({ id: 'login' })
+
+    window.addEventListener('keyup', this.keyPress)
+    window.addEventListener('mousedown', this.handleClick)
+  }
+
+  handleClick(event: MouseEvent) {
+    const isOpenMenu = false
+    if (isOpenMenu) return
+
+    const target = event.target as Node
+
+    if (!this.activeBlock) {
+      PageModule.openBlock({ id: 'login' })
+      return
+    }
+
+    const activeBlocks = document.querySelectorAll(`.block-${this.activeBlock.id}`)
+    const isClickOnAciveBlock = Array.from(activeBlocks).some(node => node.contains(target))
+
+    if (!isClickOnAciveBlock) {
+      PageModule.closeBlock()
+    }
+  }
+
   keyPress(event: KeyboardEvent) {
     const isEnter = event.key === 'Enter'
     const isEscape = event.key === 'Escape'
@@ -35,19 +65,12 @@ export default class HomePage extends Vue {
     //   this.SET_PAGE({ key: 'activeModal', value: 'restart'})
     // }
 
-    if (isEnter) {
-      if (PageModule.activeBlocks.length === 0) {
-        PageModule.openBlock({ id: 'login' })
-      }
+    if (PageModule.activeBlocks.length === 0) {
+      PageModule.openBlock({ id: 'login' })
+    } else if (isEnter) {
+      console.log('LOGIN')
     } else if (isEscape) {
       PageModule.closeBlock()
     }
-  }
-
-  mounted() {
-    PageModule.openBlock({ id: 'settings' })
-
-    window.addEventListener('keyup', this.keyPress)
-    // window.addEventListener('mousedown', this.handleClick)
   }
 }

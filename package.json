@@ -11,7 +11,6 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "parallax-js": "^3.1.0",
-    "v-click-outside": "^3.1.2",
     "vue": "^2.6.11",
     "vue-i18n": "^8.22.2",
     "vue-router": "^3.2.0",
