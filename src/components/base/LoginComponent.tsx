@@ -55,30 +55,7 @@ export default class LoginComponent extends Vue {
     PageModule.closeBlock()
   }
 
-  openSettings(event: MouseEvent) {
-    console.log({ event })
-    event.preventDefault()
-    event.stopPropagation()
-
-    if (this.isOpenLogin) {
-      PageModule.openBlock({ id: 'settings' })
-    } else {
-      PageModule.openBlock({ id: 'login' })
-    }
-    this.viewContent = false
-
-    setTimeout(() => {
-      this.viewContent = true
-    }, 300)
-  }
-
   render() {
-    const toggleViewButton = <button
-      class={ `settings-button block-${this.activeBlock?.id}` }
-      onClick={this.openSettings}
-    >
-      <AppIcon name='settings'/>
-    </button>
     const loginContent = this.isOpenLogin
       ? <UserInput />
       : <SettingsView />
@@ -93,7 +70,6 @@ export default class LoginComponent extends Vue {
           { this.viewContent ? loginContent : null }
         </transition>
       </div>
-      { toggleViewButton }
     </div> : null
 
     const emptyView = !this.isOpen ? <div key="emptyAnimation">

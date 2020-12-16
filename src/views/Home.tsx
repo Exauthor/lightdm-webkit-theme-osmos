@@ -23,7 +23,7 @@ export default class HomePage extends Vue {
   }
 
   mounted() {
-    PageModule.openBlock({ id: 'login' })
+    PageModule.openBlock({ id: 'settings' })
 
     window.addEventListener('keyup', this.keyPress)
     window.addEventListener('mousedown', this.handleClick)

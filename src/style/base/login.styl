@@ -4,6 +4,7 @@
   position relative
 
 .login-view
+  --login-width 330px
   padding 12px
   overflow hidden
   position absolute 
@@ -16,7 +17,8 @@
   display flex
   flex-direction column
   transition .25s
-  width 30vmin
+  width var(--login-width)
+  min-width var(--login-width)
   height 230px
 
 .login-empty-title
@@ -50,7 +52,7 @@
   transition .25s
   width 120px
   height 120px
-  transform translateX(70px)
+  transform translateX(calc(var(--login-width) / 2 - 60px - 12px)) // half login width - half avatar width - half login padding
   background-repeat no-repeat
   background-size cover
   background-position center
@@ -73,6 +75,7 @@
     background none
     padding 5px 12px
     color white
+    margin 0 8px
     border 1px white solid
     transition .15s border
     border-radius 5px
@@ -86,26 +89,28 @@
       opacity .45
 
 .user-input-login
-  width 30px
-  height 30px
+  width 25px
+  height 25px
   border-radius 50%
   flex-shrink 0
-  background rgba(255, 255, 255, .5)
-  margin-left 10px
+  padding 0
+  background none
   border none
   transition .2s
+  svg
+    transition .15s
+    fill rgba(255, 255, 255, .5)
   &:focus
     outline none
-    background white
+    svg
+      fill white
 
 
 .settings-button
-  width 35px
-  height 35px
-  bottom 10px
-  left 10px
-  position absolute
-  padding 5px
+  width 25px
+  min-width 25px
+  height 25px
+  padding 0 
   border 0
   background none
   border-radius 5px
