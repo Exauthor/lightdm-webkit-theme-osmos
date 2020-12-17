@@ -1,29 +1,28 @@
 import { Component, Vue } from 'vue-property-decorator'
 import BackgroundImage from '@/components/base/BackgroundImage'
 import LoginComponent from '@/components/base/LoginComponent'
+import AppMenu from '@/components/app/AppMenu'
 import { PageModule } from '@/store/page'
 
 @Component({
   components: {
+    AppMenu,
+    LoginComponent,
     BackgroundImage
   }
 })
 export default class HomePage extends Vue {
-  render() {
-    return (
-      <div class="index">
-        <BackgroundImage />
-        <LoginComponent />
-      </div>
-    )
-  }
-
   get activeBlock() {
     return PageModule.activeBlock
   }
 
+  get menu() {
+    return PageModule.menu
+  }
+
   mounted() {
     PageModule.openBlock({ id: 'settings' })
+    PageModule.SET_STATE_PAGE({ key: 'languages', value: this.$i18n.availableLocales })
 
     window.addEventListener('keyup', this.keyPress)
     window.addEventListener('mousedown', this.handleClick)
@@ -42,8 +41,12 @@ export default class HomePage extends Vue {
 
     const activeBlocks = document.querySelectorAll(`.block-${this.activeBlock.id}`)
     const isClickOnAciveBlock = Array.from(activeBlocks).some(node => node.contains(target))
+    const menuNode = document.querySelector('#menu')
+    const isClickOnMenu = menuNode?.contains(target)
 
-    if (!isClickOnAciveBlock) {
+    if (this.menu.view && !isClickOnMenu) {
+      PageModule.ASSING_MENU({ view: false })
+    } else if (!isClickOnAciveBlock) {
       PageModule.closeBlock()
     }
   }
@@ -51,7 +54,6 @@ export default class HomePage extends Vue {
   keyPress(event: KeyboardEvent) {
     const isEnter = event.key === 'Enter'
     const isEscape = event.key === 'Escape'
-    console.log({ event, isEscape })
     const arrowCodes = ['ArrowRight', 'ArrowLeft'] // event.code
     const isFocusPassword = document.querySelector('#password:focus')
 
@@ -70,7 +72,21 @@ export default class HomePage extends Vue {
     } else if (isEnter) {
       console.log('LOGIN')
     } else if (isEscape) {
-      PageModule.closeBlock()
+      if (this.menu.view) {
+        PageModule.ASSING_MENU({ view: false })
+      } else {
+        PageModule.closeBlock()
+      }
     }
+  }
+
+  render() {
+    return (
+      <div class="index">
+        <BackgroundImage />
+        <LoginComponent />
+        <AppMenu />
+      </div>
+    )
   }
 }
