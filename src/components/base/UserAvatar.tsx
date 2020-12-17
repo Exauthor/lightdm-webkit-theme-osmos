@@ -19,14 +19,14 @@ export default class UserAvatar extends Vue {
   render() {
     const avatar = this.user?.image
       ? <div
-        class="user-avatar"
+        class='user-avatar'
         style={ { 'background-image': `url("${this.user.image}")` } }
       />
       : <AppIcon name='user'/>
 
-    return <div class="user-choice">
+    return <div class='user-choice'>
       { avatar }
-      <div class="user-name"> { this.user?.display_name } </div>
+      <div class='user-name'> { this.user?.display_name } </div>
     </div>
   }
 }

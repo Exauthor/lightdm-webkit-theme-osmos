@@ -6,30 +6,34 @@ import {
   Action
 } from 'vuex-module-decorators'
 import store from '@/store/index'
-import { AppTimestamp } from '@/models/app'
-
-export type InteractiveBlocIds = 'login' | 'settings'
-
-export interface InteractiveBlock {
-  id: InteractiveBlocIds;
-  openAfterDestroy?: InteractiveBlocIds[];
-  closeBeforeMount?: InteractiveBlocIds[];
-}
+import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu } from '@/models/page'
 
 export interface PageState {
-  time: AppTimestamp;
+  time: PageTimestamp;
+  menu: AppMenu;
+  language: string;
+  languages: string[];
   activeBlocks: InteractiveBlock[];
   interactiveBlocks: InteractiveBlock[];
 }
 
 @Module({ dynamic: true, store, name: 'page' })
 class Page extends VuexModule implements PageState {
-  time: AppTimestamp = {
+  time: PageTimestamp = {
     day: 0,
     hours: 0,
     minutes: 0,
     seconds: 0
   }
+
+  menu: AppMenu = {
+    view: false,
+    position: { left: 0, width: 0 },
+    items: []
+  }
+
+  language = ''
+  languages: string[] = []
 
   activeBlocks: InteractiveBlock[] = []
   interactiveBlocks: InteractiveBlock[] = []
@@ -45,10 +49,6 @@ class Page extends VuexModule implements PageState {
       return !!this.getBlock(id)
     }
   }
-
-  // getCurrentModal: ({ activeModal }) => {
-  //   return modals.find(({ id }) => id === activeModal)
-  // }
 
   get timeArray() {
     const { hours, minutes, seconds } = this.time
@@ -71,7 +71,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  OPEN_ACTIVE_BLOCK(id: InteractiveBlocIds) {
+  OPEN_ACTIVE_BLOCK(id: InteractiveBlockIds) {
     const activeBlock = this.interactiveBlocks.find((block) => block.id === id)
     if (activeBlock) {
       this.activeBlocks.push(activeBlock)
@@ -95,12 +95,18 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  UPDATE_TIME(time: AppTimestamp) {
+  ASSING_MENU(menu: Partial<AppMenu>) {
+    this.menu = Object.assign(this.menu, menu)
+    console.log({ menu })
+  }
+
+  @Mutation
+  UPDATE_TIME(time: PageTimestamp) {
     this.time = Object.assign(this.time, time)
   }
 
   @Action
-  async openBlock(settings: { id: InteractiveBlocIds }) {
+  async openBlock(settings: { id: InteractiveBlockIds }) {
     settings = settings || {}
     const { id } = settings
     if (!id) { return }
@@ -121,7 +127,7 @@ class Page extends VuexModule implements PageState {
   }
 
   @Action
-  async closeBlock(settings?: { id?: InteractiveBlocIds }) {
+  async closeBlock(settings?: { id?: InteractiveBlockIds }) {
     settings = settings || {}
     const id = settings.id || this.activeBlocks.slice(-1)[0].id
     if (!id) { return }
@@ -140,7 +146,7 @@ class Page extends VuexModule implements PageState {
 
   @Action
   setTime() {
-    const getTimeObject = (): AppTimestamp => {
+    const getTimeObject = (): PageTimestamp => {
       const date = new Date()
       return {
         day: date.getDate(),

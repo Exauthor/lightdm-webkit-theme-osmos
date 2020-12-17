@@ -123,7 +123,6 @@ class App extends VuexModule implements AppState {
         return
       }
 
-      console.log({ settings })
       if (settings.version !== this.version) {
         settings = this.getMainSettings
         localStorage.setItem('settings', JSON.stringify(settings))

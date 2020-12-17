@@ -52,7 +52,6 @@ export default class LoginComponent extends Vue {
   }
 
   openSettings(event: MouseEvent) {
-    console.log({ event })
     event.preventDefault()
     event.stopPropagation()
 

@@ -1,0 +1,44 @@
+.menu
+  cursor pointer
+  position relative
+  text-align left
+  &.active .item_icon::before
+    transform translate(3px, 7px) rotate(180deg)
+
+.menu-open
+  .menu-icon::before
+    transform translate(3px, 8px) rotate(-180deg)
+
+.menu-icon
+  width 20px
+  height 20px
+  border-radius 15%
+  background var(--color-active)
+  float right
+  &::before
+    content ""
+    display block
+    width 60%
+    height 0
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid var(--color-bg);
+    transition .4s
+    transform translate(3px, 5px)
+
+.menu-list
+  position absolute
+  z-index 10
+  border-radius 7px
+  overflow hidden
+  & .menu-list-item
+    padding 4px 5px
+    width 100%
+    background rgba(0, 0, 0, .3)
+    &:hover
+      text-shadow 0 0 7px currentColor
+      background rgba(0, 0, 0, .4)
+
+.menu-list-top
+  top 0
+  transform translateY(-100%)

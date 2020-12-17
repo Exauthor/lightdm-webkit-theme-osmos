@@ -8,13 +8,6 @@ export interface AppSettings {
   defaultColor: string;
 }
 
-export interface AppTimestamp {
-  day: number;
-  seconds: number;
-  minutes: number;
-  hours: number;
-}
-
 export interface AppImageTheme {
   fullscreen: boolean;
   color: {
