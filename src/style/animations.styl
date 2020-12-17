@@ -1,0 +1,127 @@
+
+@keyframes going {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes coming {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-enter-active, .fade-leave-active
+  transition opacity .2s
+
+.fade-enter, .fade-leave-to
+  opacity 0
+
+.fade-page-enter-active, .fade-page-leave-active
+  transition opacity .3s
+
+.fade-page-enter, .fade-page-leave-to
+  opacity 0
+
+.fade-page-leave-to
+  position absolute
+
+.fade-content-enter-active
+  transition .2s opacity
+
+.fade-content-leave-active 
+  transition .1s opacity
+
+.fade-content-enter, .fade-content-leave-active 
+  opacity 0
+
+.layout-enter-active
+  animation slideIn .4s
+  animation-delay .4s
+  opacity 0
+
+.layout-leave-active 
+  animation slideOut .4s
+
+.switch-enter-active, .switch-leave-active 
+  transition all .5s
+
+.switch-enter, .switch-leave-to
+  transform translate(-100%, -50%)
+  opacity 0
+
+.slide-right-enter-active, .slide-right-leave-active 
+  transition all .5s
+
+.slide-right-enter, .slide-right-leave-to
+  position absolute
+  transform translate(100%)
+
+.slide-left-enter-active, .slide-left-leave-active 
+  transition all .5s
+
+.slide-left-enter, .slide-left-leave-to
+  position absolute
+  transform translateX(-100%)
+
+.slide-top-enter-active, .slide-top-leave-active 
+  transition all .5s
+
+.slide-top-enter, .slide-top-leave-to
+  transform translateY(-100%)
+  opacity 0
+
+.slide-bottom-enter-active, .slide-bottom-leave-active 
+  transition all .5s
+
+.slide-bottom-enter, .slide-bottom-leave-to
+  position absolute
+  transform translateY(100%)
+
+.slide-out-bottom-enter-active, .slide-out-bottom-leave-active
+  position: absolute
+  transition: .5s
+
+.slide-out-bottom-enter, .slide-out-bottom-leave-to
+  transform translateY(-100%)
+
+.slide-out-bottom-leave-to,
+  transform translateY(-100%)
+
+.slide-out-bottom-enter-to
+  transform translateY(0%)
+
+.menu-popover-enter,
+.menu-popover-leave-to 
+  opacity 0
+  transform: perspective(900px) rotate3d(70, 0, 0, -50deg);
+
+.menu-popover-enter-to,
+.menu-popover-leave 
+  opacity 1
+  transform: perspective(900px) rotate3d(0, 0, 0, 0deg);
+
+.menu-popover-enter-active,
+.menu-popover-leave-active 
+  transition .4s ease-out
+
+.menu-popover-leave-active 
+  transition .15s ease-out
+
+@keyframes slideOut {
+  to {
+    transform: translateX(-100vw)
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100vw)
+  }
+  to {
+    transform: translateX(0)
+  }
+}

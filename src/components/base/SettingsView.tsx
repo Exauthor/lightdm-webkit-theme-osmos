@@ -3,16 +3,18 @@ import { Component, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/app'
 import AppIcon from '@/components/app/AppIcon.vue'
 import SettingsThemes from '@/components/base/SettingsThemes'
+import SettingsGeneral from '@/components/base/SettingsGeneral'
 import { CreateElement } from 'vue/types/umd'
 
 @Component({
   components: {
     AppIcon,
-    SettingsThemes
+    SettingsThemes,
+    SettingsGeneral
   }
 })
 export default class SettingsView extends Vue {
-  tabs = ['themes', 'users', 'settings']
+  tabs = ['themes', 'theme', 'general']
   activeTab = this.tabs[0]
 
   get user() {
@@ -29,9 +31,9 @@ export default class SettingsView extends Vue {
 
   render(h: CreateElement) {
     const mapTabs: { [k: string]: any } = {
-      users: <div> Users </div>,
+      general: <SettingsGeneral />,
       themes: <SettingsThemes />,
-      settings: <div> Settigs </div>
+      theme: <div> theme </div>
     }
     const activeTab = <div key={this.activeTab}> { mapTabs[this.activeTab] } </div>
 
@@ -44,9 +46,9 @@ export default class SettingsView extends Vue {
           > { tab } </div>) }
         </div>
       </div>
-      <transition-group name="fade-page" tag="div">
+      <div>
         { activeTab }
-      </transition-group>
+      </div>
     </div>
   }
 }

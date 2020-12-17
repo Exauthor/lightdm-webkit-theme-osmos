@@ -1,0 +1,95 @@
+
+html 
+  font-family 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  height 100vh
+  overflow-y hidden
+  word-spacing 1px
+  -webkit-text-size-adjust 100%
+  -ms-text-size-adjust 100%
+  -webkit-font-smoothing antialiased
+  -moz-osx-font-smoothing grayscale
+  box-sizing border-box
+
+body
+  color var(--color-active)
+  font-family Sans
+  padding 0
+  margin 0
+  background-color var(--color-bg)
+  font-size 1.1rem
+
+ul li, li
+  list-style-type none
+
+h1, h2, h3, h4, h5, h6
+  font-family Sans
+
+svg
+  width 100%
+  height 100%
+
+*,
+*::before,
+*::after
+  box-sizing border-box
+
+ul[class],
+ol[class]
+  padding 0
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+figure,
+blockquote,
+dl,
+dd
+  margin 0
+
+body
+  min-height 100vh
+  scroll-behavior smooth
+  text-rendering optimizeSpeed
+  line-height 1.5
+
+ul[class],
+ol[class]
+  list-style none
+
+a:not([class])
+  text-decoration-skip-ink auto
+
+img
+  max-width 100%
+  display block
+
+article > * + *
+  margin-top 1em
+
+input,
+button,
+textarea,
+select
+  font inherit
+
+img:not([alt]) 
+  filter blur(10px)
+
+@media (prefers-reduced-motion: reduce)
+  *
+    animation-duration 0.01ms !important
+    animation-iteration-count 1 !important
+    transition-duration 0.01ms !important
+    scroll-behavior auto !important
+
+section
+  position relative
+  box-sizing border-box
+  & h2
+    margin 0px

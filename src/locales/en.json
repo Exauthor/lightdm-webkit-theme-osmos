@@ -24,6 +24,7 @@
   "settings": {
     "title": "settings",
     "themes": "themes",
+    "general": "general",
     "choiceLanguage": "Choice language",
     "language": "Language",
     "choiceLoginPosition": {

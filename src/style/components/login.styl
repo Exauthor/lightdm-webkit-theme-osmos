@@ -33,6 +33,9 @@
   .login-view
     height 50vmin
     width 80vmin
+  .settings-button
+    opacity 0
+    pointer-events none
   .user-choice
     margin-bottom 8px
     .user-avatar
@@ -76,7 +79,7 @@
     padding 5px 12px
     color white
     margin 0 8px
-    border 1px white solid
+    border 1px rgba(255, 255, 255, .5) solid
     transition .15s border
     border-radius 5px
     line-height 25px
@@ -102,23 +105,30 @@
     fill rgba(255, 255, 255, .5)
   &:focus
     outline none
+  &:hover
     svg
       fill white
 
 
-.settings-button
+.empty-button, .settings-button
   width 25px
   min-width 25px
   height 25px
-  padding 0 
+
+.settings-button
+  padding 0
+  z-index 2
   border 0
+  position absolute
+  left 12px
+  bottom 16px
   background none
   border-radius 5px
   border 1px solid transparent
   transition .15s
   &:focus
     outline none
-    border 1px solid white
+  &:hover
     svg
       fill white
   svg

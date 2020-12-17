@@ -43,7 +43,6 @@ export default class BackgroundImage extends Vue {
   get classObject() {
     return {
       'background-image': true,
-      [`background-${AppModule.loginPosition}`]: true && this.isOpenLogin,
       'background-fullscreen': this.theme.fullscreen || !this.isOpenLogin
     }
   }

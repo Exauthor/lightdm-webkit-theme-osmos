@@ -51,8 +51,21 @@ export default class LoginComponent extends Vue {
     return this.isOpenLogin || this.isOpenSettings
   }
 
-  handleClickOutside() {
-    PageModule.closeBlock()
+  openSettings(event: MouseEvent) {
+    console.log({ event })
+    event.preventDefault()
+    event.stopPropagation()
+
+    if (this.isOpenLogin) {
+      PageModule.openBlock({ id: 'settings' })
+    } else {
+      PageModule.openBlock({ id: 'login' })
+    }
+    this.viewContent = false
+
+    setTimeout(() => {
+      this.viewContent = true
+    }, 300)
   }
 
   render() {
@@ -66,6 +79,12 @@ export default class LoginComponent extends Vue {
     >
       <div class='login-view'>
         <UserAvatar />
+        <button
+          class='settings-button'
+          onClick={this.openSettings}
+        >
+          <AppIcon name='settings'/>
+        </button>
         <transition name='fade-content'>
           { this.viewContent ? loginContent : null }
         </transition>
