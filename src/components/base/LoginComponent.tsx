@@ -76,7 +76,7 @@ export default class LoginComponent extends Vue {
       key="contextAnimation"
       class={ { [`block-${this.activeBlock?.id}`]: true, 'login-content-settings': this.isOpenSettings }}
     >
-      <div class='login-view'>
+      <div class={ ['login-view', `login-view--${PageModule.loginPosition}`] }>
         <UserAvatar />
         <button
           class='settings-button'

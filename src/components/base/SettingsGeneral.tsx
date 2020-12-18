@@ -22,6 +22,19 @@ export default class SettingsGeneral extends Vue {
           }
         }
       } } />
+      <AppSelector { ...{
+        props: {
+          label: this.$t('settings.choiceLanguage').toString(),
+          items: ['top', 'left', 'right', 'bottom', 'center'],
+          value: PageModule.loginPosition
+        },
+        on: {
+          input: (value: LoginPosition) => {
+            localStorage.setItem('loginPosition', value)
+            PageModule.SET_STATE_PAGE({ key: 'loginPosition', value })
+          }
+        }
+      } } />
     </div>
   }
 }

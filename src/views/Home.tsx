@@ -27,6 +27,10 @@ export default class HomePage extends Vue {
     this.$i18n.locale = language
     PageModule.SET_STATE_PAGE({ key: 'language', value: language })
 
+    // Set login position
+    const loginPosition = localStorage.getItem('loginPosition') as LoginPosition || 'center'
+    PageModule.SET_STATE_PAGE({ key: 'loginPosition', value: loginPosition })
+
     // Set active block
     PageModule.openBlock({ id: 'login' })
     PageModule.SET_STATE_PAGE({ key: 'languages', value: this.$i18n.availableLocales })

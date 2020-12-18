@@ -3,14 +3,12 @@
   height 100vh
   position relative
 
+
 .login-view
   --login-width 330px
   padding 12px
   overflow hidden
   position absolute 
-  left 50%
-  top 50%
-  transform translate(-50%, -50%)
   border-radius 20px
   background rgba(0, 0, 0, .4)
   backdrop-filter blur(10px)
@@ -20,6 +18,27 @@
   width var(--login-width)
   min-width var(--login-width)
   height 230px
+  &.login-view--center
+    left 50%
+    top 50%
+    transform translate(-50%, -50%)
+  &.login-view--top
+    top 12px
+    left 50%
+    transform translate(-50%, 0%)
+  &.login-view--right
+    right 12px
+    top 50%
+    transform translate(0%, -50%)
+  &.login-view--bottom
+    top calc(100vh - 230px - 12px)
+    left 50%
+    transform translate(-50%, 0%)
+  &.login-view--left
+    left 12px
+    top 50%
+    transform translate(0%, -50%)
+
 
 .login-empty-title
   position absolute
@@ -31,6 +50,9 @@
 
 .login-content-settings
   .login-view
+    left 50%
+    top 50%
+    transform translate(-50%, -50%)
     height 50vmin
     width 80vmin
   .settings-button
