@@ -13,13 +13,18 @@ export default class AppSelector extends Vue {
   @Prop({ default: '' }) label: any
 
   selectedValue: null | Record<string, any> | string = null
-  isActive = false
+
+  get isActive() {
+    return PageModule.menu.view
+  }
+
+  get currentValue() {
+    return this.value ?? this.selectedValue
+  }
 
   openSelector() {
     const { bottom, left, top, height, width } = this.$refs.selector?.getBoundingClientRect()
     const allHeight = window.innerHeight
-
-    this.isActive = true
 
     const positionY = bottom > top ? 'bottom' : 'top'
     const position: AppMenuPosition = { left, width }
@@ -36,22 +41,21 @@ export default class AppSelector extends Vue {
       items: this.items,
       handler: this.callback
     })
-
-    this.isActive = !this.isActive
   }
 
   callback(value: AppMenuItem) {
-    console.log({ value })
     this.$emit('value', value)
 
     if (this.value === null) {
       this.selectedValue = value
+    } else {
+      this.$emit('input', value)
     }
   }
 
   render() {
     return <div onClick={() => { this.openSelector() }} ref="selector" class={['selector', this.isActive ? 'active' : '']}>
-      <h2 class='selector-label'> { this.selectedValue || this.label } </h2>
+      <h2 class='selector-label'> { this.currentValue || this.label } </h2>
       <AppIcon name='arrow' class='icon'></AppIcon>
     </div>
   }

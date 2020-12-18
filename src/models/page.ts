@@ -1,4 +1,5 @@
 export type InteractiveBlockIds = 'login' | 'settings'
+export type LoginPosition = 'top' | 'left' | 'right' | 'bottom' | 'center'
 
 export interface InteractiveBlock {
   id: InteractiveBlockIds;

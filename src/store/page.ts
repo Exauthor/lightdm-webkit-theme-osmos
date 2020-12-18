@@ -6,13 +6,14 @@ import {
   Action
 } from 'vuex-module-decorators'
 import store from '@/store/index'
-import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu } from '@/models/page'
+import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu, LoginPosition } from '@/models/page'
 
 export interface PageState {
   time: PageTimestamp;
   menu: AppMenu;
   language: string;
   languages: string[];
+  loginPosition: LoginPosition;
   activeBlocks: InteractiveBlock[];
   interactiveBlocks: InteractiveBlock[];
 }
@@ -33,6 +34,7 @@ class Page extends VuexModule implements PageState {
   }
 
   language = ''
+  loginPosition: LoginPosition = 'center'
   languages: string[] = []
 
   activeBlocks: InteractiveBlock[] = []
@@ -97,7 +99,6 @@ class Page extends VuexModule implements PageState {
   @Mutation
   ASSING_MENU(menu: Partial<AppMenu>) {
     this.menu = Object.assign(this.menu, menu)
-    console.log({ menu })
   }
 
   @Mutation

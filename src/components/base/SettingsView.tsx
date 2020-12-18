@@ -14,8 +14,11 @@ import { CreateElement } from 'vue/types/umd'
   }
 })
 export default class SettingsView extends Vue {
-  tabs = ['themes', 'theme', 'general']
-  activeTab = this.tabs[0]
+  activeTabIndex = 0
+
+  get tabs() {
+    return [this.$t('settings.choiceThemes'), this.$t('settings.customizeTheme'), this.$t('settings.general')]
+  }
 
   get user() {
     return AppModule.currentUser
@@ -25,24 +28,20 @@ export default class SettingsView extends Vue {
     return AppModule.users
   }
 
-  activateTab(tab: string) {
-    this.activeTab = tab
+  activateTab(tabIndex: number) {
+    this.activeTabIndex = tabIndex
   }
 
   render(h: CreateElement) {
-    const mapTabs: { [k: string]: any } = {
-      general: <SettingsGeneral />,
-      themes: <SettingsThemes />,
-      theme: <div> theme </div>
-    }
-    const activeTab = <div key={this.activeTab}> { mapTabs[this.activeTab] } </div>
+    const mapTabs = [<SettingsThemes />, <div> theme </div>, <SettingsGeneral />]
+    const activeTab = <div key={this.tabs[this.activeTabIndex]}> { mapTabs[this.activeTabIndex] } </div>
 
     return <div class='user-settings'>
       <div class='center-x'>
         <div class='user-settings-tabs'>
-          { this.tabs.map((tab) => <div
-            class={ `user-settings-tab ${this.activeTab === tab ? 'active' : ''}` }
-            onClick={() => this.activateTab(tab)}
+          { this.tabs.map((tab, index) => <div
+            class={ `user-settings-tab ${this.activeTabIndex === index ? 'active' : ''}` }
+            onClick={() => this.activateTab(index)}
           > { tab } </div>) }
         </div>
       </div>

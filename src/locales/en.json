@@ -24,9 +24,11 @@
   "settings": {
     "title": "settings",
     "themes": "themes",
-    "general": "general",
     "choiceLanguage": "Choice language",
     "language": "Language",
+    "general": "General",
+    "choiceThemes": "Choice themes",
+    "customizeTheme": "Customize theme",
     "choiceLoginPosition": {
       "title": "Position",
       "about": "Choice login position",

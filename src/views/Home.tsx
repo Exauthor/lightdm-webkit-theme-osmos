@@ -3,6 +3,7 @@ import BackgroundImage from '@/components/base/BackgroundImage'
 import LoginComponent from '@/components/base/LoginComponent'
 import AppMenu from '@/components/app/AppMenu'
 import { PageModule } from '@/store/page'
+import { LoginPosition } from '@/models/page'
 
 @Component({
   components: {
@@ -21,7 +22,13 @@ export default class HomePage extends Vue {
   }
 
   mounted() {
-    PageModule.openBlock({ id: 'settings' })
+    // Set language
+    const language = localStorage.getItem('language') || 'en'
+    this.$i18n.locale = language
+    PageModule.SET_STATE_PAGE({ key: 'language', value: language })
+
+    // Set active block
+    PageModule.openBlock({ id: 'login' })
     PageModule.SET_STATE_PAGE({ key: 'languages', value: this.$i18n.availableLocales })
 
     window.addEventListener('keyup', this.keyPress)
