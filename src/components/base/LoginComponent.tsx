@@ -8,7 +8,6 @@ import AppIcon from '@/components/app/AppIcon.vue'
 import UserAvatar from '@/components/base/UserAvatar'
 import UserInput from '@/components/base/UserInput'
 import SettingsView from '@/components/base/SettingsView'
-import { prevent } from '@/utils/jsx'
 
 @Component({
   components: {

@@ -30,37 +30,32 @@ export interface AppState extends AppSettings {
 
 @Module({ dynamic: true, store, name: 'app' })
 class App extends VuexModule implements AppState {
-  version = '1.0.4';
-  language = 'en';
-  languages = [];
-  loginPosition = 'top';
-  currentTheme = 'Mars';
-  desktop = lightdm.sessions[0].name;
-  desktops = lightdm.sessions;
-  defaultColor = '#6BBBED';
-  username = lightdm.users[0].username;
-  users = lightdm.users;
-  themes = AppThemes;
+  version = '1.0.4'
+  currentTheme = ''
+  desktop = lightdm.sessions[0].name
+  desktops = lightdm.sessions
+  defaultColor = '#6BBBED'
+  username = lightdm.users[0].username
+  users = lightdm.users
+  themes = AppThemes
 
   get getMainSettings(): AppSettings {
     const {
-      language,
-      loginPosition,
       currentTheme,
       username,
       desktop,
       version,
       defaultColor
     } = this
-    return {
-      language,
-      loginPosition,
+    const finalObect = {
       currentTheme,
       username,
       desktop,
       version,
       defaultColor
     }
+
+    return finalObect
   }
 
   get getImage() {
@@ -92,7 +87,6 @@ class App extends VuexModule implements AppState {
     value: S[K];
   }) {
     this[key] = value
-    localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
   }
 
   @Action
@@ -130,28 +124,21 @@ class App extends VuexModule implements AppState {
 
       this.changeTheme(settings.currentTheme)
 
-      const isExistDE = lightdm.sessions.find(
-        item => item.name === settings.desktop
-      )
+      const isExistDE = lightdm.sessions.find(item => item.name === settings.desktop)
 
       if (!isExistDE) {
         settings.desktop = lightdm.sessions[0].name
       }
 
-      const isExistUser = lightdm.users.filter(
-        item => item.username === settings.username
-      )
+      const isExistUser = lightdm.users.filter(item => item.username === settings.username)
 
       if (!isExistUser) {
         settings.username = lightdm.users[0].username
       }
 
-      this.SET_STATE_APP({
-        key: 'loginPosition',
-        value: settings.loginPosition
-      })
       this.SET_STATE_APP({ key: 'desktop', value: settings.desktop })
       this.SET_STATE_APP({ key: 'username', value: settings.username }) // ?
+      localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
     } catch {
       localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
       this.setUpSettings()

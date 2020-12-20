@@ -10,6 +10,7 @@ import '@/plugins/components'
 import VueI18n from 'vue-i18n'
 
 import './style/index.styl'
+import 'css-doodle'
 
 import en from '@/locales/en.json'
 import ru from '@/locales/ru.json'

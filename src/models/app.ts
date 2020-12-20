@@ -1,7 +1,5 @@
 export interface AppSettings {
   version: string;
-  language: string;
-  loginPosition: string;
   currentTheme: string;
   username: string;
   desktop: string;
@@ -48,6 +46,24 @@ export const AppThemes: AppTheme[] = [
     fullscreen: false,
     color: {
       active: '#fa076c',
+      background: '#13111c'
+    }
+  },
+  {
+    name: 'DNA',
+    component: 'dna',
+    fullscreen: false,
+    color: {
+      active: '#fa076c',
+      background: '#13111c'
+    }
+  },
+  {
+    name: 'Sunset',
+    component: 'sunset',
+    fullscreen: false,
+    color: {
+      active: '#f7bb3b',
       background: '#13111c'
     }
   },

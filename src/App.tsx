@@ -4,9 +4,9 @@ import { PageModule } from '@/store/page'
 
 @Component
 export default class MainApp extends Vue {
-  created() {
+  async created() {
     PageModule.setTime()
-    AppModule.setUpSettings()
+    await AppModule.setUpSettings()
 
     const interactiveBlocks = [
       {
