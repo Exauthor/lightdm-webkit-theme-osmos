@@ -6,10 +6,11 @@ import { AppModule } from '@/store/app'
 
 import sphere from '@/components/themes/sphere.vue'
 import fire from '@/components/themes/fire.tsx'
+import dna from '@/components/themes/DNA.tsx'
 import mars from '@/components/themes/mars.tsx'
 import time from '@/components/themes/time'
 import osmos from '@/components/themes/osmos'
-// import fluid from '@/components/themes/fluid'
+import fluid from '@/components/themes/fluid.vue'
 import neon from '@/components/themes/neon.vue'
 import space from '@/components/themes/space'
 import sahara from '@/components/themes/sahara'
@@ -25,7 +26,7 @@ import { PageModule } from '@/store/page'
     osmos,
     neon,
     space,
-    // fluid,
+    fluid,
     sahara,
     malevich,
     polygonTheme: polygon
@@ -53,11 +54,13 @@ export default class BackgroundImage extends Vue {
 
   render(h: CreateElement) {
     const component: { [k: string]: any } = {
+      dna: h(dna),
       fire: h(fire),
       time: h(time),
       mars: h(mars),
       neon: h(neon),
       osmos: h(osmos),
+      fluid: h(fluid),
       space: h(space),
       sahara: h(sahara),
       polygon: h(polygon),
