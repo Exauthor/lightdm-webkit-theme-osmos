@@ -1,4 +1,8 @@
 {
+  "input": {
+    "color": "Select color",
+    "color-active": "Select active color"
+  },
   "text": {
     "themes": "themes",
     "welcome": "welcome",
@@ -24,12 +28,13 @@
   "settings": {
     "title": "settings",
     "themes": "themes",
+    "performance": "performance",
     "choiceLanguage": "Choice language",
     "language": "Language",
     "general": "General",
     "choiceThemes": "Choice themes",
     "customizeTheme": "Customize theme",
-    "choiceLoginPosition": {
+    "loginPosition": {
       "title": "Position",
       "about": "Choice login position",
       "center": "center",

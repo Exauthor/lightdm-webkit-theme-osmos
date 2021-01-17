@@ -24,7 +24,7 @@
     "title": "Paramètres",
     "choiceLanguage": "Choix de la langue",
     "language": "Langue",
-    "choiceLoginPosition": {
+    "loginPosition": {
       "title": "Position",
       "about": "Choix de la position de connexion",
       "center": "centre",

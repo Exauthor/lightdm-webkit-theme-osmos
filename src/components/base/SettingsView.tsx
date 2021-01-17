@@ -3,18 +3,19 @@ import { Component, Vue } from 'vue-property-decorator'
 import { AppModule } from '@/store/app'
 import AppIcon from '@/components/app/AppIcon.vue'
 import SettingsThemes from '@/components/base/SettingsThemes'
+import SettingsCustom from '@/components/base/SettingsCustom'
 import SettingsGeneral from '@/components/base/SettingsGeneral'
-import { CreateElement } from 'vue/types/umd'
 
 @Component({
   components: {
     AppIcon,
     SettingsThemes,
+    SettingsCustom,
     SettingsGeneral
   }
 })
 export default class SettingsView extends Vue {
-  activeTabIndex = 0
+  activeTabIndex = 1
 
   get tabs() {
     return [this.$t('settings.choiceThemes'), this.$t('settings.customizeTheme'), this.$t('settings.general')]
@@ -32,8 +33,8 @@ export default class SettingsView extends Vue {
     this.activeTabIndex = tabIndex
   }
 
-  render(h: CreateElement) {
-    const mapTabs = [<SettingsThemes />, <div> theme </div>, <SettingsGeneral />]
+  render() {
+    const mapTabs = [<SettingsThemes />, <SettingsCustom />, <SettingsGeneral />]
     const activeTab = <div key={this.tabs[this.activeTabIndex]}> { mapTabs[this.activeTabIndex] } </div>
 
     return <div class='user-settings'>

@@ -21,7 +21,7 @@ export default class LoginComponent extends Vue {
   viewContent = true
 
   get theme() {
-    return AppModule.getCurrentTheme as AppTheme
+    return AppModule.activeTheme
   }
 
   get image() {
@@ -50,6 +50,10 @@ export default class LoginComponent extends Vue {
     return this.isOpenLogin || this.isOpenSettings
   }
 
+  get bodyClass() {
+    return PageModule.bodyClass
+  }
+
   openSettings(event: MouseEvent) {
     event.preventDefault()
     event.stopPropagation()
@@ -63,7 +67,7 @@ export default class LoginComponent extends Vue {
 
     setTimeout(() => {
       this.viewContent = true
-    }, 300)
+    }, this.bodyClass['no-transition'] ? 0 : 300)
   }
 
   render() {

@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import { PageModule } from '@/store/page'
 import AppIcon from '@/components/app/AppIcon.vue'
 import { AppMenuItem, AppMenuPosition } from '@/models/page'
@@ -8,13 +8,26 @@ import { AppMenuItem, AppMenuPosition } from '@/models/page'
 })
 export default class AppMenu extends Vue {
   isActive = false
+  innerPositioned: AppMenuPosition = { left: 0, top: 0, width: 199 }
+
+  get position() {
+    return this.menu?.position ?? this.innerPositioned
+  }
 
   get menu() {
-    return PageModule.menu
+    const menu = PageModule.menu
+    return menu
+  }
+
+  @Watch('menu.view')
+  updatePosition(isOpen: boolean) {
+    if (isOpen) {
+      this.calculatePosition()
+    }
   }
 
   get style() {
-    return Object.entries(this.menu.position).reduce((acc, [property, value]) => {
+    return Object.entries(this.position).reduce((acc, [property, value]) => {
       acc += `${property}: ${value}px;`
       return acc
     }, '')
@@ -28,14 +41,32 @@ export default class AppMenu extends Vue {
     this.closeMenu()
   }
 
+  calculatePosition() {
+    const node = this.menu.node
+
+    if (!node || !this.menu.view) return
+
+    const { bottom, left, top, height, width } = node.getBoundingClientRect()
+    const allHeight = window.innerHeight
+
+    const positionY = bottom > top ? 'bottom' : 'top'
+    const position: AppMenuPosition = { left, width }
+
+    if (positionY === 'bottom') {
+      position.top = top + height
+    } else {
+      position.bottom = allHeight - bottom + height
+    }
+
+    this.innerPositioned = position
+  }
+
   closeMenu() {
-    PageModule.ASSING_MENU({
-      view: false
-    })
+    PageModule.ASSING_MENU({ view: false })
   }
 
   render() {
-    return <div { ...{ on: { mousedown: (event: MouseEvent) => { event.stopPropagation(); event.preventDefault() } } } }>
+    return <div { ...{ on: { click: (event: MouseEvent) => { event.stopPropagation(); event.preventDefault() } } } }>
       <transition name='fade'>
         { this.menu.view
           ? <ul class='menu-list' id='menu' style={this.style}>

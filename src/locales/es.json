@@ -24,7 +24,7 @@
     "title": "configuración",
     "choiceLanguage": "Idioma de elección",
     "language": "Idioma",
-    "choiceLoginPosition": {
+    "loginPosition": {
       "title": "Posición",
       "about": "Elección de posición de inicio de sesión",
       "center": "centro",

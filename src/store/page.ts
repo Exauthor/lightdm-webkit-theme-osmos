@@ -6,11 +6,11 @@ import {
   Action
 } from 'vuex-module-decorators'
 import store from '@/store/index'
-import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu, LoginPosition } from '@/models/page'
+import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu, LoginPosition, AppMenuMain } from '@/models/page'
 
 export interface PageState {
   time: PageTimestamp;
-  menu: AppMenu;
+  menu: AppMenuMain | AppMenu;
   language: string;
   languages: string[];
   loginPosition: LoginPosition;
@@ -27,10 +27,14 @@ class Page extends VuexModule implements PageState {
     seconds: 0
   }
 
-  menu: AppMenu = {
+  menu: AppMenuMain | AppMenu = {
     view: false,
-    position: { left: 0, width: 0 },
     items: []
+  }
+
+  bodyClass: Record<string, boolean> = {
+    blur: true,
+    'no-transition': false
   }
 
   language = ''
@@ -38,7 +42,17 @@ class Page extends VuexModule implements PageState {
   languages: string[] = []
 
   activeBlocks: InteractiveBlock[] = []
-  interactiveBlocks: InteractiveBlock[] = []
+  interactiveBlocks: InteractiveBlock[] = [
+    {
+      id: 'login',
+      closeBeforeMount: ['settings']
+    },
+    {
+      id: 'settings',
+      closeBeforeMount: ['login'],
+      openAfterDestroy: ['login']
+    }
+  ]
 
   get getBlock() {
     return (id: string) => {
@@ -70,6 +84,11 @@ class Page extends VuexModule implements PageState {
     value: S[K];
   }) {
     this[key] = value
+  }
+
+  @Mutation
+  CHANGE_BODY_CLASS({ key, value }: { key: string; value: boolean }) {
+    this.bodyClass[key] = value
   }
 
   @Mutation

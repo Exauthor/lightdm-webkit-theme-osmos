@@ -29,7 +29,7 @@ try {
 
 const i18n = () => new VueI18n({
   locale: language || 'en',
-  fallbackLocale: 'en',
+  // fallbackLocale: 'en',
   silentTranslationWarn: true,
   messages: { en, ru, fr, de, pl, es }
 })

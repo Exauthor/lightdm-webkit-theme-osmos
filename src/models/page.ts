@@ -14,12 +14,26 @@ export interface PageTimestamp {
   hours: number;
 }
 
-export interface AppMenu {
+export interface AppMenuMain {
   view: boolean;
-  position: AppMenuPosition;
+  items: AppMenuItem[] | string[];
+  handler?: (value: any) => void;
+  node?: HTMLElement;
+}
+export interface AppMenuNode extends AppMenuMain {
+  view: boolean;
+  node: HTMLElement;
+  position?: null;
   items: AppMenuItem[] | string[];
   handler?: (value: any) => void;
 }
+
+export interface AppMenuPositionded extends Omit<AppMenuNode, 'node' | 'position'> {
+  node?: null;
+  position: AppMenuPosition;
+}
+
+export type AppMenu = AppMenuNode | AppMenuPositionded
 
 export interface AppMenuItem {
   text: string;

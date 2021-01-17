@@ -7,25 +7,15 @@ export default class MainApp extends Vue {
   async created() {
     PageModule.setTime()
     await AppModule.setUpSettings()
+  }
 
-    const interactiveBlocks = [
-      {
-        id: 'login',
-        closeBeforeMount: ['settings']
-      },
-      {
-        id: 'settings',
-        closeBeforeMount: ['login'],
-        openAfterDestroy: ['login']
-      }
-    ]
-
-    PageModule.SET_STATE_PAGE({ key: 'interactiveBlocks', value: interactiveBlocks })
+  get bodyClass() {
+    return PageModule.bodyClass
   }
 
   render() {
     return (
-      <div id="app">
+      <div id="app" class={ this.bodyClass }>
         <router-view />
       </div>
     )

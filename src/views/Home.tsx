@@ -21,7 +21,7 @@ export default class HomePage extends Vue {
     return PageModule.menu
   }
 
-  mounted() {
+  created() {
     // Set language
     const language = localStorage.getItem('language') || 'en'
     this.$i18n.locale = language
@@ -32,14 +32,16 @@ export default class HomePage extends Vue {
     PageModule.SET_STATE_PAGE({ key: 'loginPosition', value: loginPosition })
 
     // Set active block
-    PageModule.openBlock({ id: 'login' })
+    PageModule.openBlock({ id: 'settings' })
     PageModule.SET_STATE_PAGE({ key: 'languages', value: this.$i18n.availableLocales })
 
-    window.addEventListener('keyup', this.keyPress)
-    window.addEventListener('mousedown', this.handleClick)
+    document.addEventListener('keyup', this.keyPress)
+    document.addEventListener('click', this.handleClick)
   }
 
   handleClick(event: MouseEvent) {
+    console.log('HandleCLICk')
+
     const isOpenMenu = false
     if (isOpenMenu) return
 
@@ -56,7 +58,9 @@ export default class HomePage extends Vue {
     const isClickOnMenu = menuNode?.contains(target)
 
     if (this.menu.view && !isClickOnMenu) {
+      console.time('SELECTOR')
       PageModule.ASSING_MENU({ view: false })
+      // setTimeout(() => { PageModule.ASSING_MENU({ view: false }) }, 145)
     } else if (!isClickOnAciveBlock) {
       PageModule.closeBlock()
     }
@@ -69,14 +73,6 @@ export default class HomePage extends Vue {
     const isFocusPassword = document.querySelector('#password:focus')
 
     const [pCode, rCode, sCode] = [80, 82, 83]
-
-    // if (event.altKey && event.which === pCode) {
-    //   this.SET_PAGE({ key: 'activeModal', value: 'shutdown'})
-    // } else if (event.altKey && event.which === sCode) {
-    //   this.SET_PAGE({ key: 'activeModal', value: 'suspend'})
-    // } else if (event.altKey && event.which === rCode) {
-    //   this.SET_PAGE({ key: 'activeModal', value: 'restart'})
-    // }
 
     if (PageModule.activeBlocks.length === 0) {
       PageModule.openBlock({ id: 'login' })

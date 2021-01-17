@@ -315,6 +315,22 @@
   </svg>
 
   <svg
+    v-else-if="name === 'checkbox'"
+    width="37"
+    height="28"
+    viewBox="0 0 37 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M3 16.0213L11.9362 24.9574L33.8936 3"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+
+  <svg
     v-else-if="name === 'arrow'"
     width="26"
     height="26"

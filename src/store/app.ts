@@ -9,6 +9,8 @@ import store from '@/store/index'
 
 import {
   AppImageTheme,
+  AppInputTheme,
+  AppInputThemeValue,
   AppSettings,
   AppTheme,
   AppThemes,
@@ -22,7 +24,7 @@ export interface AppState extends AppSettings {
   themes: AppTheme[];
   getMainSettings: AppSettings;
   getImage: string | null;
-  getCurrentTheme: AppTheme | AppImageTheme;
+  activeTheme: AppTheme | AppImageTheme;
   username: string;
   desktops: LightdmSession[];
   users: LightdmUsers[];
@@ -63,7 +65,7 @@ class App extends VuexModule implements AppState {
     return match ? match[1] : null
   }
 
-  get getCurrentTheme() {
+  get activeTheme() {
     return this.getImage
       ? ({
         fullscreen: true,
@@ -89,6 +91,21 @@ class App extends VuexModule implements AppState {
     this[key] = value
   }
 
+  @Mutation
+  CHANGE_THEME_INPUT({ input, value }: { input: AppInputTheme; value: AppInputThemeValue }) {
+    input.value = value
+  }
+
+  @Action
+  changeSettingsThemeInput({ key, value }: { key: string; value: AppInputThemeValue }) {
+    const inputs = (this.activeTheme as AppTheme).settings || []
+    const input = inputs?.find(input => input.name === key)
+
+    if (input) {
+      this.CHANGE_THEME_INPUT({ input, value })
+    }
+  }
+
   @Action
   async changeTheme(themeName: string) {
     const isExistTheme = this.themes.find(({ name }) => name === themeName)
@@ -99,7 +116,7 @@ class App extends VuexModule implements AppState {
     this.SET_STATE_APP({ key: 'currentTheme', value: finalTheme })
     localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
 
-    const { color } = this.getCurrentTheme
+    const { color } = this.activeTheme
 
     document.documentElement.style.setProperty('--color-active', color.active)
     document.documentElement.style.setProperty('--color-bg', color.background)

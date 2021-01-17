@@ -17,6 +17,27 @@ export interface AppImageTheme {
 export interface AppTheme extends AppImageTheme {
   name: string;
   component: string;
+  settings?: AppInputTheme[];
+}
+
+export interface AppInputTheme {
+  name: string;
+  value: AppInputThemeValue;
+  label: string;
+  type: AppInputThemeType;
+}
+
+export type AppInputThemeType = 'color' | 'selector' | 'slider' | 'carousel' | 'checkbox'
+export type AppInputThemeValue = string | boolean | string[]
+export interface AppInputColor {
+  a: string;
+  hex: string;
+  hex8: string;
+  hsl: string;
+  hsv: string;
+  oldHue: string;
+  rgba: string;
+  source: string;
 }
 
 export const defaultTheme: AppTheme = {
@@ -53,17 +74,16 @@ export const AppThemes: AppTheme[] = [
     name: 'DNA',
     component: 'dna',
     fullscreen: false,
+    settings: [
+      {
+        name: 'activeColor',
+        type: 'color',
+        label: 'input.color-active',
+        value: '#fa076c'
+      }
+    ],
     color: {
       active: '#fa076c',
-      background: '#13111c'
-    }
-  },
-  {
-    name: 'Sunset',
-    component: 'sunset',
-    fullscreen: false,
-    color: {
-      active: '#f7bb3b',
       background: '#13111c'
     }
   },

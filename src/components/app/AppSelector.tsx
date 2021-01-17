@@ -8,54 +8,54 @@ import { AppMenuItem, AppMenuPosition } from '@/models/page'
   components: { AppIcon }
 })
 export default class AppSelector extends Vue {
-  @Prop({ type: [Object, String], default: null }) value: any
-  @Prop({ type: [Array], default: () => [] }) items!: AppMenuItem[]
-  @Prop({ default: '' }) label: any
+  @Prop({ type: [Object, String], default: null }) value!: AppMenuItem | string
+  @Prop({ type: [Array], default: () => [] }) items!: AppMenuItem[] | string[]
+  @Prop({ default: '' }) label!: string
 
-  selectedValue: null | Record<string, any> | string = null
+  selectedValue: null | AppMenuItem | string = null
+
+  get menu() {
+    return PageModule.menu
+  }
 
   get isActive() {
-    return PageModule.menu.view
+    return this.menu?.view && this.menu?.node === this.$refs.selector
   }
 
-  get currentValue() {
-    return this.value ?? this.selectedValue
+  get currentValueLabel() {
+    const selected = this.value ?? this.selectedValue
+    return typeof selected === 'object' ? selected?.text : selected
   }
 
-  openSelector() {
-    const { bottom, left, top, height, width } = this.$refs.selector?.getBoundingClientRect()
-    const allHeight = window.innerHeight
+  openSelector(event: Event) {
+    event.preventDefault()
+    event.stopPropagation()
 
-    const positionY = bottom > top ? 'bottom' : 'top'
-    const position: AppMenuPosition = { left, width }
-
-    if (positionY === 'bottom') {
-      position.top = top + height
-    } else {
-      position.bottom = allHeight - bottom + height
+    if (this.menu.view) {
+      return PageModule.ASSING_MENU({ view: false })
     }
 
     PageModule.ASSING_MENU({
-      position,
+      node: this.$refs.selector as HTMLElement,
       view: true,
       items: this.items,
       handler: this.callback
     })
   }
 
-  callback(value: AppMenuItem) {
-    this.$emit('value', value)
+  callback(item: AppMenuItem | string) {
+    const finalValue = typeof item === 'object' ? item.value : item
 
     if (this.value === null) {
-      this.selectedValue = value
+      this.selectedValue = item
     } else {
-      this.$emit('input', value)
+      this.$emit('input', finalValue)
     }
   }
 
   render() {
-    return <div onClick={() => { this.openSelector() }} ref="selector" class={['selector', this.isActive ? 'active' : '']}>
-      <h2 class='selector-label'> { this.currentValue || this.label } </h2>
+    return <div onClick={(event: Event) => { this.openSelector(event) }} ref="selector" class={['selector', this.isActive ? 'active' : '']}>
+      <h2 class='selector-label'> { this.currentValueLabel || this.label } </h2>
       <AppIcon name='arrow' class='icon'></AppIcon>
     </div>
   }

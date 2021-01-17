@@ -34,7 +34,7 @@ import { PageModule } from '@/store/page'
 })
 export default class BackgroundImage extends Vue {
   get theme() {
-    return AppModule.getCurrentTheme as AppTheme
+    return AppModule.activeTheme
   }
 
   get image() {
