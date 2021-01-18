@@ -4,6 +4,7 @@ export interface AppSettings {
   username: string;
   desktop: string;
   defaultColor: string;
+  themes: AppTheme[];
 }
 
 export interface AppImageTheme {

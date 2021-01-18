@@ -43,21 +43,22 @@ class App extends VuexModule implements AppState {
 
   get getMainSettings(): AppSettings {
     const {
-      currentTheme,
-      username,
+      themes,
       desktop,
       version,
+      username,
+      currentTheme,
       defaultColor
     } = this
-    const finalObect = {
-      currentTheme,
-      username,
+
+    return {
+      themes,
       desktop,
       version,
+      username,
+      currentTheme,
       defaultColor
     }
-
-    return finalObect
   }
 
   get getImage() {
@@ -81,13 +82,7 @@ class App extends VuexModule implements AppState {
   }
 
   @Mutation
-  SET_STATE_APP<S extends this, K extends keyof this>({
-    key,
-    value
-  }: {
-    key: K;
-    value: S[K];
-  }) {
+  SET_STATE_APP<S extends this, K extends keyof this>({ key, value }: { key: K; value: S[K] }) {
     this[key] = value
   }
 
@@ -103,6 +98,10 @@ class App extends VuexModule implements AppState {
 
     if (input) {
       this.CHANGE_THEME_INPUT({ input, value })
+
+      const settings = JSON.parse(localStorage.getItem('settings') || '{}')
+      settings.themes = this.themes
+      localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
     }
   }
 
@@ -137,6 +136,10 @@ class App extends VuexModule implements AppState {
       if (settings.version !== this.version) {
         settings = this.getMainSettings
         localStorage.setItem('settings', JSON.stringify(settings))
+      }
+
+      if (settings.themes) {
+        this.SET_STATE_APP({ key: 'themes', value: settings.themes })
       }
 
       this.changeTheme(settings.currentTheme)
