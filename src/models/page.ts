@@ -16,15 +16,15 @@ export interface PageTimestamp {
 
 export interface AppMenuMain {
   view: boolean;
-  items: AppMenuItem[] | string[];
+  items: AppMenuItem[];
   handler?: (value: any) => void;
   node?: HTMLElement;
+  position?: null;
 }
+
 export interface AppMenuNode extends AppMenuMain {
   view: boolean;
   node: HTMLElement;
-  position?: null;
-  items: AppMenuItem[] | string[];
   handler?: (value: any) => void;
 }
 

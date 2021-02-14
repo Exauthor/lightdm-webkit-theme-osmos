@@ -5,6 +5,7 @@ import AppIcon from '@/components/app/AppIcon.vue'
 import SettingsThemes from '@/components/base/SettingsThemes'
 import SettingsCustom from '@/components/base/SettingsCustom'
 import SettingsGeneral from '@/components/base/SettingsGeneral'
+import { PageModule } from '@/store/page'
 
 @Component({
   components: {
@@ -15,10 +16,8 @@ import SettingsGeneral from '@/components/base/SettingsGeneral'
   }
 })
 export default class SettingsView extends Vue {
-  activeTabIndex = 1
-
-  get tabs() {
-    return [this.$t('settings.choiceThemes'), this.$t('settings.customizeTheme'), this.$t('settings.general')]
+  get mainTabIndex() {
+    return PageModule.mainTabIndex
   }
 
   get user() {
@@ -29,26 +28,18 @@ export default class SettingsView extends Vue {
     return AppModule.users
   }
 
-  activateTab(tabIndex: number) {
-    this.activeTabIndex = tabIndex
-  }
-
   render() {
-    const mapTabs = [<SettingsThemes />, <SettingsCustom />, <SettingsGeneral />]
-    const activeTab = <div key={this.tabs[this.activeTabIndex]}> { mapTabs[this.activeTabIndex] } </div>
+    const mapTabs = [<SettingsThemes />, <SettingsGeneral />]
+    const hasThemeSettings = AppModule.activeTheme?.settings?.length !== undefined
+
+    if (hasThemeSettings) {
+      mapTabs.splice(1, 0, <SettingsCustom />)
+    }
+
+    const activeTab = <div key={this.mainTabIndex}> { mapTabs[this.mainTabIndex] } </div>
 
     return <div class='user-settings'>
-      <div class='center-x'>
-        <div class='user-settings-tabs'>
-          { this.tabs.map((tab, index) => <div
-            class={ `user-settings-tab ${this.activeTabIndex === index ? 'active' : ''}` }
-            onClick={() => this.activateTab(index)}
-          > { tab } </div>) }
-        </div>
-      </div>
-      <div>
-        { activeTab }
-      </div>
+      { activeTab }
     </div>
   }
 }

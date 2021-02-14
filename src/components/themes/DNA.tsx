@@ -5,15 +5,20 @@ import { CreateElement } from 'vue/types/umd'
 
 @Component
 export default class DNATheme extends Vue {
-  // activeColor = '#F690FF'
-  secondColor = '#FFFDE1'
-
   get theme() {
     return AppModule.activeTheme as AppTheme
   }
 
   get activeColor() {
-    return this.theme.settings?.find((input) => input.name === 'activeColor')?.value
+    return AppModule.getThemeSettings('activeColor')?.value || '#fa076c'
+  }
+
+  get secondColor() {
+    return AppModule.getThemeSettings('secondColor')?.value || '#FFFDE1'
+  }
+
+  get amount() {
+    return AppModule.getThemeSettings('amount')?.value || '45'
   }
 
   render(h: CreateElement) {
@@ -22,7 +27,7 @@ export default class DNATheme extends Vue {
       domProps: {
         innerHTML: `<css-doodle>
           :doodle {
-            @grid: 45x1 / 40vmin;
+            @grid: ${this.amount}x1 / 40vmin;
             position: relative;
             z-index: 1;
           }

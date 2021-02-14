@@ -8,11 +8,20 @@ import { AppMenuItem, AppMenuPosition } from '@/models/page'
   components: { AppIcon }
 })
 export default class AppSelector extends Vue {
-  @Prop({ type: [Object, String], default: null }) value!: AppMenuItem | string
-  @Prop({ type: [Array], default: () => [] }) items!: AppMenuItem[] | string[]
+  @Prop({ type: [Object, String], default: null }) value!: AppMenuItem | string | null
+  @Prop({ type: [Array], default: () => [] }) items!: AppMenuItem[]
   @Prop({ default: '' }) label!: string
 
   selectedValue: null | AppMenuItem | string = null
+
+  get fullItem() {
+    const selected = this.value !== null ? this.value : this.selectedValue
+
+    return this.items.find(({ value }) => {
+      const finalValue = typeof selected === 'object' ? selected?.value : selected
+      return value === finalValue
+    })
+  }
 
   get menu() {
     return PageModule.menu
@@ -23,7 +32,7 @@ export default class AppSelector extends Vue {
   }
 
   get currentValueLabel() {
-    const selected = this.value ?? this.selectedValue
+    const selected = this.fullItem ?? this.selectedValue
     return typeof selected === 'object' ? selected?.text : selected
   }
 
@@ -46,17 +55,31 @@ export default class AppSelector extends Vue {
   callback(item: AppMenuItem | string) {
     const finalValue = typeof item === 'object' ? item.value : item
 
-    if (this.value === null) {
-      this.selectedValue = item
-    } else {
-      this.$emit('input', finalValue)
-    }
+    this.selectedValue = item
+    this.$emit('input', finalValue)
   }
 
   render() {
-    return <div onClick={(event: Event) => { this.openSelector(event) }} ref="selector" class={['selector', this.isActive ? 'active' : '']}>
-      <h2 class='selector-label'> { this.currentValueLabel || this.label } </h2>
-      <AppIcon name='arrow' class='icon'></AppIcon>
+    return <div
+      onClick={(event: Event) => { this.openSelector(event) }}
+      ref="selector"
+      class={['selector', this.isActive ? 'active' : '']}
+    >
+      <h2 class='selector-label'>
+        { this.fullItem?.icon ? <AppIcon {...{
+          class: 'menu-icon selector-icon',
+          props: {
+            name: this.fullItem.icon
+          }
+        }}></AppIcon> : null }
+        { this.currentValueLabel || this.label }
+      </h2>
+      <AppIcon {...{
+        props: {
+          name: 'arrow'
+        },
+        class: 'icon selector-arrow'
+      }}></AppIcon>
     </div>
   }
 }

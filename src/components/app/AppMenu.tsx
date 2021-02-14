@@ -11,7 +11,7 @@ export default class AppMenu extends Vue {
   innerPositioned: AppMenuPosition = { left: 0, top: 0, width: 199 }
 
   get position() {
-    return this.menu?.position ?? this.innerPositioned
+    return this.menu.position ?? this.innerPositioned
   }
 
   get menu() {
@@ -70,13 +70,14 @@ export default class AppMenu extends Vue {
       <transition name='fade'>
         { this.menu.view
           ? <ul class='menu-list' id='menu' style={this.style}>
-            { this.menu.items.map((item: AppMenuItem | string, i: number) => {
+            { this.menu.items.map((item: AppMenuItem, i: number) => {
               return <li
                 class='menu-list-item'
                 key={i}
                 onClick={() => { this.handleCallback(item) }}
               >
-                { typeof item === 'string' ? item : item.text }
+                { item.text }
+                { item.icon ? <AppIcon {...{ class: 'menu-icon', props: { name: item.icon } }}></AppIcon> : null }
               </li>
             }
             )}

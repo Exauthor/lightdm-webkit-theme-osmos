@@ -1,7 +1,10 @@
 {
   "input": {
     "color": "Select color",
-    "color-active": "Select active color"
+    "color-active": "Select active color",
+    "color-second": "Select second color",
+    "slider-amount": "Choice slider amount",
+    "dark-mode": "Dark mode"
   },
   "text": {
     "themes": "themes",
@@ -29,12 +32,14 @@
     "title": "settings",
     "themes": "themes",
     "performance": "performance",
-    "choiceLanguage": "Choice language",
+    "choice-desktop": "Choice desktop",
+    "choice-language": "Choice language",
+    "choice-os": "Choice os",
     "language": "Language",
     "general": "General",
-    "choiceThemes": "Choice themes",
-    "customizeTheme": "Customize theme",
-    "loginPosition": {
+    "choice-themes": "Choice themes",
+    "customize-theme": "Customize theme",
+    "login-position": {
       "title": "Position",
       "about": "Choice login position",
       "center": "center",

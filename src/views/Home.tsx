@@ -32,7 +32,7 @@ export default class HomePage extends Vue {
     PageModule.SET_STATE_PAGE({ key: 'loginPosition', value: loginPosition })
 
     // Set active block
-    PageModule.openBlock({ id: 'settings' })
+    PageModule.openBlock({ id: 'login' })
     PageModule.SET_STATE_PAGE({ key: 'languages', value: this.$i18n.availableLocales })
 
     document.addEventListener('keyup', this.keyPress)
@@ -40,8 +40,6 @@ export default class HomePage extends Vue {
   }
 
   handleClick(event: MouseEvent) {
-    console.log('HandleCLICk')
-
     const isOpenMenu = false
     if (isOpenMenu) return
 

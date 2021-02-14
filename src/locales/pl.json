@@ -22,9 +22,9 @@
   },
   "settings": {
     "title": "ustawienia",
-    "choiceLanguage": "wybór języka",
+    "choice-language": "wybór języka",
     "language": "język",
-    "loginPosition": {
+    "login-position": {
       "title": "Pozycja",
       "about": "Wybierz pozycję logowania",
       "center": "сentrum",

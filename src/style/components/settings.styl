@@ -15,7 +15,11 @@
 
 .user-settings-tabs
   display flex
-  margin-bottom 8px
+  justify-content center 
+  align-items center
+  margin-bottom 4px
+  position sticky
+  top 0px
   
 .user-settings-tab
   padding 4px 8px
@@ -25,7 +29,12 @@
   &.active
     border-bottom 2px solid var(--color-active)
 
-.grid-three
+.grid-two
   display grid
   grid-template-columns repeat(2, 1fr)
+  gap 12px
+
+.user-settings-custom
+  display grid
+  grid-template-columns repeat(auto-fit, minmax(200px, 1fr))
   gap 12px

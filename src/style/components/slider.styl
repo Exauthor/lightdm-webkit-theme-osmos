@@ -1,0 +1,148 @@
+.slider-input
+  --balloon var(--color-active)
+  --value #fff
+  --line #CDD9ED
+  touch-action none
+  user-select none
+  width calc(100% - 50px)
+  height 2px
+  border-radius 1px
+  background var(--line)
+  position relative
+  .noUi-connects
+    .noUi-connect
+      background var(--color-active)
+  .noUi-handle
+    &::before,
+    &::after
+      border-radius 20px
+      transform scale(var(--s))
+      transition transform .3s ease, border-radius .3s ease
+    &::before
+      --s .5
+      background var(--color-active)
+    &::after
+      --s .2
+      background #fff
+    &.noUi-active
+      &::before
+        --s .6
+      &::after
+        --s .55
+  .balloon
+    --o 0
+    --s 0
+    --y 0
+    --r 0deg
+    --height 28px
+    width var(--height)
+    height calc(var(--height) + 20px)
+    pointer-events none
+    position absolute
+    z-index 5
+    left -26px
+    bottom 0
+    transform-origin 50% 100%
+    & > div
+      width var(--height)
+      height calc(var(--height) + 20px)
+      transform-origin 50% 100%
+      opacity var(--o)
+      transform scale(var(--s)) translate(0, var(--y)) rotate(var(--r))
+      transition transform .4s ease, opacity .4s ease
+      &::before,
+      &::after
+        content ''
+        display block
+      &::before
+        width var(--height)
+        height var(--height)
+        border-radius 60%
+        border-bottom-left-radius 480%
+        border-bottom-right-radius 480%
+        border-top-left-radius 480%
+        transform rotate(135deg)
+        background var(--balloon)
+      &::after
+        content attr(data-value)
+        font-family 'Roboto', Arial
+        font-size 14px
+        font-weight 500
+        color var(--value)
+        position absolute
+        left 0
+        right 0
+        top 16px
+        line-height 24px
+        text-align center
+      svg
+        display block
+        width 8px
+        height 6px
+        fill var(--balloon)
+        position absolute
+        left 22px
+        bottom 0
+    &.active
+      --o 1
+      --s 1
+      --y -36px
+
+  *
+    touch-action none
+    user-select none
+    -webkit-tap-highlight-color transparent
+  &.noUi-state-tap .noUi-connect,
+  &.noUi-state-tap .noUi-origin
+    transition transform .3s
+  .noUi-target
+    position relative
+  .noUi-base,
+  .noUi-connects
+    position relative
+    z-index 1
+    width 100%
+    height 100%
+  .noUi-origin,
+  .noUi-connect
+    position absolute
+    will-change transform
+    transform-origin 0 0
+    top 0
+    left 0
+    z-index 1
+  .noUi-connects
+    overflow hidden
+    z-index 0
+    border-radius 1px
+    .noUi-connect
+      width 100%
+      height 100%
+  .noUi-handle
+    backface-visibility hidden
+    position absolute
+    outline none
+    cursor pointer
+    width 30px
+    height 30px
+    left 6px
+    top -19px
+    &::before,
+    &::after
+      content ''
+      position absolute
+    &::before
+      left 0
+      top 0
+      width 40px
+      height 40px
+    &::after
+      left 2px
+      top 2px
+      width 36px
+      height 36px
+  .noUi-origin
+    left auto
+    right 0
+    height 0
+    width 10%

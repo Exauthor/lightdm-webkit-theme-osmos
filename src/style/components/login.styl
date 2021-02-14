@@ -3,7 +3,6 @@
   height 100vh
   position relative
 
-
 .login-view
   --login-width 330px
   padding 12px
@@ -38,7 +37,6 @@
     top 50%
     transform translate(0%, -50%)
 
-
 .login-empty-title
   position absolute
   bottom 20px
@@ -60,10 +58,10 @@
     pointer-events none
   .user-choice
     margin-bottom 8px
-    .user-avatar
+    .user-avatar, svg
       width 60px
       height 60px
-      transform none
+      transform translateX(0)
       margin-bottom 0px
     .user-name
       transform translate(82px, -60px)
@@ -71,16 +69,22 @@
 
 .user-choice
   margin-bottom 45px
+  svg
+    width 50px
+    height 50px
 
-.user-avatar
+.user-avatar, .user-choice svg
   border-radius 50%
-  transition .25s
   width 120px
   height 120px
+  transition .3s
   transform translateX(calc(var(--login-width) / 2 - 60px - 12px)) // half login width - half avatar width - half login padding
   background-repeat no-repeat
   background-size cover
   background-position center
+
+.user-choice svg
+  height 110px
 
 .user-name
   color white
@@ -114,45 +118,44 @@
       opacity .45
 
 .user-input-login
-  width 25px
-  height 25px
   border-radius 50%
   flex-shrink 0
   padding 0
   background none
   border none
   transition .2s
-  svg
-    transition .15s
-    fill var(--color-unfocus)
-  &:focus
-    outline none
-  &:hover
-    svg
-      fill white
 
-
-.empty-button, .settings-button
+.empty-button, .settings-button, .desktop-icon, .user-input-login, .system-icon
   width 25px
   min-width 25px
   height 25px
-
-.settings-button
-  padding 0
-  z-index 2
-  border 0
-  position absolute
-  left 12px
-  bottom 16px
-  background none
-  border-radius 5px
-  border 1px solid transparent
+  cursor pointer
+  fill var(--color-unfocus)
   transition .15s
   &:focus
     outline none
   &:hover
-    svg
-      fill white
+    fill white
   svg
     transition .15s
-    fill var(--color-unfocus)
+
+.settings-button, .desktop-icon, .system-icon
+  padding 0
+  z-index 2
+  border 0
+  position absolute
+  background none
+  border-radius 5px
+  border 1px solid transparent
+  
+.settings-button
+  left 12px
+  bottom 16px
+
+.system-icon
+  right 12px
+  top 12px
+
+.desktop-icon
+  top 12px
+  left 12px

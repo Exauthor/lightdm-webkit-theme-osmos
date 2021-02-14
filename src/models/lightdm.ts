@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-
 export interface ExpandedWindow {
-  lightdm: Lightdm;
+  lightdm?: Lightdm;
   authentication_complete(): void;
   lightdm_login(
     username: string,
     password: string,
-    cb: any,
-    errorCB: Error
+    callback: () => void,
+    errorCallback: (error: string) => void
   ): void;
   lightdm_start(desktop: string): void;
   show_prompt(text: string, type?: any): void;
@@ -49,5 +48,3 @@ export interface LightdmSession {
 }
 
 export const appWindow = (window as unknown) as Window & ExpandedWindow
-
-declare const lightdm: Lightdm

@@ -50,11 +50,34 @@ export default class LoginComponent extends Vue {
     return this.isOpenLogin || this.isOpenSettings
   }
 
-  get bodyClass() {
-    return PageModule.bodyClass
+  get currentDesktop() {
+    return AppModule.currentDesktop
   }
 
-  openSettings(event: MouseEvent) {
+  get bodyClass() {
+    return AppModule.bodyClass
+  }
+
+  get mainTabIndex() {
+    return PageModule.mainTabIndex
+  }
+
+  get tabs() {
+    const tabs = [this.$t('settings.choice-themes'), this.$t('settings.general')]
+    const hasThemeSettings = AppModule.activeTheme?.settings?.length !== undefined
+
+    if (hasThemeSettings) {
+      tabs.splice(1, 0, this.$t('settings.customize-theme'))
+    }
+
+    return tabs
+  }
+
+  activateTab(index: number) {
+    PageModule.SET_STATE_PAGE({ key: 'mainTabIndex', value: index })
+  }
+
+  openSettings(event: Event) {
     event.preventDefault()
     event.stopPropagation()
 
@@ -71,6 +94,20 @@ export default class LoginComponent extends Vue {
   }
 
   render() {
+    const tabs = <div class='user-settings-tabs'>
+      { this.tabs.map((tab, index) => <div
+        class={ `user-settings-tab ${this.mainTabIndex === index ? 'active' : ''}` }
+        onClick={() => this.activateTab(index)}
+      > { tab } </div>) }
+    </div>
+
+    const nativeOn = {
+      click: (event: Event) => {
+        this.openSettings(event)
+        PageModule.openTab({ type: 'settings' })
+      }
+    }
+
     const loginContent = this.isOpenLogin
       ? <UserInput />
       : <SettingsView />
@@ -80,7 +117,25 @@ export default class LoginComponent extends Vue {
       class={ { [`block-${this.activeBlock?.id}`]: true, 'login-content-settings': this.isOpenSettings }}
     >
       <div class={ ['login-view', `login-view--${PageModule.loginPosition}`] }>
+        <AppIcon {...{
+          props: { name: this.currentDesktop?.key },
+          nativeOn,
+          class: `desktop-icon ${this.isOpenLogin ? '' : 'o-0'}`
+        }} />
+        <AppIcon {...{
+          props: { name: 'collapse' },
+          class: `system-icon ${this.isOpenLogin ? 'o-0' : ''}`
+        }} />
+        <AppIcon {...{
+          props: { name: AppModule.currentOs },
+          nativeOn,
+          class: `system-icon ${this.isOpenLogin ? '' : 'o-0'}`
+        }} />
+
         <UserAvatar />
+
+        { this.isOpenLogin ? null : tabs }
+
         <button
           class='settings-button'
           onClick={this.openSettings}

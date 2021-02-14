@@ -1,6 +1,5 @@
 import { Component, Vue } from 'vue-property-decorator'
 
-import { AppTheme } from '@/models/app'
 import { AppModule } from '@/store/app'
 import AppIcon from '@/components/app/AppIcon.vue'
 

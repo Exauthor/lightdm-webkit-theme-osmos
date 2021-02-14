@@ -23,12 +23,12 @@
   "settings": {
     "title": "Настройки",
     "performance": "производительность",
-    "choiceLanguage": "Выбор языка",
+    "choice-language": "Выбор языка",
     "language": "Язык",
     "general": "Общее",
-    "choiceThemes": "Выбор темы",
-    "customizeTheme": "Настройка темы",
-    "loginPosition": {
+    "choice-themes": "Выбор темы",
+    "customize-theme": "Настройка темы",
+    "login-position": {
       "title": "Положение",
       "about": "Выбрать положение логина",
       "center": "центр",

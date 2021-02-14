@@ -7,6 +7,7 @@ import {
 } from 'vuex-module-decorators'
 import store from '@/store/index'
 import { InteractiveBlock, InteractiveBlockIds, PageTimestamp, AppMenu, LoginPosition, AppMenuMain } from '@/models/page'
+import { AppModule } from './app'
 
 export interface PageState {
   time: PageTimestamp;
@@ -32,15 +33,10 @@ class Page extends VuexModule implements PageState {
     items: []
   }
 
-  bodyClass: Record<string, boolean> = {
-    blur: true,
-    'no-transition': false
-  }
-
+  mainTabIndex = 0
   language = ''
   loginPosition: LoginPosition = 'center'
   languages: string[] = []
-
   activeBlocks: InteractiveBlock[] = []
   interactiveBlocks: InteractiveBlock[] = [
     {
@@ -76,19 +72,8 @@ class Page extends VuexModule implements PageState {
   }
 
   @Mutation
-  SET_STATE_PAGE<S extends this, K extends keyof this>({
-    key,
-    value
-  }: {
-    key: K;
-    value: S[K];
-  }) {
+  SET_STATE_PAGE<S extends this, K extends keyof this>({ key, value }: { key: K; value: S[K] }) {
     this[key] = value
-  }
-
-  @Mutation
-  CHANGE_BODY_CLASS({ key, value }: { key: string; value: boolean }) {
-    this.bodyClass[key] = value
   }
 
   @Mutation
@@ -123,6 +108,28 @@ class Page extends VuexModule implements PageState {
   @Mutation
   UPDATE_TIME(time: PageTimestamp) {
     this.time = Object.assign(this.time, time)
+  }
+
+  @Action
+  openTab({ type }: { type: 'settings' | 'themes' | 'custom' }) {
+    const hasCustromCurrentTheme = AppModule.activeTheme?.settings?.length !== undefined
+    let updatedTabIndex = this.mainTabIndex
+
+    switch (type) {
+      case ('settings'): {
+        updatedTabIndex = hasCustromCurrentTheme ? 2 : 1
+        break
+      }
+      case ('custom'): {
+        updatedTabIndex = hasCustromCurrentTheme ? 1 : updatedTabIndex
+        break
+      }
+      default: {
+        updatedTabIndex = 0
+      }
+    }
+
+    this.SET_STATE_PAGE({ key: 'mainTabIndex', value: updatedTabIndex })
   }
 
   @Action

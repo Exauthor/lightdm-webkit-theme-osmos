@@ -16,7 +16,6 @@ export default {
   mounted() {
     // inspired by https://codepen.io/al-ro/pen/BaaBage
     const canvas = document.getElementById('canvas')
-    console.log({ canvas })
 
     destroyed = false
 
@@ -121,8 +120,8 @@ export default {
     //http://mathworld.wolfram.com/HeartCurve.html
     vec2 getHeartPosition(float t) {
       return vec2(16.0 * sin(t) * sin(t) * sin(t),
-                              -(13.0 * cos(t) - 5.0 * cos(2.0*t)
-                              - 2.0 * cos(3.0*t) - cos(4.0*t)));
+        -(13.0 * cos(t) - 5.0 * cos(2.0*t)
+        - 2.0 * cos(3.0*t) - cos(4.0*t)));
     }
 
     //https://www.shadertoy.com/view/3s3GDn

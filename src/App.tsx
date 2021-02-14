@@ -10,7 +10,7 @@ export default class MainApp extends Vue {
   }
 
   get bodyClass() {
-    return PageModule.bodyClass
+    return AppModule.bodyClass
   }
 
   render() {

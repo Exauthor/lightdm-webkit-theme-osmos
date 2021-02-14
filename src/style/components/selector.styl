@@ -8,14 +8,25 @@
   align-items center
   justify-content space-between
   cursor pointer
+  &:hover
+    border-color rgba(255, 255, 255, .8)
+    .selector-arrow
+      fill rgba(255, 255, 255, .8)
   &.active
-    svg
+    border-color white
+    .selector-arrow
+      fill white
+    .selector-arrow
       transform rotate(-90deg)
-  svg
-    fill var(--color-unfocus)
-    transform rotate(90deg)
-    transition .2s transform
 
+.selector-arrow
+  fill var(--color-unfocus)
+  transform rotate(90deg)
+  transition .2s
+
+.selector-icon
+  float left
+  margin-right 8px
 
 .selector-label
   font-size 1rem

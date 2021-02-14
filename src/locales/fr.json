@@ -22,9 +22,9 @@
   },
   "settings": {
     "title": "Paramètres",
-    "choiceLanguage": "Choix de la langue",
+    "choice-language": "Choix de la langue",
     "language": "Langue",
-    "loginPosition": {
+    "login-position": {
       "title": "Position",
       "about": "Choix de la position de connexion",
       "center": "centre",

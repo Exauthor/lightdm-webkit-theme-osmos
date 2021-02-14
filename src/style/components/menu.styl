@@ -12,19 +12,7 @@
 .menu-icon
   width 20px
   height 20px
-  border-radius 15%
-  background var(--color-active)
-  float right
-  &::before
-    content ""
-    display block
-    width 60%
-    height 0
-    border-left: 7px solid transparent;
-    border-right: 7px solid transparent;
-    border-bottom: 7px solid var(--color-bg);
-    transition .4s
-    transform translate(3px, 5px)
+  fill currentColor
 
 .menu-list
   position absolute
@@ -32,6 +20,9 @@
   border-radius 7px
   overflow hidden
   & .menu-list-item
+    display flex
+    align-items center
+    justify-content space-between
     padding 4px 5px
     width 100%
     background rgba(0, 0, 0, .3)

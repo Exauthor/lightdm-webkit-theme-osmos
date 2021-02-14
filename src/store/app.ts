@@ -18,8 +18,6 @@ import {
 } from '@/models/app'
 import { appWindow, LightdmSession, LightdmUsers } from '@/models/lightdm'
 
-const lightdm = appWindow.lightdm
-
 export interface AppState extends AppSettings {
   themes: AppTheme[];
   getMainSettings: AppSettings;
@@ -32,14 +30,20 @@ export interface AppState extends AppSettings {
 
 @Module({ dynamic: true, store, name: 'app' })
 class App extends VuexModule implements AppState {
-  version = '1.0.4'
+  version = '2.0.0'
   currentTheme = ''
-  desktop = lightdm.sessions[0].name
-  desktops = lightdm.sessions
+  currentOs = 'arch-linux'
+  desktop = appWindow?.lightdm?.sessions[0].key || 'i3'
+  desktops = appWindow?.lightdm?.sessions || []
   defaultColor = '#6BBBED'
-  username = lightdm.users[0].username
-  users = lightdm.users
+  username = appWindow?.lightdm?.users[0].username || 'User name'
+  users = appWindow?.lightdm?.users || []
   themes = AppThemes
+  password = ''
+  bodyClass: Record<string, boolean> = {
+    blur: true,
+    'no-transition': false
+  }
 
   get getMainSettings(): AppSettings {
     const {
@@ -47,6 +51,8 @@ class App extends VuexModule implements AppState {
       desktop,
       version,
       username,
+      bodyClass,
+      currentOs,
       currentTheme,
       defaultColor
     } = this
@@ -56,6 +62,8 @@ class App extends VuexModule implements AppState {
       desktop,
       version,
       username,
+      bodyClass,
+      currentOs,
       currentTheme,
       defaultColor
     }
@@ -66,8 +74,8 @@ class App extends VuexModule implements AppState {
     return match ? match[1] : null
   }
 
-  get activeTheme() {
-    return this.getImage
+  get activeTheme(): AppTheme | AppImageTheme {
+    return this.getImage !== null
       ? ({
         fullscreen: true,
         src: this.getImage,
@@ -81,9 +89,39 @@ class App extends VuexModule implements AppState {
     return this.users.find(({ username }) => username === this.username)
   }
 
+  get getThemeSettings() {
+    return (name: string) => {
+      if (this.getImage) return null
+
+      return (this.activeTheme as AppTheme).settings?.find(input => input.name === name)
+    }
+  }
+
+  get currentDesktop() {
+    return this.desktops.find(({ key }) => key === this.desktop)
+  }
+
   @Mutation
   SET_STATE_APP<S extends this, K extends keyof this>({ key, value }: { key: K; value: S[K] }) {
     this[key] = value
+  }
+
+  @Mutation
+  SAVE_STATE_APP<S extends this, K extends keyof this>({ key, value }: { key: K; value: S[K] }) {
+    this[key] = value
+
+    const settings = JSON.parse(localStorage.getItem('settings') || '')
+    settings[key] = value
+    localStorage.setItem('settings', JSON.stringify(settings))
+  }
+
+  @Mutation
+  CHANGE_BODY_CLASS({ key, value }: { key: string; value: boolean }) {
+    this.bodyClass[key] = value
+
+    const settings = JSON.parse(localStorage.getItem('settings') || '')
+    settings.bodyClass = this.bodyClass
+    localStorage.setItem('settings', JSON.stringify(settings))
   }
 
   @Mutation
@@ -116,9 +154,28 @@ class App extends VuexModule implements AppState {
     localStorage.setItem('settings', JSON.stringify(this.getMainSettings))
 
     const { color } = this.activeTheme
+    let activeColor = color.active
 
-    document.documentElement.style.setProperty('--color-active', color.active)
+    if (this.activeTheme.settings) {
+      const activeColorInput = this.activeTheme.settings.find(({ name }) => name === 'activeColor')
+      if (activeColorInput) {
+        activeColor = activeColorInput.value + ''
+      }
+    }
+
+    document.documentElement.style.setProperty('--color-active', activeColor)
     document.documentElement.style.setProperty('--color-bg', color.background)
+  }
+
+  @Action
+  login() {
+    setTimeout(() => {
+      appWindow.lightdm_login(this.username, this.password, () => {
+        appWindow.lightdm_start(this.currentDesktop?.key || appWindow?.lightdm?.sessions[0].key || 'i3')
+      }, (error) => {
+        console.log(`error AUTH ${error}`)
+      })
+    }, 100)
   }
 
   @Action
@@ -139,23 +196,43 @@ class App extends VuexModule implements AppState {
       }
 
       if (settings.themes) {
-        this.SET_STATE_APP({ key: 'themes', value: settings.themes })
+        const syncTheme = this.themes.reduce((themes: AppTheme[], theme) => {
+          const cachedTheme = settings.themes.find(({ name }) => name === theme.name)
+
+          if (cachedTheme && cachedTheme?.settings !== null) {
+            theme.settings = theme.settings?.map(input => {
+              const themeInput = cachedTheme.settings?.find(({ name }) => name === input.name)
+
+              return Object.assign(input, { value: themeInput?.value ?? input.value })
+            })
+          }
+          themes.push(theme)
+
+          return themes
+        }, [])
+
+        this.SET_STATE_APP({ key: 'themes', value: syncTheme })
       }
 
       this.changeTheme(settings.currentTheme)
 
-      const isExistDE = lightdm.sessions.find(item => item.name === settings.desktop)
+      const isExistDE = appWindow?.lightdm?.sessions.find(({ key }) => key === settings.desktop)
 
-      if (!isExistDE) {
-        settings.desktop = lightdm.sessions[0].name
+      if (isExistDE === undefined) {
+        settings.desktop = appWindow?.lightdm?.sessions[0].key || 'i3'
       }
 
-      const isExistUser = lightdm.users.filter(item => item.username === settings.username)
-
-      if (!isExistUser) {
-        settings.username = lightdm.users[0].username
+      if (settings.bodyClass) {
+        this.SET_STATE_APP({ key: 'bodyClass', value: settings.bodyClass })
       }
 
+      const isExistUser = appWindow?.lightdm?.users.find(({ username }) => username === settings.username)
+
+      if (isExistUser === undefined) {
+        settings.username = appWindow?.lightdm?.users[0].username || 'Tyler'
+      }
+
+      this.SET_STATE_APP({ key: 'currentOs', value: settings.currentOs || 'arch-linux' })
       this.SET_STATE_APP({ key: 'desktop', value: settings.desktop })
       this.SET_STATE_APP({ key: 'username', value: settings.username }) // ?
       localStorage.setItem('settings', JSON.stringify(this.getMainSettings))

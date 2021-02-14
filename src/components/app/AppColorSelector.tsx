@@ -1,6 +1,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 
-import AppIcon from '@/components/app/AppIcon.vue'
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
 import { Chrome } from 'vue-color'
 
 @Component({
@@ -17,15 +18,19 @@ export default class AppColorSelector extends Vue {
   }
 
   render() {
-    console.log(this.$listeners)
-    return <Chrome
-      { ...{
-        props: {
-          value: this.value
-        },
-        on: this.$listeners
-      }}
-    >
-    </Chrome>
+    return <div class="color-selector">
+      <p> { this.$t(this.label) } </p>
+      <Chrome
+        { ...{
+          props: {
+            disableAlpha: true,
+            disableFields: true,
+            value: this.value
+          },
+          on: this.$listeners
+        }}
+      >
+      </Chrome>
+    </div>
   }
 }

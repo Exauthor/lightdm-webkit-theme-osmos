@@ -22,9 +22,9 @@
   },
   "settings": {
     "title": "configuración",
-    "choiceLanguage": "Idioma de elección",
+    "choice-language": "Idioma de elección",
     "language": "Idioma",
-    "loginPosition": {
+    "login-position": {
       "title": "Posición",
       "about": "Elección de posición de inicio de sesión",
       "center": "centro",

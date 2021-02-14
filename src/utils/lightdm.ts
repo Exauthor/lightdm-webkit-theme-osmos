@@ -1,19 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { Lightdm, appWindow } from '@/models/lightdm'
+import { appWindow } from '@/models/lightdm'
 
 const DEBUG_PASSWORD = 'password'
 // const DEFAULT_BG = require('./assets/images/background/index.jpg')
 
-const lightdmDebug = appWindow.lightdm === undefined || true
-const lightdm = appWindow.lightdm
+const lightdmDebug = appWindow.lightdm === undefined
 
 if (lightdmDebug) {
-  // window.theme_utils = {
-  //   dirlist(_) {
-  //     return []
-  //   }
-  // }
-
   // window.greeter_config = {
   // branding: {
   //   background_images: 'no where this is live test'
@@ -81,20 +74,23 @@ if (lightdmDebug) {
       }
     ],
     language: 'American English',
-    start_authentication: username => {
+    start_authentication: (username) => {
       console.log(`Starting authenticating : '${username}'`)
-      lightdm.authentication_user = username
+
+      if (appWindow?.lightdm !== undefined) {
+        appWindow.lightdm.authentication_user = username
+      }
 
       appWindow.show_prompt('Password: ')
     },
     cancel_authentication: () => {
       console.log('Auth cancelled')
     },
-    respond: password => {
+    respond: (password) => {
       console.log(`Password provided : '${password}'`)
 
-      if (password === DEBUG_PASSWORD) {
-        lightdm.is_authenticated = true
+      if (password === DEBUG_PASSWORD && appWindow?.lightdm !== undefined) {
+        appWindow.lightdm.is_authenticated = true
       } else {
         const now = new Date().getTime()
         while (new Date().getTime() < now + 2000);
@@ -118,38 +114,46 @@ if (lightdmDebug) {
 }
 
 let password: string
-let errorCB: any
-let completeCB: any
+let globalErrorCallback: any
+let completeCallback: any
 
-appWindow.lightdm_login = (username, pass, cb, errCB) => {
-  completeCB = cb
-  errorCB = errCB
+appWindow.lightdm_login = (username, pass, callback, errorCallback) => {
+  completeCallback = callback
+  globalErrorCallback = errorCallback
   password = pass
 
-  lightdm.start_authentication(username)
+  if (appWindow.lightdm) {
+    appWindow.lightdm.start_authentication(username)
+  }
 }
 
 appWindow.lightdm_start = desktop => {
-  lightdm.login(lightdm.authentication_user || '', desktop)
+  if (appWindow.lightdm) {
+    appWindow.lightdm.login(appWindow.lightdm.authentication_user || '', desktop)
+  }
 }
 
 appWindow.show_prompt = (text, _type) => {
   if (text === 'Password: ') {
-    lightdm.respond(password)
+    if (appWindow.lightdm) {
+      appWindow.lightdm.respond(password)
+    }
   }
 }
 
 appWindow.authentication_complete = () => {
-  if (lightdm.is_authenticated) {
-    completeCB()
+  if (appWindow?.lightdm?.is_authenticated) {
+    completeCallback()
   } else {
-    lightdm.cancel_authentication()
-    errorCB('Invalid username/password')
+    if (appWindow?.lightdm) {
+      appWindow.lightdm.cancel_authentication()
+    }
+    globalErrorCallback('Invalid username/password')
   }
 }
 
 appWindow.show_message = (text, type) => {
-  errorCB(text)
+  globalErrorCallback(text)
 }
 
 // export function backgrounds() {

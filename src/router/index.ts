@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '@/views/Home'
-import Intro from '@/views/Intro.vue'
 
 Vue.use(VueRouter)
 
@@ -12,9 +11,9 @@ const routes: Array<RouteConfig> = [
     component: Home
   },
   {
-    path: '/intro',
-    name: 'intro',
-    component: Intro
+    path: '*',
+    name: 'Undefined',
+    component: Home
   }
 ]
 
