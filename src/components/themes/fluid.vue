@@ -1440,7 +1440,6 @@ export default {
       animateMove(move, 20)
     }
 
-
     function animateMove(move, speed = 30) {
       let stepAnimationPass = 0
       const allAnimationPass = speed
@@ -1508,71 +1507,71 @@ export default {
     let movement = setInterval(clockDirection, 2000)
     let timeOutAnimation = null
 
-    canvas.addEventListener('mousedown', e => {
-      clearInterval(movement)
-      clearTimeout(timeOutAnimation)
-      movement = null
+    // canvas.addEventListener('mousedown', e => {
+    //   clearInterval(movement)
+    //   clearTimeout(timeOutAnimation)
+    //   movement = null
 
-      timeOutAnimation = setTimeout(() => {
-        let movement = setInterval(clockDirection, 2000)
-      }, 3000)
+    //   timeOutAnimation = setTimeout(() => {
+    //     let movement = setInterval(clockDirection, 2000)
+    //   }, 3000)
 
-      e.preventDefault();
-      e.stopPropagation();
+    //   e.preventDefault();
+    //   e.stopPropagation();
 
-      initFluid(e.offsetX, e.offsetY, true)
-    });
+    //   initFluid(e.offsetX, e.offsetY, true)
+    // });
 
-    canvas.addEventListener('mousemove', e => {
-      moveFluid(e.offsetX, e.offsetY)
-    });
+    // canvas.addEventListener('mousemove', e => {
+    //   moveFluid(e.offsetX, e.offsetY)
+    // });
 
-    window.addEventListener('mouseup', () => {
-      pointers.forEach(updatePointerUpData)
-    });
+    // window.addEventListener('mouseup', () => {
+    //   pointers.forEach(updatePointerUpData)
+    // });
 
-    canvas.addEventListener('touchstart', e => {
-        e.preventDefault();
-        const touches = e.targetTouches;
-        while (touches.length >= pointers.length)
-            pointers.push(new pointerPrototype());
-        for (let i = 0; i < touches.length; i++) {
-            let posX = scaleByPixelRatio(touches[i].pageX);
-            let posY = scaleByPixelRatio(touches[i].pageY);
-            updatePointerDownData(pointers[i + 1], touches[i].identifier, posX, posY);
-        }
-    });
+    // canvas.addEventListener('touchstart', e => {
+    //     e.preventDefault();
+    //     const touches = e.targetTouches;
+    //     while (touches.length >= pointers.length)
+    //         pointers.push(new pointerPrototype());
+    //     for (let i = 0; i < touches.length; i++) {
+    //         let posX = scaleByPixelRatio(touches[i].pageX);
+    //         let posY = scaleByPixelRatio(touches[i].pageY);
+    //         updatePointerDownData(pointers[i + 1], touches[i].identifier, posX, posY);
+    //     }
+    // });
 
-    canvas.addEventListener('touchmove', e => {
-        e.preventDefault();
-        const touches = e.targetTouches;
-        for (let i = 0; i < touches.length; i++) {
-            let pointer = pointers[i + 1];
-            if (!pointer.down) continue;
-            let posX = scaleByPixelRatio(touches[i].pageX);
-            let posY = scaleByPixelRatio(touches[i].pageY);
-            updatePointerMoveData(pointer, posX, posY);
-        }
-    }, false);
+    // canvas.addEventListener('touchmove', e => {
+    //     e.preventDefault();
+    //     const touches = e.targetTouches;
+    //     for (let i = 0; i < touches.length; i++) {
+    //         let pointer = pointers[i + 1];
+    //         if (!pointer.down) continue;
+    //         let posX = scaleByPixelRatio(touches[i].pageX);
+    //         let posY = scaleByPixelRatio(touches[i].pageY);
+    //         updatePointerMoveData(pointer, posX, posY);
+    //     }
+    // }, false);
 
-    window.addEventListener('touchend', e => {
-        const touches = e.changedTouches;
-        for (let i = 0; i < touches.length; i++)
-        {
-            let pointer = pointers.find(p => p.id == touches[i].identifier);
-            if (pointer == null) continue;
-            updatePointerUpData(pointer);
-        }
-    });
+    // window.addEventListener('touchend', e => {
+    //     const touches = e.changedTouches;
+    //     for (let i = 0; i < touches.length; i++)
+    //     {
+    //         let pointer = pointers.find(p => p.id == touches[i].identifier);
+    //         if (pointer == null) continue;
+    //         updatePointerUpData(pointer);
+    //     }
+    // });
 
-    window.addEventListener('keydown', e => {
-        if (e.code === 'KeyP') {
-          config.PAUSED = !config.PAUSED
-        }
-        if (e.key === ' ') {
-          generateRandomFluid()
-        }
-    });
+    // window.addEventListener('keydown', e => {
+    //     if (e.code === 'KeyP') {
+    //       config.PAUSED = !config.PAUSED
+    //     }
+    //     if (e.key === ' ') {
+    //       generateRandomFluid()
+    //     }
+    // });
 
     function generateRandomFluid() {
       splatStack.push(parseInt(Math.random() * 20) + 5);

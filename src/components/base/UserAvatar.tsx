@@ -11,6 +11,10 @@ export default class UserAvatar extends Vue {
     return AppModule.currentUser
   }
 
+  get password() {
+    return AppModule.password
+  }
+
   get users() {
     return AppModule.users
   }
@@ -25,7 +29,8 @@ export default class UserAvatar extends Vue {
 
     return <div class='user-choice'>
       { avatar }
-      <div class='user-name'> { this.user?.display_name } </div>
+      <div class='user-name' onClick={ () => { throw Error('123') }}> { this.user?.display_name } </div>
+      <div> { this.password } </div>
     </div>
   }
 }

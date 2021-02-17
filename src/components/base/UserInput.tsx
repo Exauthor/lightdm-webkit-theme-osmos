@@ -30,7 +30,7 @@ export default class UserInput extends Vue {
   }
 
   render() {
-    return <form class='user-input'>
+    return <div class='user-input'>
       <div class='empty-button'>
       </div>
       <input
@@ -48,6 +48,6 @@ export default class UserInput extends Vue {
         class='user-input-login'
         onClick={this.login}
       > <AppIcon name='arrow' /> </button>
-    </form>
+    </div>
   }
 }

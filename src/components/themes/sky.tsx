@@ -100,14 +100,14 @@ class World {
 
 let world: World
 
+function handleWindowResize() {
+  world.updateSize(window.innerWidth, window.innerHeight)
+}
+
 @Component
 export default class SkyTheme extends Vue {
   mounted() {
     world = new World(window.innerWidth, window.innerHeight)
-
-    function handleWindowResize() {
-      world.updateSize(window.innerWidth, window.innerHeight)
-    }
 
     handleWindowResize()
     world.loop()
@@ -117,6 +117,7 @@ export default class SkyTheme extends Vue {
 
   beforeDestroy() {
     world.destroy()
+    window.removeEventListener('resize', handleWindowResize, false)
   }
 
   render(h: CreateElement) {

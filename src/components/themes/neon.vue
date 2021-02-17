@@ -295,6 +295,8 @@ export default {
 
       if (!destroyed) {
         requestAnimationFrame(draw)
+      } else {
+        window.removeEventListener('resize', onWindowResize, false)
       }
     }
 

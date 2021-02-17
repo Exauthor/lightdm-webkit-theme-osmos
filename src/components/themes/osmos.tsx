@@ -3,6 +3,8 @@ import Parallax from 'parallax-js'
 
 @Component
 export default class OsmosTheme extends Vue {
+  parallax: null | Parallax = null
+
   render() {
     return (
       <div
@@ -54,6 +56,10 @@ export default class OsmosTheme extends Vue {
 
   mounted() {
     const scene = this.$refs.scene as HTMLElement
-    if (scene) { const parallax = new Parallax(scene) }
+    if (scene) { this.parallax = new Parallax(scene) }
+  }
+
+  beforeDestroy() {
+    if (this.parallax) this.parallax.destroy()
   }
 }

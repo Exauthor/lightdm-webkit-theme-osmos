@@ -4,6 +4,8 @@ import Parallax from 'parallax-js'
 
 @Component
 export default class SpaceTheme extends Vue {
+  parallax: null | Parallax = null
+
   render() {
     return <div class="space" ref="scene" data-hover-only="true" data-friction-x="0.1" data-friction-y="0.1" data-scalar-x="25" data-scalar-y="15">
       <li class="prllx-block" data-depth="0.0">
@@ -26,6 +28,10 @@ export default class SpaceTheme extends Vue {
 
   mounted() {
     const scene = this.$refs.scene as HTMLElement
-    if (scene) { const parallax = new Parallax(scene) }
+    if (scene) { this.parallax = new Parallax(scene) }
+  }
+
+  beforeDestroy() {
+    if (this.parallax) this.parallax.destroy()
   }
 }

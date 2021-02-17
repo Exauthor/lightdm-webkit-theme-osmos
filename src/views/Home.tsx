@@ -4,6 +4,7 @@ import LoginComponent from '@/components/base/LoginComponent'
 import AppMenu from '@/components/app/AppMenu'
 import { PageModule } from '@/store/page'
 import { LoginPosition } from '@/models/page'
+import { AppModule } from '@/store/app'
 
 @Component({
   components: {
@@ -75,7 +76,7 @@ export default class HomePage extends Vue {
     if (PageModule.activeBlocks.length === 0) {
       PageModule.openBlock({ id: 'login' })
     } else if (isEnter) {
-      console.log('LOGIN')
+      AppModule.login()
     } else if (isEscape) {
       if (this.menu.view) {
         PageModule.ASSING_MENU({ view: false })

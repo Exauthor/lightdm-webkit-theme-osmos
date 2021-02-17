@@ -114,13 +114,14 @@ if (lightdmDebug) {
 }
 
 let password: string
-let globalErrorCallback: any
-let completeCallback: any
+let globalErrorCallback: undefined | Function
+let completeCallback: undefined | Function
 
 appWindow.lightdm_login = (username, pass, callback, errorCallback) => {
   completeCallback = callback
   globalErrorCallback = errorCallback
   password = pass
+  console.log(`lightdm_login ${username}, ${pass}`)
 
   if (appWindow.lightdm) {
     appWindow.lightdm.start_authentication(username)
@@ -142,18 +143,22 @@ appWindow.show_prompt = (text, _type) => {
 }
 
 appWindow.authentication_complete = () => {
-  if (appWindow?.lightdm?.is_authenticated) {
+  if (appWindow?.lightdm?.is_authenticated && completeCallback) {
     completeCallback()
-  } else {
-    if (appWindow?.lightdm) {
-      appWindow.lightdm.cancel_authentication()
-    }
+  } else if (appWindow?.lightdm && globalErrorCallback) {
+    appWindow.lightdm.cancel_authentication()
     globalErrorCallback('Invalid username/password')
+  } else {
+    alert('SOMETHING WRONG')
   }
 }
 
 appWindow.show_message = (text, type) => {
-  globalErrorCallback(text)
+  if (globalErrorCallback) {
+    globalErrorCallback(text)
+  } else {
+    alert('SOMETHING WRONG with show_message')
+  }
 }
 
 // export function backgrounds() {
