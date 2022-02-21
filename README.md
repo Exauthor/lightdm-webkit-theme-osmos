@@ -1,5 +1,7 @@
 # [LightDM WebKit2 theme Osmos ](https://warinyourself.github.io/lightdm-webkit-theme-osmos/)
 
+## This repository has been archived - [new repository link](https://github.com/Warinyourself/lightdm-webkit-theme-osmos).
+
 ![Osmos](https://user-images.githubusercontent.com/33872448/73593467-c336ce00-4515-11ea-9559-f48c7e82eb37.gif)
 
 ## Installation 🍃
